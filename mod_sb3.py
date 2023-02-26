@@ -1,3 +1,4 @@
+from stable_baselines3.sac.sac import SAC
 from stable_baselines3.td3.td3 import TD3
 from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
 from stable_baselines3.common.monitor import Monitor
@@ -7,18 +8,131 @@ import time
 import numpy as np
 import torch as th
 from torch.nn import functional as F
-from collections import OrderedDict
 from copy import deepcopy
 from stable_baselines3.common.buffers import ReplayBuffer
 from stable_baselines3.common.noise import ActionNoise
-from stable_baselines3.common.off_policy_algorithm import OffPolicyAlgorithm
-from stable_baselines3.common.policies import BasePolicy
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import get_parameters_by_name, polyak_update
 from stable_baselines3.td3.policies import CnnPolicy, MlpPolicy, MultiInputPolicy, TD3Policy
 from stable_baselines3.common.vec_env.base_vec_env import VecEnv, VecEnvIndices, VecEnvObs, VecEnvStepReturn
-from stable_baselines3.common.vec_env.util import copy_obs_dict, dict_to_obs, obs_space_info
 from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
+from stable_baselines3.sac.policies import SACPolicy, Actor
+from stable_baselines3.sac.policies import CnnPolicy, MlpPolicy, MultiInputPolicy, SACPolicy
+from robogym.envs.rearrange.common.base import RearrangeEnv
+
+def _observe_simple_test(self):
+        """
+        Default observation for the environment. An observation can be added here if
+        it meets one of the condition below:
+
+        1. It's cheap to fetch on a per step basic and doesn't cause side effect even
+            if not used by policy.
+        2. It's shared across all variances of the env.
+        """
+
+        robot_obs = self.mujoco_simulation.robot.observe()
+
+        obs = {
+            "obj_pos": self.mujoco_simulation.get_object_pos(),
+            "obj_rel_pos": self.mujoco_simulation.get_object_rel_pos(),
+            "obj_vel_pos": self.mujoco_simulation.get_object_vel_pos(),
+            "obj_rot": self.mujoco_simulation.get_object_rot(),
+            "obj_vel_rot": self.mujoco_simulation.get_object_vel_rot(),
+            "robot_joint_pos": robot_obs.joint_positions(),
+            "gripper_pos": robot_obs.tcp_xyz(),
+            "gripper_velp": robot_obs.tcp_vel(),
+            "gripper_controls": robot_obs.gripper_controls(),
+            "gripper_qpos": robot_obs.gripper_qpos(),
+            "gripper_vel": robot_obs.gripper_vel(),
+            "qpos": self.mujoco_simulation.qpos,
+            "qpos_goal": self._goal["qpos_goal"].copy(),
+            "goal_obj_pos": self._goal["obj_pos"].copy(),
+            "goal_obj_rot": self._goal["obj_rot"].copy(),
+            "is_goal_achieved": np.array([self._is_goal_achieved], np.int32),
+            "rel_goal_obj_pos": self._goal_info_dict["rel_goal_obj_pos"].copy(),
+            "rel_goal_obj_rot": self._goal_info_dict["rel_goal_obj_rot"].copy(),
+            "obj_gripper_contact": self.mujoco_simulation.get_object_gripper_contact(),
+            "obj_bbox_size": self.mujoco_simulation.get_object_bounding_box_sizes(),
+            "obj_colors": self.mujoco_simulation.get_object_colors(),
+            "safety_stop": np.array([robot_obs.is_in_safety_stop()]),
+            "tcp_force": robot_obs.tcp_force(),
+            "tcp_torque": robot_obs.tcp_torque(),
+        }
+
+        if self.constants.mask_obs_outside_placement_area:
+            obs = self._mask_goal_observation(
+                obs, self._goal["goal_objects_in_placement_area"].copy()
+            )
+            obs = self._mask_object_observation(obs)
+
+        return obs
+
+def sac_init(
+    self,
+    policy: Union[str, Type[SACPolicy]],
+    env: Union[GymEnv, str],
+    learning_rate: Union[float, Schedule] = 3e-4,
+    buffer_size: int = 1_000_000,  # 1e6
+    learning_starts: int = 100,
+    batch_size: int = 256,
+    tau: float = 0.005,
+    gamma: float = 0.99,
+    train_freq: Union[int, Tuple[int, str]] = 1,
+    gradient_steps: int = 1,
+    action_noise: Optional[ActionNoise] = None,
+    replay_buffer_class: Optional[Type[ReplayBuffer]] = None,
+    replay_buffer_kwargs: Optional[Dict[str, Any]] = None,
+    optimize_memory_usage: bool = False,
+    ent_coef: Union[str, float] = "auto",
+    target_update_interval: int = 1,
+    target_entropy: Union[str, float] = "auto",
+    use_sde: bool = False,
+    sde_sample_freq: int = -1,
+    use_sde_at_warmup: bool = False,
+    tensorboard_log: Optional[str] = None,
+    policy_kwargs: Optional[Dict[str, Any]] = None,
+    verbose: int = 0,
+    seed: Optional[int] = None,
+    device: Union[th.device, str] = "auto",
+    _init_setup_model: bool = True,
+):
+    super(SAC, self).__init__(
+        policy,
+        env,
+        learning_rate,
+        buffer_size,
+        learning_starts,
+        batch_size,
+        tau,
+        gamma,
+        train_freq,
+        gradient_steps,
+        action_noise,
+        replay_buffer_class=replay_buffer_class,
+        replay_buffer_kwargs=replay_buffer_kwargs,
+        policy_kwargs=policy_kwargs,
+        tensorboard_log=tensorboard_log,
+        verbose=verbose,
+        device=device,
+        seed=seed,
+        use_sde=use_sde,
+        sde_sample_freq=sde_sample_freq,
+        use_sde_at_warmup=use_sde_at_warmup,
+        optimize_memory_usage=optimize_memory_usage,
+        supported_action_spaces=(gym.spaces.Space),
+        support_multi_env=True,
+    )
+
+    self.target_entropy = target_entropy
+    self.log_ent_coef = None  # type: Optional[th.Tensor]
+    # Entropy coefficient / Entropy temperature
+    # Inverse of the reward scale
+    self.ent_coef = ent_coef
+    self.target_update_interval = target_update_interval
+    self.ent_coef_optimizer = None
+
+    if _init_setup_model:
+        self._setup_model()
 
 def td3_init(
         self,
@@ -65,7 +179,6 @@ def td3_init(
         tensorboard_log=tensorboard_log,
         verbose=verbose,
         device=device,
-        create_eval_env=create_eval_env,
         seed=seed,
         sde_support=False,
         optimize_memory_usage=optimize_memory_usage,
@@ -142,7 +255,7 @@ def td3_train(self, gradient_steps: int, batch_size: int = 100) -> None:
     if len(actor_losses) > 0:
         self.logger.record("train/actor_loss", np.mean(actor_losses))
     self.logger.record("train/critic_loss", np.mean(critic_losses))
-
+    
 def dummy_step_wait(self) -> VecEnvStepReturn:
     # Error: setting an array element with a sequence. Deal: following
     for env_idx in range(self.num_envs):
@@ -195,6 +308,8 @@ def monitor_step(self, action: Union[np.ndarray, int]) -> GymStepReturn:
 
 def run():
 
+    RearrangeEnv._observe_simple = _observe_simple_test
+    SAC.__init__ = sac_init
     TD3.__init__ = td3_init
     TD3.train = td3_train
     DummyVecEnv.step_wait = dummy_step_wait
