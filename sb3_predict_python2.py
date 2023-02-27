@@ -13,7 +13,8 @@ def recursive_getattr(obj, attr, *args):
     return functools.reduce(_getattr, [obj] + attr.split("."))
 
 print("-------------load--------------")
-model = Model(Policy)
+env = gym.make(u"Pendulum-v0")
+model = Model(env, Policy)
 params = torch.load('model_torch.pth.tar')
 for name in params:
     attr = None

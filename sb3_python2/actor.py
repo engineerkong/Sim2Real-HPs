@@ -69,7 +69,6 @@ class Actor(th.nn.Module):
 
         action_dim = get_action_dim(self.action_space)
         latent_pi_net = create_mlp(features_dim, -1, net_arch, activation_fn)
-        print(latent_pi_net) # depend on in/out layers
         self.latent_pi = th.nn.Sequential(*latent_pi_net)
         last_layer_dim = net_arch[-1] if len(net_arch) > 0 else features_dim
 

@@ -10,9 +10,8 @@ class Model(object):
 
     Schedule = Callable[[float], float]
     
-    def __init__(self, policy_class):
+    def __init__(self, env, policy_class):
 
-        env = gym.make(u"Pendulum-v0")
         self.obs_space = env.observation_space
         self.act_space = env.action_space
         self.log_ent_coef = th.tensor([0.], requires_grad=True)
