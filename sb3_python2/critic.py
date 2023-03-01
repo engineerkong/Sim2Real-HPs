@@ -56,7 +56,7 @@ class ContinuousCritic(th.nn.Module):
         for idx in range(n_critics):
             q_net = create_mlp(features_dim + action_dim, 1, net_arch, activation_fn)
             q_net = th.nn.Sequential(*q_net)
-            self.add_module("qf{}".format(idx), q_net)
+            self.add_module(u"qf{}".format(idx), q_net)
             self.q_networks.append(q_net)
 
     def set_training_mode(self, mode):

@@ -11,14 +11,18 @@ from torch.nn import functional as F
 from copy import deepcopy
 from stable_baselines3.common.buffers import ReplayBuffer
 from stable_baselines3.common.noise import ActionNoise
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
-from stable_baselines3.common.utils import get_parameters_by_name, polyak_update
+from stable_baselines3.common.utils import get_device, is_vectorized_observation, obs_as_tensor, polyak_update
 from stable_baselines3.td3.policies import CnnPolicy, MlpPolicy, MultiInputPolicy, TD3Policy
 from stable_baselines3.common.vec_env.base_vec_env import VecEnv, VecEnvIndices, VecEnvObs, VecEnvStepReturn
 from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
 from stable_baselines3.sac.policies import SACPolicy, Actor
 from stable_baselines3.sac.policies import CnnPolicy, MlpPolicy, MultiInputPolicy, SACPolicy
 from robogym.envs.rearrange.common.base import RearrangeEnv
+from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor
+from stable_baselines3.common.type_aliases import GymEnv, Schedule, TensorDict, TrainFreq, TrainFrequencyUnit
+from stable_baselines3.common.preprocessing import get_action_dim, is_image_space, maybe_transpose, preprocess_obs
+from stable_baselines3.common.policies import BaseModel, BasePolicy
+from stable_baselines3.common.preprocessing import get_flattened_obs_dim, is_image_space
 
 def _observe_simple_test(self):
         """

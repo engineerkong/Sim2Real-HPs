@@ -1,9 +1,10 @@
+from __future__ import division
+from __future__ import absolute_import
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple, Union, Type, TypeVar
 import gym
 import torch as th
 import numpy as np
 import warnings
-import fstring as f
 
 def get_flattened_obs_dim(observation_space):
 
@@ -23,7 +24,7 @@ def get_action_dim(action_space):
     elif isinstance(action_space, gym.spaces.MultiBinary):
         return int(action_space.n)
     else:
-        raise NotImplementedError(f("{action_space} action space is not supported"))
+        raise NotImplementedError("{} action space is not supported".format(action_space))
     
 def create_mlp(
     input_dim,
@@ -39,7 +40,7 @@ def create_mlp(
     else:
         modules = []
 
-    for idx in range(len(net_arch) - 1):
+    for idx in range(len(net_arch) - 1): # xrange
         modules.append(th.nn.Linear(net_arch[idx], net_arch[idx + 1], bias=with_bias))
         modules.append(activation_fn())
 
@@ -78,20 +79,20 @@ def preprocess_obs(
         return obs.float()
 
     elif isinstance(observation_space, gym.spaces.Dict):
-        assert isinstance(obs, Dict), f("Expected dict, got {type(obs)}")
+        assert isinstance(obs, Dict), "Expected dict, got {}".format(type(obs))
         preprocessed_obs = {}
         for key, _obs in obs.items():
             preprocessed_obs[key] = preprocess_obs(_obs, observation_space[key], normalize_images=normalize_images)
         return preprocessed_obs
 
     else:
-        raise NotImplementedError(f("Preprocessing not implemented for {observation_space}"))
+        raise NotImplementedError("Preprocessing not implemented for {}".format(observation_space))
     
 def is_image_space_channels_first(observation_space):
 
     smallest_dimension = np.argmin(observation_space.shape).item()
     if smallest_dimension == 1:
-        warnings.warn("Treating image space as channels-last, while second dimension was smallest of the three.")
+        warnings.warn(u"Treating image space as channels-last, while second dimension was smallest of the three.")
     return smallest_dimension == 0
 
 
@@ -120,15 +121,15 @@ def is_image_space(
     
     return False
 
-def get_device(device = "auto"):
+def get_device(device = u"auto"):
 
-    if device == "auto":
-        device = "cuda"
+    if device == u"auto":
+        device = u"cuda"
 
     device = th.device(device)
 
-    if device.type == th.device("cuda").type and not th.cuda.is_available():
-        return th.device("cpu")
+    if device.type == th.device(u"cuda").type and not th.cuda.is_available():
+        return th.device(u"cpu")
 
     return device
 
@@ -146,7 +147,7 @@ def is_vectorized_observation(observation, observation_space):
         if isinstance(observation_space, space_type):
             return is_vec_obs_func(observation, observation_space)
     else:
-        raise ValueError("Error")
+        raise ValueError(u"Error")
     
 def is_vectorized_box_observation(observation, observation_space):
 
@@ -155,7 +156,7 @@ def is_vectorized_box_observation(observation, observation_space):
     elif observation.shape[1:] == observation_space.shape:
         return True
     else:
-        raise ValueError("is not vectorized box observation")
+        raise ValueError(u"is not vectorized box observation")
 
 
 def is_vectorized_discrete_observation(observation, observation_space):
@@ -165,7 +166,7 @@ def is_vectorized_discrete_observation(observation, observation_space):
     elif len(observation.shape) == 1:
         return True
     else:
-        raise ValueError("is not vectorized discrete observation")
+        raise ValueError(u"is not vectorized discrete observation")
 
 
 def is_vectorized_multidiscrete_observation(observation, observation_space):
@@ -175,7 +176,7 @@ def is_vectorized_multidiscrete_observation(observation, observation_space):
     elif len(observation.shape) == 2 and observation.shape[1] == len(observation_space.nvec):
         return True
     else:
-        raise ValueError("is not vectorized multidiscrete observation")
+        raise ValueError(u"is not vectorized multidiscrete observation")
 
 
 def is_vectorized_multibinary_observation(observation, observation_space):
@@ -185,7 +186,7 @@ def is_vectorized_multibinary_observation(observation, observation_space):
     elif len(observation.shape) == len(observation_space.shape) + 1 and observation.shape[1:] == observation_space.shape:
         return True
     else:
-        raise ValueError("is not vectorized multibinary observation")
+        raise ValueError(u"is not vectorized multibinary observation")
 
 
 def is_vectorized_dict_observation(observation, observation_space):
@@ -208,21 +209,21 @@ def is_vectorized_dict_observation(observation, observation_space):
     if all_vectorized:
         return True
     else:
-        error_msg = ""
+        error_msg = u""
         try:
             is_vectorized_observation(observation[key], observation_space.spaces[key])
         except ValueError as e:
-            error_msg = f("{e}")
-        raise ValueError("is not vectorized dict observation")
+            error_msg = "{}".format(e)
+        raise ValueError(u"is not vectorized dict observation")
 
 def obs_as_tensor(obs, device):
 
     if isinstance(obs, np.ndarray):
         return th.as_tensor(obs, device=device)
     elif isinstance(obs, dict):
-        return {key: th.as_tensor(_obs, device=device) for (key, _obs) in obs.items()}
+        return dict((key, th.as_tensor(_obs, device=device)) for (key, _obs) in obs.items())
     else:
-        raise Exception(f("Unrecognized type of observation {type(obs)}"))
+        raise Exception("Unrecognized type of observation {}".format(type(obs)))
     
 def maybe_transpose(observation, observation_space):
 
@@ -250,7 +251,7 @@ def sum_independent_dims(tensor):
 class BaseFeaturesExtractor(th.nn.Module):
 
     def __init__(self, observation_space, features_dim = 0):
-        super().__init__()
+        super(BaseFeaturesExtractor, self).__init__()
         assert features_dim > 0
         self._observation_space = observation_space
         self._features_dim = features_dim
@@ -263,8 +264,69 @@ class BaseFeaturesExtractor(th.nn.Module):
 class FlattenExtractor(BaseFeaturesExtractor):
 
     def __init__(self, observation_space):
-        super().__init__(observation_space, get_flattened_obs_dim(observation_space))
+        super(FlattenExtractor, self).__init__(observation_space, get_flattened_obs_dim(observation_space))
         self.flatten = th.nn.Flatten()
 
     def forward(self, observations):
         return self.flatten(observations)
+    
+class NatureCNN(BaseFeaturesExtractor):
+
+    def __init__(
+        self,
+        observation_space,
+        features_dim = 512,
+        normalized_image = False,
+    ):
+        super(NatureCNN, self).__init__(observation_space, features_dim)
+        assert is_image_space(observation_space, check_channels=False, normalized_image=normalized_image), ("You should use NatureCNN ")
+        n_input_channels = observation_space.shape[0]
+        self.cnn = th.nn.Sequential(
+            th.nn.Conv2d(n_input_channels, 32, kernel_size=8, stride=4, padding=0),
+            th.nn.ReLU(),
+            th.nn.Conv2d(32, 64, kernel_size=4, stride=2, padding=0),
+            th.nn.ReLU(),
+            th.nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=0),
+            th.nn.ReLU(),
+            th.nn.Flatten(),
+        )
+
+        with th.no_grad():
+            n_flatten = self.cnn(th.as_tensor(observation_space.sample()[None]).float()).shape[1]
+
+        self.linear = th.nn.Sequential(th.nn.Linear(n_flatten, features_dim), th.nn.ReLU())
+
+    def forward(self, observations):
+        return self.linear(self.cnn(observations))
+
+class CombinedExtractor(BaseFeaturesExtractor):
+
+    def __init__(
+        self,
+        observation_space,
+        cnn_output_dim = 256,
+        normalized_image = False,
+    ):
+        super(CombinedExtractor, self).__init__(observation_space, features_dim=1)
+
+        extractors: Dict[str, th.nn.Module] = {}
+
+        total_concat_size = 0
+        for key, subspace in observation_space.spaces.items():
+            if is_image_space(subspace, normalized_image=normalized_image):
+                extractors[key] = NatureCNN(subspace, features_dim=cnn_output_dim, normalized_image=normalized_image)
+                total_concat_size += cnn_output_dim
+            else:
+                extractors[key] = th.nn.Flatten()
+                total_concat_size += get_flattened_obs_dim(subspace)
+
+        self.extractors = th.nn.ModuleDict(extractors)
+
+        self._features_dim = total_concat_size
+
+    def forward(self, observations):
+        encoded_tensor_list = []
+
+        for key, extractor in self.extractors.items():
+            encoded_tensor_list.append(extractor(observations[key]))
+        return th.cat(encoded_tensor_list, dim=1)

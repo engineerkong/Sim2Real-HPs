@@ -1,12 +1,12 @@
+from __future__ import absolute_import
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple, Union, Type, TypeVar
 import torch as th
-import fstring as f
 
 from .utils import is_image_space, get_device, is_vectorized_observation, obs_as_tensor, maybe_transpose, FlattenExtractor
 from .utils import get_action_dim, create_mlp, preprocess_obs
 
 class ContinuousCritic(th.nn.Module):
-    """
+    u"""
     ContinuousCritic - BaseModel - nn.Module
     """
 
@@ -28,7 +28,7 @@ class ContinuousCritic(th.nn.Module):
 
     ):
         
-        super().__init__()
+        super(ContinuousCritic, self).__init__()
 
         if optimizer_kwargs is None:
             optimizer_kwargs = {}
@@ -56,7 +56,7 @@ class ContinuousCritic(th.nn.Module):
         for idx in range(n_critics):
             q_net = create_mlp(features_dim + action_dim, 1, net_arch, activation_fn)
             q_net = th.nn.Sequential(*q_net)
-            self.add_module(f("qf{idx}", q_net))
+            self.add_module("qf{}".format(idx), q_net)
             self.q_networks.append(q_net)
 
     def set_training_mode(self, mode):

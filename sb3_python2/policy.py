@@ -7,11 +7,11 @@ import torch as th
 import numpy as np
 import copy
 
-from .utils import is_image_space, get_device, is_vectorized_observation, obs_as_tensor, maybe_transpose, FlattenExtractor
+from .utils import is_image_space, get_device, is_vectorized_observation, obs_as_tensor, maybe_transpose, FlattenExtractor, CombinedExtractor
 from .actor import Actor
 from .critic import ContinuousCritic
 
-class Policy(th.nn.Module):
+class MlpPolicy(th.nn.Module):
     u"""
     MlpPolicy - BasePolicy - BaseModel - nn.Module
     """
@@ -38,7 +38,7 @@ class Policy(th.nn.Module):
         features_extractor = None,
     ):
         
-        super(Policy, self).__init__()
+        super(MlpPolicy, self).__init__()
         
         if optimizer_kwargs is None:
             optimizer_kwargs = {}
@@ -229,3 +229,46 @@ class Policy(th.nn.Module):
     def _predict(self, observation, deterministic = False):
 
         return self.actor(observation, deterministic)
+    
+class MultiInputPolicy(MlpPolicy):
+    u"""
+    MultiInputPolicy - MlpPolicy - BasePolicy - BaseModel - nn.Module
+    """
+
+    def __init__(
+        self,
+        observation_space,
+        action_space,
+        lr_schedule,
+        net_arch = None,
+        activation_fn = th.nn.ReLU,
+        use_sde = False,
+        log_std_init = -3,
+        use_expln = False,
+        clip_mean = 2.0,
+        features_extractor_class = CombinedExtractor,
+        features_extractor_kwargs = None,
+        normalize_images = True,
+        optimizer_class = th.optim.Adam,
+        optimizer_kwargs = None,
+        n_critics = 2,
+        share_features_extractor = False,
+    ):
+        super(MultiInputPolicy, self).__init__(
+            observation_space,
+            action_space,
+            lr_schedule,
+            net_arch,
+            activation_fn,
+            use_sde,
+            log_std_init,
+            use_expln,
+            clip_mean,
+            features_extractor_class,
+            features_extractor_kwargs,
+            normalize_images,
+            optimizer_class,
+            optimizer_kwargs,
+            n_critics,
+            share_features_extractor,
+        )

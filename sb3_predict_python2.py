@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import functools
 from sb3_python2.model import Model
-from sb3_python2.policy import Policy
+from sb3_python2.policy import MlpPolicy, MultiInputPolicy
 
 def recursive_getattr(obj, attr, *args):
 
@@ -14,7 +14,7 @@ def recursive_getattr(obj, attr, *args):
 
 print("-------------load--------------")
 env = gym.make(u"Pendulum-v0")
-model = Model(env, Policy)
+model = Model(env, MlpPolicy)
 params = torch.load('model_torch.pth.tar')
 for name in params:
     attr = None
