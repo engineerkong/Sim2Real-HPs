@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: Sim2Real-py3
+Version: 0.0.1
+Summary: No description given
+Home-page: https://www.automl.org
+Author: engineerkong
+Author-email: klx798949379@gmail.com
+Project-URL: Source Code, https://github.com/automl/Sim2Real_py3
+Platform: Linux
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Natural Language :: English
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+
+# Sim2Real_py3
+
+
+
+## Installation
+```
+git clone https://github.com/automl/Sim2Real_py3.git
+cd Sim2Real_py3
+conda create -n Sim2Real_py3 python=3.7
+conda activate Sim2Real_py3
+
+# Install for usage
+pip install .
+
+# Install for development
+make install-dev
+```
+
+## Minimal Example
+
+```
+# Your code here
+```

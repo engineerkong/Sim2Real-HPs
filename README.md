@@ -1,8 +1,32 @@
-# Sim2Real-HPs_RL
-Repository for Lingxiao's thesis on benchmarking HP configurations
+# Sim2Real_py3
 
-train on an example env and save the model (python3.7.4)
-python3 sb3_train_python3.py 
 
-load the model and predict on the example env (python 2.7.17)
-python sb3_predict_python2.py
+
+## Installation
+```
+git clone https://github.com/automl/Sim2Real_py3.git
+cd Sim2Real_py3
+conda create -n Sim2Real_py3 python=3.7
+conda activate Sim2Real_py3
+
+# Install for usage
+pip install .
+
+# Install for development
+make install-dev
+```
+
+## Minimal Example
+
+```
+# Firstly install robogym (which doesn't have pypi package)
+pip install git+https://github.com/openai/robogym.git
+
+# Sim2Real python3 is used to train policies by using stable-baselines3.
+
+# Train a policy on Pendulum.
+python ./scripts/pendulum_train.py
+
+# Train a policy on Robogym/Rearrangeblock.
+python ./scripts/robogym_train.py
+```

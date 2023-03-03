@@ -1,0 +1,12 @@
+numpy
+stable-baselines3>=1.7.0
+
+[dev]
+pytest>=4.6
+pytest-cov
+pytest-xdist
+pytest-timeout
+isort
+black
+pydocstyle
+flake8
