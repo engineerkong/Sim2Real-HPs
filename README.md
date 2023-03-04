@@ -1,11 +1,11 @@
-# Sim2Real_py3
+# Sim2Real-HPs
 
 
 
 ## Installation
 ```
-git clone https://github.com/automl/Sim2Real_py3.git
-cd Sim2Real_py3
+git clone https://github.com/automl-private/Sim2Real-HPs.git
+cd Sim2Real-HPs
 conda create -n Sim2Real_py3 python=3.7
 conda activate Sim2Real_py3
 
