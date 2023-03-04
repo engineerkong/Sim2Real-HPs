@@ -1,63 +1,65 @@
+from typing import Any, Dict, Optional, Tuple, Type, Union
 
-from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union
-import gym
 import time
-import numpy as np
-import torch as th
-from torch.nn import functional as F
 from copy import deepcopy
 
-from stable_baselines3.sac.sac import SAC
-from stable_baselines3.sac.policies import CnnPolicy, MlpPolicy, MultiInputPolicy, SACPolicy
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.buffers import ReplayBuffer
-from stable_baselines3.common.noise import ActionNoise
-from stable_baselines3.common.vec_env.base_vec_env import VecEnv, VecEnvIndices, VecEnvObs, VecEnvStepReturn
-from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
-from stable_baselines3.common.type_aliases import GymEnv, Schedule, GymStepReturn, TensorDict, TrainFreq, TrainFrequencyUnit
+import gym
+import numpy as np
+import torch as th
 from robogym.envs.rearrange.common.base import RearrangeEnv
+from stable_baselines3.common.buffers import ReplayBuffer
+from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.noise import ActionNoise
+from stable_baselines3.common.type_aliases import GymEnv, GymStepReturn, Schedule
+from stable_baselines3.common.vec_env.base_vec_env import VecEnvStepReturn
+from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
+from stable_baselines3.sac.policies import SACPolicy
+from stable_baselines3.sac.sac import SAC
+
 
 def _observe_simple_test(self):
-        """
-        To show the observation, modify the RearrangeEnv._observe_simple() function of default 
-        observation for the environment.
-        """
-        robot_obs = self.mujoco_simulation.robot.observe()
+    """
+    To show the observation, modify the RearrangeEnv._observe_simple() function
+    of default observation for the environment.
+    """
+    robot_obs = self.mujoco_simulation.robot.observe()
 
-        obs = {
-            "obj_pos": self.mujoco_simulation.get_object_pos(),
-            "obj_rel_pos": self.mujoco_simulation.get_object_rel_pos(),
-            "obj_vel_pos": self.mujoco_simulation.get_object_vel_pos(),
-            "obj_rot": self.mujoco_simulation.get_object_rot(),
-            "obj_vel_rot": self.mujoco_simulation.get_object_vel_rot(),
-            "robot_joint_pos": robot_obs.joint_positions(),
-            "gripper_pos": robot_obs.tcp_xyz(),
-            "gripper_velp": robot_obs.tcp_vel(),
-            "gripper_controls": robot_obs.gripper_controls(),
-            "gripper_qpos": robot_obs.gripper_qpos(),
-            "gripper_vel": robot_obs.gripper_vel(),
-            "qpos": self.mujoco_simulation.qpos,
-            "qpos_goal": self._goal["qpos_goal"].copy(),
-            "goal_obj_pos": self._goal["obj_pos"].copy(),
-            "goal_obj_rot": self._goal["obj_rot"].copy(),
-            "is_goal_achieved": np.array([self._is_goal_achieved], np.int32),
-            "rel_goal_obj_pos": self._goal_info_dict["rel_goal_obj_pos"].copy(),
-            "rel_goal_obj_rot": self._goal_info_dict["rel_goal_obj_rot"].copy(),
-            "obj_gripper_contact": self.mujoco_simulation.get_object_gripper_contact(),
-            "obj_bbox_size": self.mujoco_simulation.get_object_bounding_box_sizes(),
-            "obj_colors": self.mujoco_simulation.get_object_colors(),
-            "safety_stop": np.array([robot_obs.is_in_safety_stop()]),
-            "tcp_force": robot_obs.tcp_force(),
-            "tcp_torque": robot_obs.tcp_torque(),
-        }
+    obs = {
+        "obj_pos": self.mujoco_simulation.get_object_pos(),
+        "obj_rel_pos": self.mujoco_simulation.get_object_rel_pos(),
+        "obj_vel_pos": self.mujoco_simulation.get_object_vel_pos(),
+        "obj_rot": self.mujoco_simulation.get_object_rot(),
+        "obj_vel_rot": self.mujoco_simulation.get_object_vel_rot(),
+        "robot_joint_pos": robot_obs.joint_positions(),
+        "gripper_pos": robot_obs.tcp_xyz(),
+        "gripper_velp": robot_obs.tcp_vel(),
+        "gripper_controls": robot_obs.gripper_controls(),
+        "gripper_qpos": robot_obs.gripper_qpos(),
+        "gripper_vel": robot_obs.gripper_vel(),
+        "qpos": self.mujoco_simulation.qpos,
+        "qpos_goal": self._goal["qpos_goal"].copy(),
+        "goal_obj_pos": self._goal["obj_pos"].copy(),
+        "goal_obj_rot": self._goal["obj_rot"].copy(),
+        "is_goal_achieved": np.array([self._is_goal_achieved], np.int32),
+        "rel_goal_obj_pos": self._goal_info_dict["rel_goal_obj_pos"].copy(),
+        "rel_goal_obj_rot": self._goal_info_dict["rel_goal_obj_rot"].copy(),
+        "obj_gripper_contact":
+        self.mujoco_simulation.get_object_gripper_contact(),
+        "obj_bbox_size":
+        self.mujoco_simulation.get_object_bounding_box_sizes(),
+        "obj_colors": self.mujoco_simulation.get_object_colors(),
+        "safety_stop": np.array([robot_obs.is_in_safety_stop()]),
+        "tcp_force": robot_obs.tcp_force(),
+        "tcp_torque": robot_obs.tcp_torque(),
+    }
 
-        if self.constants.mask_obs_outside_placement_area:
-            obs = self._mask_goal_observation(
-                obs, self._goal["goal_objects_in_placement_area"].copy()
-            )
-            obs = self._mask_object_observation(obs)
+    if self.constants.mask_obs_outside_placement_area:
+        obs = self._mask_goal_observation
+        (obs, self._goal["goal_objects_in_placement_area"].copy())
+        obs = self._mask_object_observation(obs)
 
-        return obs
+    return obs
+
 
 def sac_init(
     self,
@@ -89,8 +91,8 @@ def sac_init(
     _init_setup_model: bool = True,
 ):
     """
-    To suit the action space in the environment (Robogym), modify the supported_action_spaces
-    in SAC.__init__() to gym.spaces.Space. 
+    To suit the action space in the environment (Robogym), modify the
+    supported_action_spaces in SAC.__init__() to gym.spaces.Space.
     """
     super(SAC, self).__init__(
         policy,
@@ -127,7 +129,8 @@ def sac_init(
 
     if _init_setup_model:
         self._setup_model()
-    
+
+
 def dummy_step_wait(self) -> VecEnvStepReturn:
     """
     To deal with the errors:
@@ -138,9 +141,7 @@ def dummy_step_wait(self) -> VecEnvStepReturn:
     for env_idx in range(self.num_envs):
         env_action = np.trunc(self.actions[0])
         action = env_action.astype(int)
-        result = self.envs[env_idx].step(
-            action
-        )
+        result = self.envs[env_idx].step(action)
         obs = result[0]
         self.buf_rews[0] = np.sum(result[1])
         self.buf_dones[env_idx] = result[2]
@@ -149,7 +150,8 @@ def dummy_step_wait(self) -> VecEnvStepReturn:
             self.buf_infos[env_idx]["terminal_observation"] = obs
             obs = self.envs[env_idx].reset()
         self._save_obs(env_idx, obs)
-    return (self._obs_from_buf(), np.copy(self.buf_rews), np.copy(self.buf_dones), deepcopy(self.buf_infos))
+    return (self._obs_from_buf(), np.copy(self.buf_rews),
+            np.copy(self.buf_dones), deepcopy(self.buf_infos))
 
 
 def monitor_step(self, action: Union[np.ndarray, int]) -> GymStepReturn:
@@ -165,7 +167,8 @@ def monitor_step(self, action: Union[np.ndarray, int]) -> GymStepReturn:
         self.needs_reset = True
         ep_rew = sum(self.rewards)
         ep_len = len(self.rewards)
-        ep_info = {"r": np.round(ep_rew, 6), "l": ep_len, "t": np.round(time.time() - self.t_start, 6)}
+        ep_info = {"r": np.round(ep_rew, 6), "l": ep_len,
+                   "t": np.round(time.time() - self.t_start, 6)}
         for key in self.info_keywords:
             ep_info[key] = info[key]
         self.episode_returns.append(ep_rew)
@@ -178,9 +181,11 @@ def monitor_step(self, action: Union[np.ndarray, int]) -> GymStepReturn:
     self.total_steps += 1
     return observation, reward, done, info
 
+
 def run():
     """
-    Run this main function to do the changes in the stable-baselines3 code.
+    Run this main function to do the changes in the stable-baselines3
+    code.
     """
     RearrangeEnv._observe_simple = _observe_simple_test
     SAC.__init__ = sac_init
