@@ -6,7 +6,6 @@ from copy import deepcopy
 import gym
 import numpy as np
 import torch as th
-from robogym.envs.rearrange.common.base import RearrangeEnv
 from stable_baselines3.common.buffers import ReplayBuffer
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.noise import ActionNoise
@@ -15,51 +14,6 @@ from stable_baselines3.common.vec_env.base_vec_env import VecEnvStepReturn
 from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
 from stable_baselines3.sac.policies import SACPolicy
 from stable_baselines3.sac.sac import SAC
-
-
-def _observe_simple_test(self):
-    """
-    To show the observation, modify the RearrangeEnv._observe_simple() function
-    of default observation for the environment.
-    """
-    robot_obs = self.mujoco_simulation.robot.observe()
-
-    obs = {
-        "obj_pos": self.mujoco_simulation.get_object_pos(),
-        "obj_rel_pos": self.mujoco_simulation.get_object_rel_pos(),
-        "obj_vel_pos": self.mujoco_simulation.get_object_vel_pos(),
-        "obj_rot": self.mujoco_simulation.get_object_rot(),
-        "obj_vel_rot": self.mujoco_simulation.get_object_vel_rot(),
-        "robot_joint_pos": robot_obs.joint_positions(),
-        "gripper_pos": robot_obs.tcp_xyz(),
-        "gripper_velp": robot_obs.tcp_vel(),
-        "gripper_controls": robot_obs.gripper_controls(),
-        "gripper_qpos": robot_obs.gripper_qpos(),
-        "gripper_vel": robot_obs.gripper_vel(),
-        "qpos": self.mujoco_simulation.qpos,
-        "qpos_goal": self._goal["qpos_goal"].copy(),
-        "goal_obj_pos": self._goal["obj_pos"].copy(),
-        "goal_obj_rot": self._goal["obj_rot"].copy(),
-        "is_goal_achieved": np.array([self._is_goal_achieved], np.int32),
-        "rel_goal_obj_pos": self._goal_info_dict["rel_goal_obj_pos"].copy(),
-        "rel_goal_obj_rot": self._goal_info_dict["rel_goal_obj_rot"].copy(),
-        "obj_gripper_contact":
-        self.mujoco_simulation.get_object_gripper_contact(),
-        "obj_bbox_size":
-        self.mujoco_simulation.get_object_bounding_box_sizes(),
-        "obj_colors": self.mujoco_simulation.get_object_colors(),
-        "safety_stop": np.array([robot_obs.is_in_safety_stop()]),
-        "tcp_force": robot_obs.tcp_force(),
-        "tcp_torque": robot_obs.tcp_torque(),
-    }
-
-    if self.constants.mask_obs_outside_placement_area:
-        obs = self._mask_goal_observation
-        (obs, self._goal["goal_objects_in_placement_area"].copy())
-        obs = self._mask_object_observation(obs)
-
-    return obs
-
 
 def sac_init(
     self,
@@ -187,7 +141,6 @@ def run():
     Run this main function to do the changes in the stable-baselines3
     code.
     """
-    RearrangeEnv._observe_simple = _observe_simple_test
     SAC.__init__ = sac_init
     DummyVecEnv.step_wait = dummy_step_wait
     Monitor.step = monitor_step
