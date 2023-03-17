@@ -24,7 +24,11 @@ pip install .
 # Install for development
 make install-dev
 
-# Install ros dependencies
+# Install ros dependencies 
+(caution:
+ros-melodic is based on Ubuntu 18.04
+ROS Python packages are only installed for the default system-provided Python interpreter
+the suitable python version for ned2 ros simulation is 2.7)
 
 # 1. follow ros melodic installation 
 # http://wiki.ros.org/melodic/Installation/Ubuntu
