@@ -10,12 +10,13 @@ This branch trains the policy on the sim environment mygym.
 https://github.com/incognite-lab/mygym.git
 ```
 
+
 ## Installation
 ```
-git clone https://github.com/automl/Sim2Real_py3.git
-cd Sim2Real_py3
-conda create -n Sim2Real_py3 python=3.7
-conda activate Sim2Real_py3
+git clone -b mygym_train git@github.com:automl-private/Sim2Real-HPs.git
+cd Sim2Real-HPs
+conda create -n mygym_train python=3.7
+conda activate mygym_train
 
 # Install for usage
 pip install .
@@ -23,8 +24,9 @@ pip install .
 # Install for development
 make install-dev
 
-# Install mygym
 cd Sim2Real_py3
+
+# Install mygym
 python setup.py develop
 
 # Check, whether the toolbox works
