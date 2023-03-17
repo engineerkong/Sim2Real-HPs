@@ -2,9 +2,7 @@
 
 
 ## Description
-```
 This branch trains the policy on the sim environment mygym.
-```
 
 
 ## Original Repo
