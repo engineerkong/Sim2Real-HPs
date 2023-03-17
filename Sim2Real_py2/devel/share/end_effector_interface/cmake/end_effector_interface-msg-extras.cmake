@@ -1,0 +1,2 @@
+set(end_effector_interface_MESSAGE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/end_effector_interface/msg/EEButtonStatus.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/end_effector_interface/msg/EEIOState.msg")
+set(end_effector_interface_SERVICE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/end_effector_interface/srv/SetEEDigitalOut.srv")

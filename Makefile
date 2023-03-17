@@ -1,13 +1,12 @@
 # These have been configured to only really run short tasks. Longer form tasks
 # are usually completed in github actions.
 
-NAME := Sim2Real_py3
-PACKAGE_NAME := Sim2Real_py3
+NAME := Sim2Real_py2
+PACKAGE_NAME := Sim2Real_py2
 
 DIR := "${CURDIR}"
 SOURCE_DIR := ${PACKAGE_NAME}
 TESTS_DIR := tests
-SCRIPTS_DIR := scripts
 
 .PHONY: help install-dev check format clean test
 
@@ -30,16 +29,13 @@ FLAKE8 ?= flake8
 
 install-dev:
 	$(PIP) install -e ".[dev]"
-
 check-black:
 	$(BLACK) ${SOURCE_DIR} --check || :
 	$(BLACK) ${TESTS_DIR} --check || :
-	$(BLACK) ${SCRIPTS_DIR} --check || :
 
 check-isort:
 	$(ISORT) ${SOURCE_DIR} --check || :
 	$(ISORT) ${TESTS_DIR} --check || :
-	$(ISORT) ${SCRIPTS_DIR} --check || :
 
 check-pydocstyle:
 	$(PYDOCSTYLE) ${SOURCE_DIR} || :
@@ -47,19 +43,16 @@ check-pydocstyle:
 check-flake8:
 	$(FLAKE8) ${SOURCE_DIR} || :
 	$(FLAKE8) ${TESTS_DIR} || :
-	$(FLAKE8) ${SCRIPTS_DIR} || :
 
 check: check-black check-isort check-flake8 check-pydocstyle
 
 format-black:
 	$(BLACK) ${SOURCE_DIR}
 	$(BLACK) ${TESTS_DIR}
-	$(BLACK) ${SCRIPTS_DIR}
 
 format-isort:
 	$(ISORT) ${SOURCE_DIR}
 	$(ISORT) ${TESTS_DIR}
-	$(ISORT) ${SCRIPTS_DIR}
 
 format: format-black format-isort
 

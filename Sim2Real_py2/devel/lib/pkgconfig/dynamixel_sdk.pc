@@ -1,0 +1,8 @@
+prefix=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel
+
+Name: dynamixel_sdk
+Description: Description of dynamixel_sdk
+Version: 3.7.51
+Cflags: -I/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/dynamixel_sdk/include
+Libs: -L${prefix}/lib -ldynamixel_sdk
+Requires: serial

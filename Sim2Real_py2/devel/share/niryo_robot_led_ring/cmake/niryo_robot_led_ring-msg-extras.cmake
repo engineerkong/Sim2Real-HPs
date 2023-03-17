@@ -1,0 +1,2 @@
+set(niryo_robot_led_ring_MESSAGE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg")
+set(niryo_robot_led_ring_SERVICE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv")

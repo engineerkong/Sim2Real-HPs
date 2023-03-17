@@ -1,0 +1,8 @@
+prefix=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install
+
+Name: ttl_driver
+Description: Description of ttl_driver
+Version: 4.1.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lttl_driver
+Requires: common dynamixel_sdk message_runtime niryo_robot_msgs roscpp std_msgs

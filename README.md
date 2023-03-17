@@ -1,32 +1,65 @@
-# Sim2Real-HPs
+# ros_deploy
 
+
+## Description
+This branch deploys the trained policy on the real environment ned2 ros simulation.
+
+
+## Original Repo
+```
+https://github.com/NiryoRobotics/ned_ros
+```
 
 
 ## Installation
 ```
-git clone https://github.com/automl-private/Sim2Real-HPs.git
+git clone https://github.com/automl/Sim2Real_py2.git
 cd Sim2Real-HPs
-conda create -n Sim2Real_py3 python=3.7
-conda activate Sim2Real_py3
+conda create -n ros_deploy python=2.7
+conda activate ros_deploy
 
 # Install for usage
 pip install .
 
 # Install for development
 make install-dev
+
+# Install ros dependencies
+
+# 1. follow ros melodic installation 
+# http://wiki.ros.org/melodic/Installation/Ubuntu
+
+# 2. follow install packages and catkin_make:
+rosdep update
+rosdep install --from-paths src --ignore-src --default-yes --rosdistro melodic --skip-keys "python-rpi.gpio"
+cd Sim2Real_py2
+catkin_make
+echo "source $(pwd)/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 ```
+
+
+## Work points
+```
+1. a wrapper of deploying policy (niryo_robot_python_ros_wrapper/ros_wrapper_mygym)
+
+2. a package of python2.7 version stable-baselines3 (especially sac) (niryo_robot_bringup/sb3_python2)
+
+3. a detection improve code (niryo_robot_bringup/detection_improve)
+
+4. a main code to deploy trained policy from mygym on ned2 ros simulation (niryo_robot_bringup/deploy)
+
+5. a file contains trained policy from mygym (model_torch.pth.tar)
+```
+
 
 ## Minimal Example
-
 ```
-# Firstly install robogym (which doesn't have pypi package)
-pip install git+https://github.com/openai/robogym.git
+cd Sim2Real_py2
 
-# Sim2Real python3 is used to train policies by using stable-baselines3.
+# Simulation with physics
+roslaunch niryo_robot_bringup desktop_gazebo_simulation.launch
 
-# Train a policy on Pendulum.
-python ./scripts/pendulum_train.py
-
-# Train a policy on Robogym/Rearrangeblock.
-python ./scripts/robogym_train.py
+# Deploy trained policy on simulation
+rosrun niryo_robot_bringup deploy.py
 ```

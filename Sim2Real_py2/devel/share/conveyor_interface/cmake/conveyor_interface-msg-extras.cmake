@@ -1,0 +1,2 @@
+set(conveyor_interface_MESSAGE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/conveyor_interface/msg/ConveyorFeedback.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/conveyor_interface/msg/ConveyorFeedbackArray.msg")
+set(conveyor_interface_SERVICE_FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/conveyor_interface/srv/ControlConveyor.srv;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/conveyor_interface/srv/SetConveyor.srv")

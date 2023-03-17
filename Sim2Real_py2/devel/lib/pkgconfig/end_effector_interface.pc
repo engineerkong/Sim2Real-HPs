@@ -1,0 +1,8 @@
+prefix=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel
+
+Name: end_effector_interface
+Description: Description of end_effector_interface
+Version: 4.1.0
+Cflags: -I/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include -I/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/end_effector_interface/include
+Libs: -L${prefix}/lib -lend_effector_interface
+Requires: common message_runtime niryo_robot_msgs roscpp std_msgs ttl_driver
