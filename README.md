@@ -1,4 +1,10 @@
-# Sim2Real_py3
+# mygym_train
+
+
+## Description
+```
+This branch trains the policy on the sim environment mygym.
+```
 
 
 ## Original Repo
