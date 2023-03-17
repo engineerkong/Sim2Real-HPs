@@ -44,7 +44,7 @@ sh ./speed_checker.sh
 3. modify train.py to use stable-baselines3 and save by pytorch, and also modify utils/callbacks.py to 
    solve comming error from this change
 
-4. a trained policy from mygym 
+4. a trained policy from mygym (model_torch.pth.tar)
 ```
 
 
