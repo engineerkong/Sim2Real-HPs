@@ -4,13 +4,13 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]             # path to the test directory
 minversion = "2.7"
-addopts = "--cov=Sim2Real_py2" # Should be package name
+addopts = "--cov=rosDeploy" # Should be package name
 
 [tool.coverage.run]
 branch = true
-context = "Sim2Real_py2" # Should be package name
+context = "rosDeploy" # Should be package name
 omit = [
-    "Sim2Real_py2/__init__.py", # Has variables only needed for setup.py
+    "rosDeploy/__init__.py", # Has variables only needed for setup.py
 ]
 
 [tool.coverage.report]
@@ -30,10 +30,10 @@ line-length = 120
 [tool.isort]
 py_version = "27"
 profile = "black" # Play nicely with black
-src_paths = ["Sim2Real_py2", "tests"]
+src_paths = ["rosDeploy", "tests"]
 known_types = ["typing", "abc"] # We put these in their own section "types"
 known_test = ["tests"]
-known_first_party = ["Sim2Real_py2"]
+known_first_party = ["rosDeploy"]
 sections = [
     "FUTURE",
     "TYPES",

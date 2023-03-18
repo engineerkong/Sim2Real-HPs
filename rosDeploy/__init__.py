@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 import datetime
 
-name = u"Sim2Real_py2"
-package_name = u"Sim2Real_py2"
+name = u"ros_deploy"
+package_name = u"rosDeploy"
 author = u"engineerkong"
 author_email = u"klx798949379@gmail.com"
 description = u"No description given"

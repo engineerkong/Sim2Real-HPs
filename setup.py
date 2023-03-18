@@ -4,7 +4,7 @@ import os
 
 import setuptools
 
-from Sim2Real_py2 import (
+from rosDeploy import (
     author,
     author_email,
     description,

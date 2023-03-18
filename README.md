@@ -13,8 +13,9 @@ https://github.com/NiryoRobotics/ned_ros
 
 ## Installation
 ```
-git clone https://github.com/automl/Sim2Real_py2.git
+git clone -b ros_deploy git@github.com:automl-private/Sim2Real-HPs.git
 cd Sim2Real-HPs
+
 conda create -n ros_deploy python=2.7
 conda activate ros_deploy
 
@@ -59,7 +60,7 @@ source ~/.bashrc
 
 ## Minimal Example
 ```
-cd Sim2Real_py2
+cd rosDeploy
 
 # Simulation with physics
 roslaunch niryo_robot_bringup desktop_gazebo_simulation.launch

@@ -1,8 +1,8 @@
 # These have been configured to only really run short tasks. Longer form tasks
 # are usually completed in github actions.
 
-NAME := Sim2Real_py2
-PACKAGE_NAME := Sim2Real_py2
+NAME := ros_deploy
+PACKAGE_NAME := rosDeploy
 
 DIR := "${CURDIR}"
 SOURCE_DIR := ${PACKAGE_NAME}
@@ -29,6 +29,7 @@ FLAKE8 ?= flake8
 
 install-dev:
 	$(PIP) install -e ".[dev]"
+
 check-black:
 	$(BLACK) ${SOURCE_DIR} --check || :
 	$(BLACK) ${TESTS_DIR} --check || :
