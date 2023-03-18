@@ -4,13 +4,13 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]             # path to the test directory
 minversion = "3.7"
-addopts = "--cov=Sim2Real_py3" # Should be package name
+addopts = "--cov=myGym" # Should be package name
 
 [tool.coverage.run]
 branch = true
-context = "Sim2Real_py3" # Should be package name
+context = "myGym" # Should be package name
 omit = [
-    "Sim2Real_py3/__init__.py", # Has variables only needed for setup.py
+    "myGym/__init__.py", # Has variables only needed for setup.py
 ]
 
 [tool.coverage.report]
@@ -30,10 +30,10 @@ line-length = 120
 [tool.isort]
 py_version = "37"
 profile = "black" # Play nicely with black
-src_paths = ["Sim2Real_py3", "tests"]
+src_paths = ["myGym", "tests"]
 known_types = ["typing", "abc"] # We put these in their own section "types"
 known_test = ["tests"]
-known_first_party = ["Sim2Real_py3"]
+known_first_party = ["myGym"]
 sections = [
     "FUTURE",
     "TYPES",

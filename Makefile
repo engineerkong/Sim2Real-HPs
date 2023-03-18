@@ -1,8 +1,8 @@
 # These have been configured to only really run short tasks. Longer form tasks
 # are usually completed in github actions.
 
-NAME := Sim2Real_py3
-PACKAGE_NAME := Sim2Real_py3
+NAME := mygym_train
+PACKAGE_NAME := myGym
 
 DIR := "${CURDIR}"
 SOURCE_DIR := ${PACKAGE_NAME}

@@ -15,19 +15,17 @@ https://github.com/incognite-lab/mygym.git
 ```
 git clone -b mygym_train git@github.com:automl-private/Sim2Real-HPs.git
 cd Sim2Real-HPs
+
 conda create -n mygym_train python=3.7
 conda activate mygym_train
 
 # Install for usage
-pip install .
+python setup.py develop
 
 # Install for development
 make install-dev
 
-cd Sim2Real_py3
-
-# Install mygym
-python setup.py develop
+cd myGym
 
 # Check, whether the toolbox works
 sh ./speed_checker.sh
@@ -50,7 +48,7 @@ sh ./speed_checker.sh
 
 ## Minimal Example
 ```
-cd SimeReal_py3
+cd myGym
 
 # Train policy on mygym by using kong and pnp
 python train.py --config ./configs/train_pnp_kong.json
