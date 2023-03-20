@@ -25,6 +25,9 @@ python setup.py develop
 # Install for development
 make install-dev
 
+# Install stable-baselines3 for the using of sac algorithm
+pip install stable-baselines3[extra]==1.5.0
+
 cd myGym
 
 # Check, whether the toolbox works
