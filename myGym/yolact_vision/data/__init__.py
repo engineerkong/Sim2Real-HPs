@@ -1,5 +1,5 @@
-from .config import *
-from .coco import *
+from myGym.yolact_vision.data.config import *
+from myGym.yolact_vision.data.coco import *
 
 import torch
 import cv2

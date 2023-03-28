@@ -1,15 +1,15 @@
-from data import COCODetection, get_label_map, MEANS, COLORS
-from yolact import Yolact
-from utils.augmentations import BaseTransform, FastBaseTransform, Resize
-from utils.functions import MovingAverage, ProgressBar
-from layers.box_utils import jaccard, center_size, mask_iou
-from utils import timer
-from utils.functions import SavePath
-from layers.output_utils import postprocess, undo_image_transformation
+from myGym.yolact_vision.data import COCODetection, get_label_map, MEANS, COLORS
+from myGym.yolact_vision.yolact import Yolact
+from myGym.yolact_vision.utils.augmentations import BaseTransform, FastBaseTransform, Resize
+from myGym.yolact_vision.utils.functions import MovingAverage, ProgressBar
+from myGym.yolact_vision.layers.box_utils import jaccard, center_size, mask_iou
+from myGym.yolact_vision.utils import timer
+from myGym.yolact_vision.utils.functions import SavePath
+from myGym.yolact_vision.layers.output_utils import postprocess, undo_image_transformation
 import pycocotools
 import dill
 
-from data import cfg, set_cfg, set_dataset
+from myGym.yolact_vision.data import cfg, set_cfg, set_dataset
 
 import numpy as np
 import torch

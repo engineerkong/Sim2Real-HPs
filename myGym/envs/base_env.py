@@ -474,15 +474,16 @@ class CameraEnv(BaseEnv):
         print("Change camera to " + str(self.current_camera))
         self.current_camera = camera_num
 
-    def render(self, mode="rgb_array", camera_id=None):
+    def render(self, mode="rgb_array", camera_id = None, camera_6d=None):
         """
         Get image (image, depth, segmentation_mask) from camera or active cameras
 
         Parameters:
             :param mode: (str) rgb_array to return RGB image
-            :param camera_id: (int) Get image from specified camera
+            :option1 param camera_id: (int) Get image from specified camera
+            :option2 param camera_6d: (int) Get image from specified camera's position and rotation
         Returns:
-            :return camera_data: (dict) Key: camera_id, Value: info from camera
+            :return camera_data: (dict) Key: (camera_id), Value: info from camera
         """
         if mode != "rgb_array":
             return np.array([])
@@ -490,6 +491,13 @@ class CameraEnv(BaseEnv):
         if self.render_on:
             if camera_id is not None:
                 camera_data[camera_id] = self.cameras[camera_id].render()
+            elif camera_6d is not None:
+                roll = camera_6d[3]*180/np.pi
+                pitch = camera_6d[4]*180/np.pi
+                yaw = camera_6d[5]*180/np.pi
+                self.camera_rpy = Camera(env=self, target_position=camera_6d[:3], roll=roll, 
+                                         pitch=-pitch, yaw=yaw-90, distance=0.01, is_absolute_position=False)
+                camera_data = self.camera_rpy.render()
             else:
                 for camera_num in range(len(self.active_cameras)):
                     if self.active_cameras[camera_num]:

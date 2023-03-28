@@ -8,6 +8,7 @@ import cv2
 import random
 from scipy.spatial.distance import cityblock
 from pyquaternion import Quaternion
+from ..transform_functions import euler_from_quaternion
 currentdir = pkg_resources.resource_filename("myGym", "envs")
 
 
@@ -58,12 +59,17 @@ class TaskModule():
         self.vision_module.centroid_transformed = {}
         self.env.task_objects["robot"] = self.env.robot
         if self.vision_src == "vae":
-            self.generate_new_goal(self.env.objects_area_boarders, self.env.active_cameras)
+            self.generate_new_goal(self.env.objects_area_borders, self.env.active_cameras)
 
-    def render_images(self):
-        render_info = self.env.render(mode="rgb_array", camera_id=self.env.active_cameras)
-        self.image = render_info[self.env.active_cameras]["image"]
-        self.depth = render_info[self.env.active_cameras]["depth"]
+    def render_images(self, camera_6d=None):
+        if camera_6d is not None:
+            render_info = self.env.render(mode="rgb_array", camera_id=camera_6d)
+            self.image = render_info["image"]
+            self.depth = render_info["depth"]
+        else:
+            render_info = self.env.render(mode="rgb_array", camera_id=self.env.active_cameras)
+            self.image = render_info[self.env.active_cameras]["image"]
+            self.depth = render_info[self.env.active_cameras]["depth"]
         if self.env.visualize == 1 and self.vision_src != "vae":
             cv2.imshow("Vision input", cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR))
             cv2.waitKey(1)
@@ -91,9 +97,9 @@ class TaskModule():
             elif key == "joints_angles":
                 info["additional_obs"]["joints_angles"] = self.env.robot.get_joints_states()
             elif key == "endeff_xyz":
-                info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth)[:3]
+                info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs")[:3]
             elif key == "endeff_6D":
-                info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth)) \
+                info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs")) \
                                                       + list(self.vision_module.get_obj_orientation(robot))
             elif key == "touch":
                 touch = self.env.robot.touch_sensors_active(self.env.env_objects["actual_state"]) or len(self.env.robot.magnetized_objects)>0
@@ -112,7 +118,12 @@ class TaskModule():
             :return self._observation: (array) Task relevant observation data, positions of task objects 
         """
         info_dict = self.obs_template.copy()
-        self.render_images() if "ground_truth" not in self.vision_src else None
+        obj = self.env.task_objects["robot"]
+        self.pos = list(obj.get_cam_position())
+        self.quat = list(obj.get_cam_orientation())
+        self.rpy = list(euler_from_quaternion(self.quat))
+        self.posrpy = self.pos + self.rpy
+        self.render_images(camera_6d=self.posrpy) if "ground_truth" not in self.vision_src else None
         if self.vision_src == "vae":
             [info_dict["actual_state"], info_dict["goal_state"]], recons = (self.vision_module.encode_with_vae(
                 imgs=[self.image, self.goal_image], task=self.task_type, decode=self.env.visualize))
@@ -120,10 +131,10 @@ class TaskModule():
         else:
             for key in ["actual_state", "goal_state"]:
                     if "endeff" in info_dict[key]:
-                           xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth)
+                           xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key)
                            xyz = xyz[:3] if "xyz" in info_dict else xyz
                     else:
-                           xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth)
+                           xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key)
                     info_dict[key] = xyz
         self._observation = self.get_additional_obs(info_dict, self.env.task_objects["robot"])
         return self._observation
@@ -392,8 +403,9 @@ class TaskModule():
         assert t["goal_state"] in ["obj_xyz", "obj_6D", "vae", "yolact", "voxel" or "dope"],\
             "failed to parse goal_state in Observation config"
         if "endeff" not in t["actual_state"]:
-            assert t["actual_state"] == t["goal_state"], \
-                "actual_state and goal_state in Observation must have the same format"
+            pass
+            # assert t["actual_state"] == t["goal_state"], \
+            #     "actual_state and goal_state in Observation must have the same format"
         else:
             assert t["actual_state"].split("_")[-1] == t["goal_state"] .split("_")[-1], "Actual state and goal state must " \
                                                                                         "have the same number of dimensions!"

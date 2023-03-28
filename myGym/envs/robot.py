@@ -72,7 +72,8 @@ class Robot:
         if self.gripper_names:
             self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo = self.get_joints_limits(self.gripper_indices)
         joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
-        self.init_joint_poses = joint_poses
+        obs_joints = [0, 0.4, -0.4, 0, -1.57, 0]
+        self.init_joint_poses = obs_joints
         #self.init_joint_poses = np.zeros((len(self.motor_names)))
         #self.reset()
 
@@ -113,6 +114,8 @@ class Robot:
                 self.gripper_index = i
             if link_name.decode("utf-8") == 'endeffector':
                 self.end_effector_index = i
+            if link_name.decode("utf-8") == 'camera_link':
+                self.camera_index = i
             if q_index > -1 and "rjoint" in joint_name.decode("utf-8"): # Fixed joints have q_index -1
                 self.motor_names.append(str(joint_name))
                 self.motor_indices.append(i)
@@ -215,8 +218,8 @@ class Robot:
             joints_limits_u.append(joint_info[9])
             joints_ranges.append(joint_info[9] - joint_info[8])
             joints_rest_poses.append((joint_info[9] + joint_info[8])/2)
-            joints_max_force.append(joint_info[10] if "gjoint" in joint_info[1].decode("utf-8") else self.max_force)
-            joints_max_velo.append(joint_info[11] if "gjoint" in joint_info[1].decode("utf-8") else self.max_velocity)
+            joints_max_force.append(joint_info[10])
+            joints_max_velo.append(joint_info[11])
         return [joints_limits_l, joints_limits_u], joints_ranges, joints_rest_poses, joints_max_force, joints_max_velo
 
     def get_action_dimension(self):
@@ -312,6 +315,12 @@ class Robot:
         """
         return self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
 
+    def get_cam_position(self):
+        return self.p.getLinkState(self.robot_uid, self.camera_index)[0]
+    
+    def get_cam_orientation(self):
+        return self.p.getLinkState(self.robot_uid, self.camera_index)[1]
+    
     def _run_motors(self, joint_poses):
         """
         Move joint motors towards desired joint poses respecting robot's dynamics

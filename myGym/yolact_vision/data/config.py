@@ -1,4 +1,4 @@
-from backbone import ResNetBackbone, VGGBackbone, ResNetBackboneGN, DarkNetBackbone
+from myGym.yolact_vision.backbone import ResNetBackbone, VGGBackbone, ResNetBackboneGN, DarkNetBackbone
 from math import sqrt
 import torch
 
@@ -89,6 +89,7 @@ class Config(object):
         Copies new_config_dict into this config object.
         Note: new_config_dict can also be a config object.
         """
+        new_config_dict = vars(new_config_dict)
         if isinstance(new_config_dict, Config):
             new_config_dict = vars(new_config_dict)
 

@@ -7,10 +7,10 @@ import torch.nn.functional as F
 import numpy as np
 import cv2
 
-from data import cfg, mask_type, MEANS, STD, activation_func
-from utils.augmentations import Resize
-from utils import timer
-from .box_utils import crop, sanitize_coordinates
+from myGym.yolact_vision.data import cfg, mask_type, MEANS, STD, activation_func
+from myGym.yolact_vision.utils.augmentations import Resize
+from myGym.yolact_vision.utils import timer
+from myGym.yolact_vision.layers.box_utils import crop, sanitize_coordinates
 
 def postprocess(det_output, w, h, batch_idx=0, interpolation_mode='bilinear',
                 visualize_lincomb=False, crop_masks=True, score_threshold=0):

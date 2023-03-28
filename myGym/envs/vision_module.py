@@ -12,7 +12,7 @@ currentdir = pkg_resources.resource_filename("myGym", "envs")
 # import vision models YOLACT, VAE
 sys.path.append(pkg_resources.resource_filename("myGym", "yolact_vision")) #may be moved somewhere else
 try:
-    from inference_tool import InfTool
+    from myGym.yolact_vision.inference_tool import InfTool
 except:
     print("Problem importing YOLACT.")
 from myGym.vae.vis_helpers import load_checkpoint
@@ -30,6 +30,7 @@ class VisionModule:
         :param yolact_config: (string) Path to saved Yolact config obj or name of an existing one in the data/Config script or None for autodetection
     """
     def __init__(self, observation={}, env=None, vae_path=None, yolact_path=None, yolact_config=None):
+        self.ob = observation
         self.src = self.get_module_type(observation)
         self.env = env
         self.vae_embedder = None
@@ -57,6 +58,19 @@ class VisionModule:
             src = observation["actual_state"]
         return src
 
+    def get_module_type_key(self, observation, key):
+        """
+        Get source of the information from environment (ground_truth, yolact, vae)
+
+        Returns:
+            :return source: (string) Source of information
+        """
+        if observation[key] not in ["vae", "yolact", "voxel", "dope"]:
+            src = "ground_truth_6D" if "6D" in observation[key] else "ground_truth"
+        else:
+            src = observation[key]
+        return src
+    
     def crop_image(self, img):
         """
         Crop image by 1/4 from each side
@@ -144,7 +158,7 @@ class VisionModule:
         else:
             raise Exception("{} module does not provide bounding boxes!".format(self.src))
 
-    def get_obj_position(self, obj=None, img=None, depth=None):
+    def get_obj_position(self, obj=None, img=None, depth=None,  key=None):
         """
         Get object position in world coordinates of environment from 2D and depth image
 
@@ -155,6 +169,7 @@ class VisionModule:
         Returns:
             :return position: (list) Centroid of object in world coordinates
         """
+        self.src = self.get_module_type_key(self.ob, key)
         if self.src == "ground_truth":
             if obj is not None:
                 return list(obj.get_position())

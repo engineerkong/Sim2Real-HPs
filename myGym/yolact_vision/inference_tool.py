@@ -15,12 +15,12 @@ import numpy as np
 
 # import YOLACT
 sys.path.append(os.path.relpath("."))
-from yolact import Yolact
-from data import set_cfg
-from utils.augmentations import FastBaseTransform
-from layers.output_utils import postprocess
-from eval import prep_display, parse_args, get_class_names_tuple
-from data.config import set_cfg
+from myGym.yolact_vision.yolact import Yolact
+from myGym.yolact_vision.data import set_cfg
+from myGym.yolact_vision.utils.augmentations import FastBaseTransform
+from myGym.yolact_vision.layers.output_utils import postprocess
+from myGym.yolact_vision.eval import prep_display, parse_args, get_class_names_tuple
+from myGym.yolact_vision.data.config import set_cfg
 
 import timeit
 

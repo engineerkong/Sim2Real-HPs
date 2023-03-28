@@ -1,1 +1,1 @@
-from .augmentations import SSDAugmentation
+from myGym.yolact_vision.utils.augmentations import SSDAugmentation
