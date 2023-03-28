@@ -63,7 +63,7 @@ class TaskModule():
 
     def render_images(self, camera_6d=None):
         if camera_6d is not None:
-            render_info = self.env.render(mode="rgb_array", camera_id=camera_6d)
+            render_info = self.env.render(mode="rgb_array", camera_6d=camera_6d)
             self.image = render_info["image"]
             self.depth = render_info["depth"]
         else:

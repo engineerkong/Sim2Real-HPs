@@ -5,7 +5,6 @@ import math
 from collections import deque
 from pathlib import Path
 from myGym.yolact_vision.layers.interpolate import InterpolateModule
-from myGym.yolact_vision.yolact import Concat
 
 class MovingAverage():
     """ Keeps an average window of the specified number of items. """
