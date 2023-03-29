@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
+CMAKE_SOURCE_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
+CMAKE_BINARY_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build
 
 # Include any dependencies generated for this target.
 include niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/depend.make
@@ -58,17 +58,17 @@ include niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/progr
 include niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/flags.make
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/flags.make
-niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o"
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial-test.dir/unix_serial_tests.cc.o -c /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc
+niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o"
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/serial-test.dir/unix_serial_tests.cc.o -c /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/serial-test.dir/unix_serial_tests.cc.i"
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc > CMakeFiles/serial-test.dir/unix_serial_tests.cc.i
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc > CMakeFiles/serial-test.dir/unix_serial_tests.cc.i
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/serial-test.dir/unix_serial_tests.cc.s"
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc -o CMakeFiles/serial-test.dir/unix_serial_tests.cc.s
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests/unix_serial_tests.cc -o CMakeFiles/serial-test.dir/unix_serial_tests.cc.s
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o.requires:
 
@@ -88,16 +88,16 @@ serial__test_OBJECTS = \
 # External object files for target serial-test
 serial__test_EXTERNAL_OBJECTS =
 
-/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o
-/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/build.make
-/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test: gtest/googlemock/gtest/libgtest.so
-/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libserial.so
-/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test"
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/serial-test.dir/link.txt --verbose=$(VERBOSE)
+/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/unix_serial_tests.cc.o
+/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/build.make
+/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test: gtest/googlemock/gtest/libgtest.so
+/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libserial.so
+/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test: niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test"
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/serial-test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/build: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/serial/serial-test
+niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/build: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/serial/serial-test
 
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/build
 
@@ -106,10 +106,10 @@ niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/requires: nir
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/requires
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/clean:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/serial-test.dir/cmake_clean.cmake
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/serial-test.dir/cmake_clean.cmake
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/clean
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/depend:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/serial-test.dir/depend
 

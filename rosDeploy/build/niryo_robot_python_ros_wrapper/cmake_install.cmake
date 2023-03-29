@@ -1,8 +1,8 @@
-# Install script for directory: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_python_ros_wrapper
+# Install script for directory: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_python_ros_wrapper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install")
+  set(CMAKE_INSTALL_PREFIX "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,29 +38,29 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/catkin_generated/safe_execute_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/catkin_generated/safe_execute_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapper.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapper.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_robot_python_ros_wrapper/cmake" TYPE FILE FILES
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapperConfig.cmake"
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapperConfig-version.cmake"
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapperConfig.cmake"
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/niryo_robot_python_ros_wrapperConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_robot_python_ros_wrapper" TYPE FILE FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_python_ros_wrapper/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_robot_python_ros_wrapper" TYPE FILE FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_python_ros_wrapper/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/niryo_robot_python_ros_wrapper" TYPE PROGRAM FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/ros_wrapper.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/niryo_robot_python_ros_wrapper" TYPE PROGRAM FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/catkin_generated/installspace/ros_wrapper.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_robot_python_ros_wrapper/examples" TYPE DIRECTORY FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_python_ros_wrapper/examples/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_robot_python_ros_wrapper/examples" TYPE DIRECTORY FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_python_ros_wrapper/examples/")
 endif()
 

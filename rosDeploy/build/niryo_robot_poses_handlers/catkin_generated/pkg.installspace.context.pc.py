@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "geometry_msgs;message_runtime;moveit_msgs;niryo_robot_msgs".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "niryo_robot_poses_handlers"
-PROJECT_SPACE_DIR = "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install"
+PROJECT_SPACE_DIR = "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install"
 PROJECT_VERSION = "4.1.0"

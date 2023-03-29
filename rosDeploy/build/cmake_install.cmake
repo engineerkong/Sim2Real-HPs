@@ -1,8 +1,8 @@
-# Install script for directory: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
+# Install script for directory: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install")
+  set(CMAKE_INSTALL_PREFIX "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,125 +49,125 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/_setup_util.py")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE PROGRAM FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE PROGRAM FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/env.sh")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE PROGRAM FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE PROGRAM FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/setup.bash;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/local_setup.bash")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/setup.bash;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE FILE FILES
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/setup.bash"
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/local_setup.bash"
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE FILE FILES
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/setup.bash"
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/setup.sh;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/local_setup.sh")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/setup.sh;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE FILE FILES
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/setup.sh"
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/local_setup.sh"
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE FILE FILES
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/setup.sh"
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/setup.zsh;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/local_setup.zsh")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/setup.zsh;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE FILE FILES
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/setup.zsh"
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/local_setup.zsh"
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE FILE FILES
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/setup.zsh"
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/.rosinstall")
+   "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" TYPE FILE FILES "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" TYPE FILE FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/catkin_generated/installspace/.rosinstall")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/gtest/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_end_effector_publisher_gui/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_description/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_gazebo/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_utils/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_bringup/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_system_api_client/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_user_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/dynamixel_sdk/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_msgs/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_sound/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_tools_commander/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_arm_commander/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/ttl_debug_tools/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/common/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/cpu_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/mcp_can_rpi/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/can_debug_tools/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_database/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_led_ring/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_modbus/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_reports/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_status/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/can_driver/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_programs_manager/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_rpi/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_vision/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_poses_handlers/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/ttl_driver/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/conveyor_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/end_effector_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/joints_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/tools_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_moveit_config/niryo_moveit_config_standalone/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_moveit_config/niryo_moveit_config_w_gripper1/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface/cmake_install.cmake")
-  include("/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_python_ros_wrapper/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/gtest/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_end_effector_publisher_gui/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_description/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_gazebo/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_utils/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_bringup/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_system_api_client/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_user_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/dynamixel_sdk/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_msgs/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_sound/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_tools_commander/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_arm_commander/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/ttl_debug_tools/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/common/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/cpu_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/mcp_can_rpi/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/can_debug_tools/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_database/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_led_ring/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_modbus/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_reports/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_status/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/can_driver/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_programs_manager/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_rpi/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_vision/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_poses_handlers/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/ttl_driver/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/conveyor_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/end_effector_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/joints_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/tools_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_moveit_config/niryo_moveit_config_standalone/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_moveit_config/niryo_moveit_config_w_gripper1/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface/cmake_install.cmake")
+  include("/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_python_ros_wrapper/cmake_install.cmake")
 
 endif()
 
@@ -179,5 +179,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

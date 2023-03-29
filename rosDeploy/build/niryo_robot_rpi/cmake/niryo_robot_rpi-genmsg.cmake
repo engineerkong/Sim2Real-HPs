@@ -2,7 +2,7 @@
 
 message(STATUS "niryo_robot_rpi: 6 messages, 9 services")
 
-set(MSG_I_FLAGS "-Iniryo_robot_rpi:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg;-Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg;-Iniryo_robot_msgs:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iniryo_robot_rpi:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg;-Iactionlib_msgs:/opt/ros/melodic/share/actionlib_msgs/cmake/../msg;-Iniryo_robot_msgs:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,79 +17,79 @@ add_custom_target(niryo_robot_rpi_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" "std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" "std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" "niryo_robot_rpi/I2CComponent"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" "niryo_robot_rpi/DigitalIO"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" "niryo_robot_rpi/AnalogIO"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" "niryo_robot_rpi/I2CComponent"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" "niryo_robot_rpi/AnalogIO"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" "niryo_robot_rpi/DigitalIO"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_rpi" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" ""
 )
 
 #
@@ -99,37 +99,37 @@ add_custom_target(_niryo_robot_rpi_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "${MSG_I_FLAGS}"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_msg_cpp(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
@@ -137,55 +137,55 @@ _generate_msg_cpp(niryo_robot_rpi
 
 ### Generating Services
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_cpp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_srv_cpp(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_rpi
@@ -203,35 +203,35 @@ add_custom_target(niryo_robot_rpi_generate_messages_cpp
 add_dependencies(niryo_robot_rpi_generate_messages niryo_robot_rpi_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_cpp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -244,37 +244,37 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_rpi_generate_messages_c
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "${MSG_I_FLAGS}"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_msg_eus(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
@@ -282,55 +282,55 @@ _generate_msg_eus(niryo_robot_rpi
 
 ### Generating Services
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_eus(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_srv_eus(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_rpi
@@ -348,35 +348,35 @@ add_custom_target(niryo_robot_rpi_generate_messages_eus
 add_dependencies(niryo_robot_rpi_generate_messages niryo_robot_rpi_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_eus _niryo_robot_rpi_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -389,37 +389,37 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_rpi_generate_messages_e
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "${MSG_I_FLAGS}"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_msg_lisp(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
@@ -427,55 +427,55 @@ _generate_msg_lisp(niryo_robot_rpi
 
 ### Generating Services
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_lisp(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_srv_lisp(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_rpi
@@ -493,35 +493,35 @@ add_custom_target(niryo_robot_rpi_generate_messages_lisp
 add_dependencies(niryo_robot_rpi_generate_messages niryo_robot_rpi_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_lisp _niryo_robot_rpi_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -534,37 +534,37 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_rpi_generate_messages_l
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "${MSG_I_FLAGS}"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_msg_nodejs(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
@@ -572,55 +572,55 @@ _generate_msg_nodejs(niryo_robot_rpi
 
 ### Generating Services
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_nodejs(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_srv_nodejs(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_rpi
@@ -638,35 +638,35 @@ add_custom_target(niryo_robot_rpi_generate_messages_nodejs
 add_dependencies(niryo_robot_rpi_generate_messages niryo_robot_rpi_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_nodejs _niryo_robot_rpi_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -679,37 +679,37 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_rpi_generate_messages_n
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_msg_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg"
+  "${MSG_I_FLAGS}"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_msg_py(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
@@ -717,55 +717,55 @@ _generate_msg_py(niryo_robot_rpi
 
 ### Generating Services
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
-)
-_generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
 )
 _generate_srv_py(niryo_robot_rpi
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
+)
+_generate_srv_py(niryo_robot_rpi
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_rpi
@@ -783,35 +783,35 @@ add_custom_target(niryo_robot_rpi_generate_messages_py
 add_dependencies(niryo_robot_rpi_generate_messages niryo_robot_rpi_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/LogStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/I2CComponent.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetDigitalIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/ScanI2CBus.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/AnalogIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetIOMode.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/AnalogIOState.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIOState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetPullup.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/GetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/msg/DigitalIO.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/SetAnalogIO.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_rpi/srv/ChangeMotorConfig.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_rpi/srv/LedBlinker.srv" NAME_WE)
 add_dependencies(niryo_robot_rpi_generate_messages_py _niryo_robot_rpi_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

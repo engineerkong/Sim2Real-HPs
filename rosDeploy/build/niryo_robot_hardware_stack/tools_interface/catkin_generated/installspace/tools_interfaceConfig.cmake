@@ -67,14 +67,14 @@ set(tools_interface_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(tools_interface_SOURCE_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/tools_interface)
-  set(tools_interface_DEVEL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel)
+  set(tools_interface_SOURCE_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface)
+  set(tools_interface_DEVEL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel)
   set(tools_interface_INSTALL_PREFIX "")
   set(tools_interface_PREFIX ${tools_interface_DEVEL_PREFIX})
 else()
   set(tools_interface_SOURCE_PREFIX "")
   set(tools_interface_DEVEL_PREFIX "")
-  set(tools_interface_INSTALL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install)
+  set(tools_interface_INSTALL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install)
   set(tools_interface_PREFIX ${tools_interface_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/lib;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/catkin_ws_niryo_ned/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

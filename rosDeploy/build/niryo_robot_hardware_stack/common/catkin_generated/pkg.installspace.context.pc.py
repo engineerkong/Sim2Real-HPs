@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "niryo_robot_msgs;roscpp".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-lcommon".split(';') if "-lcommon" != "" else []
 PROJECT_NAME = "common"
-PROJECT_SPACE_DIR = "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install"
+PROJECT_SPACE_DIR = "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install"
 PROJECT_VERSION = "4.1.0"

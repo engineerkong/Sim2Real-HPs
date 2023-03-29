@@ -6,7 +6,7 @@ from os import path as os_path
 from pkgutil import extend_path
 from sys import path as sys_path
 
-__extended_path = '/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_reports/src'.split(';')
+__extended_path = '/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_reports/src'.split(';')
 for p in reversed(__extended_path):
     sys_path.insert(0, p)
     del p

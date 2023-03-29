@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
+CMAKE_SOURCE_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
+CMAKE_BINARY_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build
 
 # Utility rule file for clean_test_results_niryo_robot_hardware_interface.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
 include niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/progress.make
 
 niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/test_results/niryo_robot_hardware_interface
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/test_results/niryo_robot_hardware_interface
 
 clean_test_results_niryo_robot_hardware_interface: niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface
 clean_test_results_niryo_robot_hardware_interface: niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/build.make
@@ -67,10 +67,10 @@ niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_
 .PHONY : niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/build
 
 niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/clean:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/cmake_clean.cmake
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/cmake_clean.cmake
 .PHONY : niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/clean
 
 niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/depend:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/niryo_robot_hardware_interface /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/niryo_robot_hardware_interface /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : niryo_robot_hardware_stack/niryo_robot_hardware_interface/CMakeFiles/clean_test_results_niryo_robot_hardware_interface.dir/depend
 

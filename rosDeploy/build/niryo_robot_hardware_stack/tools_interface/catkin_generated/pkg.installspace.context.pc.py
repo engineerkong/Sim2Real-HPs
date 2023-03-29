@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "common;message_runtime;roscpp;std_msgs;ttl_driver".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-ltools_interface".split(';') if "-ltools_interface" != "" else []
 PROJECT_NAME = "tools_interface"
-PROJECT_SPACE_DIR = "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install"
+PROJECT_SPACE_DIR = "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install"
 PROJECT_VERSION = "4.1.0"

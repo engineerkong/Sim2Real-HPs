@@ -9,8 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ttl_driver.dir/src/mock_stepper_driver.cpp.o"
   "CMakeFiles/ttl_driver.dir/src/ttl_interface_core.cpp.o"
   "CMakeFiles/ttl_driver.dir/src/ttl_manager.cpp.o"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libttl_driver.pdb"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libttl_driver.so"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libttl_driver.pdb"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libttl_driver.so"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -4,8 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/can_driver.dir/src/can_interface_core.cpp.o"
   "CMakeFiles/can_driver.dir/src/can_manager.cpp.o"
   "CMakeFiles/can_driver.dir/src/mock_stepper_driver.cpp.o"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libcan_driver.pdb"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libcan_driver.so"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libcan_driver.pdb"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libcan_driver.so"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,4 +1,4 @@
-prefix=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install
+prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install
 
 Name: dynamixel_sdk
 Description: Description of dynamixel_sdk

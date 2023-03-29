@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/conveyor_interface_generate_messages_eus"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/share/roseus/ros/conveyor_interface/msg/ConveyorFeedback.l"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/share/roseus/ros/conveyor_interface/msg/ConveyorFeedbackArray.l"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/share/roseus/ros/conveyor_interface/srv/ControlConveyor.l"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/share/roseus/ros/conveyor_interface/srv/SetConveyor.l"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/share/roseus/ros/conveyor_interface/manifest.l"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/share/roseus/ros/conveyor_interface/msg/ConveyorFeedback.l"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/share/roseus/ros/conveyor_interface/msg/ConveyorFeedbackArray.l"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/share/roseus/ros/conveyor_interface/srv/ControlConveyor.l"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/share/roseus/ros/conveyor_interface/srv/SetConveyor.l"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/share/roseus/ros/conveyor_interface/manifest.l"
 )
 
 # Per-language clean rules from dependency scanning.

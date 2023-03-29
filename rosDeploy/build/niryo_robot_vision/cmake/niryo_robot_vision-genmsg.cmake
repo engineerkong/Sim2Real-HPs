@@ -2,7 +2,7 @@
 
 message(STATUS "niryo_robot_vision: 1 messages, 6 services")
 
-set(MSG_I_FLAGS "-Iniryo_robot_vision:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg;-Iniryo_robot_msgs:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iniryo_robot_vision:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg;-Iniryo_robot_msgs:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg;-Isensor_msgs:/opt/ros/melodic/share/sensor_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,39 +17,39 @@ add_custom_target(niryo_robot_vision_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" "sensor_msgs/CompressedImage:niryo_robot_msgs/ObjectPose:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" "sensor_msgs/CompressedImage:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" "sensor_msgs/CompressedImage:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" "sensor_msgs/CompressedImage:niryo_robot_msgs/ObjectPose:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" "sensor_msgs/CompressedImage:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" "sensor_msgs/CompressedImage:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_vision" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" ""
 )
 
 #
@@ -59,7 +59,7 @@ add_custom_target(_niryo_robot_vision_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
@@ -67,37 +67,37 @@ _generate_msg_cpp(niryo_robot_vision
 
 ### Generating Services
 _generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_cpp(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_cpp(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_cpp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_vision
@@ -115,19 +115,19 @@ add_custom_target(niryo_robot_vision_generate_messages_cpp
 add_dependencies(niryo_robot_vision_generate_messages niryo_robot_vision_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_cpp _niryo_robot_vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -140,7 +140,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_vision_generate_message
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
@@ -148,37 +148,37 @@ _generate_msg_eus(niryo_robot_vision
 
 ### Generating Services
 _generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_eus(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_eus(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_eus(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_vision
@@ -196,19 +196,19 @@ add_custom_target(niryo_robot_vision_generate_messages_eus
 add_dependencies(niryo_robot_vision_generate_messages niryo_robot_vision_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_eus _niryo_robot_vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -221,7 +221,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_vision_generate_message
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
@@ -229,37 +229,37 @@ _generate_msg_lisp(niryo_robot_vision
 
 ### Generating Services
 _generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_lisp(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_lisp(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_lisp(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_vision
@@ -277,19 +277,19 @@ add_custom_target(niryo_robot_vision_generate_messages_lisp
 add_dependencies(niryo_robot_vision_generate_messages niryo_robot_vision_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_lisp _niryo_robot_vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -302,7 +302,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_vision_generate_message
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
@@ -310,37 +310,37 @@ _generate_msg_nodejs(niryo_robot_vision
 
 ### Generating Services
 _generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_nodejs(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_nodejs(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_nodejs(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_vision
@@ -358,19 +358,19 @@ add_custom_target(niryo_robot_vision_generate_messages_nodejs
 add_dependencies(niryo_robot_vision_generate_messages niryo_robot_vision_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_nodejs _niryo_robot_vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -383,7 +383,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_vision_generate_message
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
@@ -391,37 +391,37 @@ _generate_msg_py(niryo_robot_vision
 
 ### Generating Services
 _generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_py(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
+)
+_generate_srv_py(niryo_robot_vision
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
 )
 _generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg/ObjectPose.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/sensor_msgs/cmake/../msg/CompressedImage.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
-)
-_generate_srv_py(niryo_robot_vision
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_vision
@@ -439,19 +439,19 @@ add_custom_target(niryo_robot_vision_generate_messages_py
 add_dependencies(niryo_robot_vision_generate_messages niryo_robot_vision_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/SetImageParameter.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/ObjDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/DebugMarkers.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/DebugColorDetection.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/srv/TakePicture.srv" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_vision/srv/Visualization.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_vision/msg/ImageParameters.msg" NAME_WE)
 add_dependencies(niryo_robot_vision_generate_messages_py _niryo_robot_vision_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

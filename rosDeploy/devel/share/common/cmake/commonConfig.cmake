@@ -67,14 +67,14 @@ set(common_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(common_SOURCE_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/common)
-  set(common_DEVEL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel)
+  set(common_SOURCE_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/common)
+  set(common_DEVEL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel)
   set(common_INSTALL_PREFIX "")
   set(common_PREFIX ${common_DEVEL_PREFIX})
 else()
   set(common_SOURCE_PREFIX "")
   set(common_DEVEL_PREFIX "")
-  set(common_INSTALL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install)
+  set(common_INSTALL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install)
   set(common_PREFIX ${common_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(common_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/common/include " STREQUAL " ")
+if(NOT "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/common/include " STREQUAL " ")
   set(common_INCLUDE_DIRS "")
-  set(_include_dirs "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/common/include")
+  set(_include_dirs "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/common/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware
         message(FATAL_ERROR "Project 'common' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'common' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/common/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'common' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/common/${idir}'.  ${_report}")
     endif()
     _list_append_unique(common_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/catkin_ws_niryo_ned/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

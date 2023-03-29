@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "niryo_robot_user_interface"
-PROJECT_SPACE_DIR = "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install"
+PROJECT_SPACE_DIR = "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install"
 PROJECT_VERSION = "4.1.0"

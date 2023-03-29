@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "actionlib;can_driver;common;controller_manager;hardware_interface;niryo_robot_msgs;roscpp;ttl_driver".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-ljoints_interface;-ljoints_interface_core".split(';') if "-ljoints_interface;-ljoints_interface_core" != "" else []
 PROJECT_NAME = "joints_interface"
-PROJECT_SPACE_DIR = "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install"
+PROJECT_SPACE_DIR = "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install"
 PROJECT_VERSION = "4.1.0"

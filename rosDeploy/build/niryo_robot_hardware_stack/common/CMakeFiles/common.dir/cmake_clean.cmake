@@ -16,8 +16,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/common.dir/src/model/stepper_command_type_enum.cpp.o"
   "CMakeFiles/common.dir/src/model/stepper_motor_state.cpp.o"
   "CMakeFiles/common.dir/src/model/tool_state.cpp.o"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libcommon.pdb"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib/libcommon.so"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libcommon.pdb"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/libcommon.so"
 )
 
 # Per-language clean rules from dependency scanning.

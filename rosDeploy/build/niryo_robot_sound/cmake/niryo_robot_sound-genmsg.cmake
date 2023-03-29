@@ -2,7 +2,7 @@
 
 message(STATUS "niryo_robot_sound: 2 messages, 3 services")
 
-set(MSG_I_FLAGS "-Iniryo_robot_sound:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg;-Iniryo_robot_msgs:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iniryo_robot_sound:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg;-Iniryo_robot_msgs:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,29 +17,29 @@ add_custom_target(niryo_robot_sound_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" "niryo_robot_sound/SoundObject"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" "niryo_robot_sound/SoundObject"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" ""
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_sound" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" ""
 )
 
 #
@@ -49,13 +49,13 @@ add_custom_target(_niryo_robot_sound_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_msg_cpp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_sound
@@ -63,19 +63,19 @@ _generate_msg_cpp(niryo_robot_sound
 
 ### Generating Services
 _generate_srv_cpp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_cpp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_cpp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_sound
@@ -93,15 +93,15 @@ add_custom_target(niryo_robot_sound_generate_messages_cpp
 add_dependencies(niryo_robot_sound_generate_messages niryo_robot_sound_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_cpp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_cpp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_cpp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_cpp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_cpp _niryo_robot_sound_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -114,13 +114,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_sound_generate_messages
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_msg_eus(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_sound
@@ -128,19 +128,19 @@ _generate_msg_eus(niryo_robot_sound
 
 ### Generating Services
 _generate_srv_eus(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_eus(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_eus(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_sound
@@ -158,15 +158,15 @@ add_custom_target(niryo_robot_sound_generate_messages_eus
 add_dependencies(niryo_robot_sound_generate_messages niryo_robot_sound_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_eus _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_eus _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_eus _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_eus _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_eus _niryo_robot_sound_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -179,13 +179,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_sound_generate_messages
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_msg_lisp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_sound
@@ -193,19 +193,19 @@ _generate_msg_lisp(niryo_robot_sound
 
 ### Generating Services
 _generate_srv_lisp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_lisp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_lisp(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_sound
@@ -223,15 +223,15 @@ add_custom_target(niryo_robot_sound_generate_messages_lisp
 add_dependencies(niryo_robot_sound_generate_messages niryo_robot_sound_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_lisp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_lisp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_lisp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_lisp _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_lisp _niryo_robot_sound_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -244,13 +244,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_sound_generate_messages
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_msg_nodejs(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_sound
@@ -258,19 +258,19 @@ _generate_msg_nodejs(niryo_robot_sound
 
 ### Generating Services
 _generate_srv_nodejs(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_nodejs(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_nodejs(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_sound
@@ -288,15 +288,15 @@ add_custom_target(niryo_robot_sound_generate_messages_nodejs
 add_dependencies(niryo_robot_sound_generate_messages niryo_robot_sound_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_nodejs _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_nodejs _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_nodejs _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_nodejs _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_nodejs _niryo_robot_sound_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -309,13 +309,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_sound_generate_messages
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg"
   "${MSG_I_FLAGS}"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_msg_py(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_sound
@@ -323,19 +323,19 @@ _generate_msg_py(niryo_robot_sound
 
 ### Generating Services
 _generate_srv_py(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_py(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_sound
 )
 _generate_srv_py(niryo_robot_sound
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_sound
@@ -353,15 +353,15 @@ add_custom_target(niryo_robot_sound_generate_messages_py
 add_dependencies(niryo_robot_sound_generate_messages niryo_robot_sound_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_py _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundList.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_py _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/ManageSound.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_py _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/TextToSpeech.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_py _niryo_robot_sound_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_sound/msg/SoundObject.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_sound/srv/PlaySound.srv" NAME_WE)
 add_dependencies(niryo_robot_sound_generate_messages_py _niryo_robot_sound_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

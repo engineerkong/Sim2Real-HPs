@@ -151,7 +151,8 @@ def is_vectorized_observation(observation, observation_space):
         raise ValueError(u"Error")
     
 def is_vectorized_box_observation(observation, observation_space):
-
+    print("obs:{}".format(observation.shape))
+    print("obs space:{}".format(observation_space.shape))
     if observation.shape == observation_space.shape:
         return False
     elif observation.shape[1:] == observation_space.shape:

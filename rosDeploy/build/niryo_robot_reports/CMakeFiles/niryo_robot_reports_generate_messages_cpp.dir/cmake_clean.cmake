@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/niryo_robot_reports_generate_messages_cpp"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include/niryo_robot_reports/Service.h"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include/niryo_robot_reports/CheckConnection.h"
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include/niryo_robot_reports/RunAutoDiagnosis.h"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include/niryo_robot_reports/Service.h"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include/niryo_robot_reports/CheckConnection.h"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include/niryo_robot_reports/RunAutoDiagnosis.h"
 )
 
 # Per-language clean rules from dependency scanning.

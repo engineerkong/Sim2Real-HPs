@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
+CMAKE_SOURCE_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
+CMAKE_BINARY_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build
 
 # Utility rule file for clean_test_results_serial.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
 include niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/progress.make
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/test_results/serial
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && /usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/test_results/serial
 
 clean_test_results_serial: niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial
 clean_test_results_serial: niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/build.make
@@ -67,10 +67,10 @@ niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/build
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/clean:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_serial.dir/cmake_clean.cmake
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests && $(CMAKE_COMMAND) -P CMakeFiles/clean_test_results_serial.dir/cmake_clean.cmake
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
 
 niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/depend:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : niryo_robot_hardware_stack/serial/tests/CMakeFiles/clean_test_results_serial.dir/depend
 

@@ -6,5 +6,5 @@ CXX_FLAGS =   -Wall -Werror -std=gnu++14
 
 CXX_DEFINES = -DNIRYO_NED2 -DROS_BUILD_SHARED_LIBS=1
 
-CXX_INCLUDES = -I/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/can_debug_tools/include -I/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/mcp_can_rpi/include 
+CXX_INCLUDES = -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/can_debug_tools/include -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/mcp_can_rpi/include 
 

@@ -1,4 +1,4 @@
-prefix=/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel
+prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel
 
 Name: niryo_end_effector_publisher_gui
 Description: Description of niryo_end_effector_publisher_gui

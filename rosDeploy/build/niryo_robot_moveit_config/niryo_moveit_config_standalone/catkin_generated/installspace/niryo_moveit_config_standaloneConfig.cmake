@@ -67,14 +67,14 @@ set(niryo_moveit_config_standalone_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(niryo_moveit_config_standalone_SOURCE_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_moveit_config/niryo_moveit_config_standalone)
-  set(niryo_moveit_config_standalone_DEVEL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel)
+  set(niryo_moveit_config_standalone_SOURCE_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_moveit_config/niryo_moveit_config_standalone)
+  set(niryo_moveit_config_standalone_DEVEL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel)
   set(niryo_moveit_config_standalone_INSTALL_PREFIX "")
   set(niryo_moveit_config_standalone_PREFIX ${niryo_moveit_config_standalone_DEVEL_PREFIX})
 else()
   set(niryo_moveit_config_standalone_SOURCE_PREFIX "")
   set(niryo_moveit_config_standalone_DEVEL_PREFIX "")
-  set(niryo_moveit_config_standalone_INSTALL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install)
+  set(niryo_moveit_config_standalone_INSTALL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install)
   set(niryo_moveit_config_standalone_PREFIX ${niryo_moveit_config_standalone_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/lib;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/catkin_ws_niryo_ned/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

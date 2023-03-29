@@ -26,10 +26,10 @@ pip install .
 make install-dev
 
 # Install ros dependencies 
-(caution:
+caution:
 ros-melodic is based on Ubuntu 18.04
-ROS Python packages are only installed for the default system-provided Python interpreter
-the suitable python version for ned2 ros simulation is 2.7)
+ROS Python packages are only installed for the default system-provided Python interpreter 
+the suitable python version for ned2 ros simulation is 2.7, it will be recommanded not use anaconda to control dependencies
 
 # 1. follow ros melodic installation 
 # http://wiki.ros.org/melodic/Installation/Ubuntu
@@ -41,6 +41,13 @@ cd Sim2Real_py2
 catkin_make
 echo "source $(pwd)/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
+
+# (optional, if use conda) using following if catpkg not found:
+pip install -U rosdep rosinstall_generator wstool rosinstall six vcstools
+unlink src/CMakeLists.txt
+rm -rf build
+rm -rf devel
+rm .catkin_workspace
 ```
 
 

@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
-# Build directory: /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
+# Source directory: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
+# Build directory: /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

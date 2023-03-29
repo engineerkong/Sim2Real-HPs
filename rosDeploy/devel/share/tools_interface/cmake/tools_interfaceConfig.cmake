@@ -67,14 +67,14 @@ set(tools_interface_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(tools_interface_SOURCE_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/tools_interface)
-  set(tools_interface_DEVEL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel)
+  set(tools_interface_SOURCE_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface)
+  set(tools_interface_DEVEL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel)
   set(tools_interface_INSTALL_PREFIX "")
   set(tools_interface_PREFIX ${tools_interface_DEVEL_PREFIX})
 else()
   set(tools_interface_SOURCE_PREFIX "")
   set(tools_interface_DEVEL_PREFIX "")
-  set(tools_interface_INSTALL_PREFIX /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install)
+  set(tools_interface_INSTALL_PREFIX /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install)
   set(tools_interface_PREFIX ${tools_interface_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(tools_interface_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/tools_interface/include " STREQUAL " ")
+if(NOT "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface/include " STREQUAL " ")
   set(tools_interface_INCLUDE_DIRS "")
-  set(_include_dirs "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/tools_interface/include")
+  set(_include_dirs "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/include;/home/ling
         message(FATAL_ERROR "Project 'tools_interface' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'tools_interface' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_hardware_stack/tools_interface/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'tools_interface' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface/${idir}'.  ${_report}")
     endif()
     _list_append_unique(tools_interface_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel/lib;/home/lingxiao/master/catkin_ws_niryo_ned/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

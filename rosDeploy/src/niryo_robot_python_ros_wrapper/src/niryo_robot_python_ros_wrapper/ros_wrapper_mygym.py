@@ -14,7 +14,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.num_eval = num_eval
         self.num_episodes = num_episodes
         self.workspace = 'gazebo_1'
-        self.object_pose = np.zeros((18,))
+        self.object_pose = np.zeros((13,))
         self.target_pose = np.array([0.2, -0.03, 0.011, 0.0, 1.0, 0.5])
         self.gripper_object = 0
         self.goal_achieve = 0

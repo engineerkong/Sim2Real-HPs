@@ -13,21 +13,21 @@ fi
 
 echo_and_run() { echo "+ $@" ; "$@" ; }
 
-echo_and_run cd "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_utils"
+echo_and_run cd "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_utils"
 
 # ensure that Python install destination exists
-echo_and_run mkdir -p "$DESTDIR/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/lib/python2.7/dist-packages"
+echo_and_run mkdir -p "$DESTDIR/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/lib/python2.7/dist-packages"
 
 # Note that PYTHONPATH is pulled from the environment to support installing
 # into one location when some dependencies were installed in another
 # location, #123.
 echo_and_run /usr/bin/env \
-    PYTHONPATH="/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/lib/python2.7/dist-packages:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/lib/python2.7/dist-packages:$PYTHONPATH" \
-    CATKIN_BINARY_DIR="/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build" \
+    PYTHONPATH="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/lib/python2.7/dist-packages:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/lib/python2.7/dist-packages:$PYTHONPATH" \
+    CATKIN_BINARY_DIR="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build" \
     "/usr/bin/python2" \
-    "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_utils/setup.py" \
-    egg_info --egg-base /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_utils \
-    build --build-base "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_utils" \
+    "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_utils/setup.py" \
+    egg_info --egg-base /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_utils \
+    build --build-base "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_utils" \
     install \
     --root="${DESTDIR-/}" \
-    --install-layout=deb --prefix="/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install" --install-scripts="/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/install/bin"
+    --install-layout=deb --prefix="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install" --install-scripts="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install/bin"

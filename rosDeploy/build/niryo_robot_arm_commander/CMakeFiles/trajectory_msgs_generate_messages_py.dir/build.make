@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src
+CMAKE_SOURCE_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build
+CMAKE_BINARY_DIR = /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build
 
 # Utility rule file for trajectory_msgs_generate_messages_py.
 
@@ -63,10 +63,10 @@ niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/bu
 .PHONY : niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/build
 
 niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_arm_commander && $(CMAKE_COMMAND) -P CMakeFiles/trajectory_msgs_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_arm_commander && $(CMAKE_COMMAND) -P CMakeFiles/trajectory_msgs_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/clean
 
 niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/depend:
-	cd /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_arm_commander /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_arm_commander /home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/build/niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_arm_commander /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_arm_commander /home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build/niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : niryo_robot_arm_commander/CMakeFiles/trajectory_msgs_generate_messages_py.dir/depend
 

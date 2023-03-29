@@ -19,7 +19,7 @@ class RobogymEnv:
 
     def __init__(self):
         
-        self.observation_space = Box(-float('inf'), float('inf'), (18,))
+        self.observation_space = Box(-float('inf'), float('inf'), (13,))
         self.action_space = Box(-float(1), float(1), (6,))
 
 print("---load---")

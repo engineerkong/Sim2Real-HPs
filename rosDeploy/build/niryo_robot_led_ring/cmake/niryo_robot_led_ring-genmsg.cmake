@@ -2,7 +2,7 @@
 
 message(STATUS "niryo_robot_led_ring: 3 messages, 2 services")
 
-set(MSG_I_FLAGS "-Iniryo_robot_led_ring:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg;-Iniryo_robot_msgs:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Ivisualization_msgs:/opt/ros/melodic/share/visualization_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iniryo_robot_led_ring:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg;-Iniryo_robot_msgs:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Ivisualization_msgs:/opt/ros/melodic/share/visualization_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,29 +17,29 @@ add_custom_target(niryo_robot_led_ring_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" "std_msgs/ColorRGBA:niryo_robot_led_ring/LedRingAnimation"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" "std_msgs/ColorRGBA:niryo_robot_led_ring/LedRingAnimation"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" "std_msgs/ColorRGBA:std_msgs/Header"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" "std_msgs/ColorRGBA:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" "std_msgs/ColorRGBA"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" "std_msgs/ColorRGBA"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" "std_msgs/ColorRGBA:niryo_robot_led_ring/LedRingAnimation"
 )
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" "std_msgs/ColorRGBA:niryo_robot_led_ring/LedRingAnimation"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_led_ring" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" ""
 )
 
 #
@@ -49,33 +49,33 @@ add_custom_target(_niryo_robot_led_ring_generate_messages_check_deps_${_filename
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
-)
-_generate_msg_cpp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_msg_cpp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
+)
+_generate_msg_cpp(niryo_robot_led_ring
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
 )
 
 ### Generating Services
 _generate_srv_cpp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_srv_cpp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_led_ring
@@ -93,15 +93,15 @@ add_custom_target(niryo_robot_led_ring_generate_messages_cpp
 add_dependencies(niryo_robot_led_ring_generate_messages niryo_robot_led_ring_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_cpp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_cpp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_cpp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_cpp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_cpp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -114,33 +114,33 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_led_ring_generate_messa
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
-)
-_generate_msg_eus(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_msg_eus(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
+)
+_generate_msg_eus(niryo_robot_led_ring
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
 )
 
 ### Generating Services
 _generate_srv_eus(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_srv_eus(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_led_ring
@@ -158,15 +158,15 @@ add_custom_target(niryo_robot_led_ring_generate_messages_eus
 add_dependencies(niryo_robot_led_ring_generate_messages niryo_robot_led_ring_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_eus _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_eus _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_eus _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_eus _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_eus _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -179,33 +179,33 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_led_ring_generate_messa
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
-)
-_generate_msg_lisp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_msg_lisp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
+)
+_generate_msg_lisp(niryo_robot_led_ring
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
 )
 
 ### Generating Services
 _generate_srv_lisp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_srv_lisp(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_led_ring
@@ -223,15 +223,15 @@ add_custom_target(niryo_robot_led_ring_generate_messages_lisp
 add_dependencies(niryo_robot_led_ring_generate_messages niryo_robot_led_ring_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_lisp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_lisp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_lisp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_lisp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_lisp _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -244,33 +244,33 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_led_ring_generate_messa
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
-)
-_generate_msg_nodejs(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_msg_nodejs(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
+)
+_generate_msg_nodejs(niryo_robot_led_ring
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
 )
 
 ### Generating Services
 _generate_srv_nodejs(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_srv_nodejs(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_led_ring
@@ -288,15 +288,15 @@ add_custom_target(niryo_robot_led_ring_generate_messages_nodejs
 add_dependencies(niryo_robot_led_ring_generate_messages niryo_robot_led_ring_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_nodejs _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_nodejs _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_nodejs _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_nodejs _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_nodejs _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -309,33 +309,33 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_led_ring_generate_messa
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
-)
-_generate_msg_py(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/melodic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_msg_py(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
+)
+_generate_msg_py(niryo_robot_led_ring
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "${MSG_I_FLAGS}"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
 )
 
 ### Generating Services
 _generate_srv_py(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
+  "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
 )
 _generate_srv_py(niryo_robot_led_ring
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv"
   "${MSG_I_FLAGS}"
   "/opt/ros/melodic/share/std_msgs/cmake/../msg/ColorRGBA.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_led_ring
@@ -353,15 +353,15 @@ add_custom_target(niryo_robot_led_ring_generate_messages_py
 add_dependencies(niryo_robot_led_ring_generate_messages niryo_robot_led_ring_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/LedUser.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_py _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_py _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingCurrentState.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_py _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/srv/SetLedColor.srv" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_py _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_led_ring/msg/LedRingStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_led_ring/msg/LedRingAnimation.msg" NAME_WE)
 add_dependencies(niryo_robot_led_ring_generate_messages_py _niryo_robot_led_ring_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

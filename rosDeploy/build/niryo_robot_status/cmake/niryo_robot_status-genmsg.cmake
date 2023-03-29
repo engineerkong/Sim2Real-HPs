@@ -2,7 +2,7 @@
 
 message(STATUS "niryo_robot_status: 1 messages, 0 services")
 
-set(MSG_I_FLAGS "-Iniryo_robot_status:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg;-Iniryo_robot_msgs:/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iniryo_robot_status:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg;-Iniryo_robot_msgs:/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_msgs/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/melodic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,9 +17,9 @@ add_custom_target(niryo_robot_status_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_custom_target(_niryo_robot_status_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_status" "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "niryo_robot_status" "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" ""
 )
 
 #
@@ -29,7 +29,7 @@ add_custom_target(_niryo_robot_status_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(niryo_robot_status
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/niryo_robot_status
@@ -49,7 +49,7 @@ add_custom_target(niryo_robot_status_generate_messages_cpp
 add_dependencies(niryo_robot_status_generate_messages niryo_robot_status_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_status_generate_messages_cpp _niryo_robot_status_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -62,7 +62,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_status_generate_message
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(niryo_robot_status
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/niryo_robot_status
@@ -82,7 +82,7 @@ add_custom_target(niryo_robot_status_generate_messages_eus
 add_dependencies(niryo_robot_status_generate_messages niryo_robot_status_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_status_generate_messages_eus _niryo_robot_status_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -95,7 +95,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_status_generate_message
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(niryo_robot_status
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/niryo_robot_status
@@ -115,7 +115,7 @@ add_custom_target(niryo_robot_status_generate_messages_lisp
 add_dependencies(niryo_robot_status_generate_messages niryo_robot_status_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_status_generate_messages_lisp _niryo_robot_status_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -128,7 +128,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_status_generate_message
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(niryo_robot_status
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/niryo_robot_status
@@ -148,7 +148,7 @@ add_custom_target(niryo_robot_status_generate_messages_nodejs
 add_dependencies(niryo_robot_status_generate_messages niryo_robot_status_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_status_generate_messages_nodejs _niryo_robot_status_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -161,7 +161,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS niryo_robot_status_generate_message
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(niryo_robot_status
-  "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg"
+  "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/niryo_robot_status
@@ -181,7 +181,7 @@ add_custom_target(niryo_robot_status_generate_messages_py
 add_dependencies(niryo_robot_status_generate_messages niryo_robot_status_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
+get_filename_component(_filename "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_status/msg/RobotStatus.msg" NAME_WE)
 add_dependencies(niryo_robot_status_generate_messages_py _niryo_robot_status_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

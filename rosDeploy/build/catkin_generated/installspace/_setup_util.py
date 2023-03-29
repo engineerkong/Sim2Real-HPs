@@ -268,7 +268,7 @@ if __name__ == '__main__':
 
         if not args.local:
             # environment at generation time
-            CMAKE_PREFIX_PATH = r'/home/lingxiao/master/Sim2Real_py2/Sim2Real_py2/devel;/home/lingxiao/master/catkin_ws_niryo_ned/devel;/opt/ros/melodic'.split(';')
+            CMAKE_PREFIX_PATH = r'/opt/ros/melodic'.split(';')
         else:
             # don't consider any other prefix path than this one
             CMAKE_PREFIX_PATH = []
