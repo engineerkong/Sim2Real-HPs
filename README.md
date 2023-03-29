@@ -30,6 +30,12 @@ pip install stable-baselines3[extra]==1.5.0
 
 cd myGym
 
+# Download pretrained visual modules
+sh download_vision.sh
+
+# Download pretrained baseline models
+sh download_baselines.sh
+
 # Check, whether the toolbox works
 sh ./speed_checker.sh
 ```
