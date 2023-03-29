@@ -14,8 +14,8 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.num_eval = num_eval
         self.num_episodes = num_episodes
         self.workspace = 'gazebo_1'
-        self.object_pose = np.zeros((13,))
-        self.target_pose = np.array([0.2, -0.03, 0.011, 0.0, 1.0, 0.5])
+        self.object_xyz = np.zeros((3,))
+        self.target_xyz = np.array([0.2, -0.03, 0.011])
         self.gripper_object = 0
         self.goal_achieve = 0
 
@@ -47,7 +47,9 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
             print("action:{}".format(self.action))
             self.step()
             self.get_observation()
+            print("observation:{}".format(self.obs))
             self.get_reward()
+            print("reward:{}".format(self.reward))
             list_num_eval[j] = j
             list_reward[j] += self.reward
             if self.goal_achieve == 1:
@@ -60,41 +62,28 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         # move joints to the action joints
         self.move_joints(*self.action)
         # calculate the distance among 3 states and decide to move the gripper
-        ob_pose = np.array([self.pick_pose.position.x, self.pick_pose.position.y, self.pick_pose.position.z])
-        ee_pose = np.array([self.tcp_pose.position.x, self.tcp_pose.position.y, self.tcp_pose.position.z])
-        if np.linalg.norm(ee_pose - ob_pose) <= 0.05:
+        if np.linalg.norm(self.endeff_6d[:3] - self.object_xyz) <= 0.05:
             self.close_gripper()
             self.gripper_object = 1
-            self.pick_pose = self.tcp_pose
-        elif np.linalg.norm(ee_pose[:2] - self.target_pose[:2]) <= 0.05 and self.gripper_object == 1:
+        elif np.linalg.norm(self.endeff_6d[:3] - self.target_xyz) <= 0.05 and self.gripper_object == 1:
             self.open_gripper()
             self.gripper_object = 0
             self.goal_achieve = 1
-            self.pick_pose = self.target_pose
 
     def get_observation(self):
         # get the actual state
         object_found, object_pose, object_shape, object_color = self.detect_object(
             self.workspace, shape = ObjectShape.ANY, color = ObjectColor.ANY)
         if object_found:
-            self.pick_pose = self.get_target_pose_from_rel(
-                self.workspace, height_offset=0, x_rel=object_pose.x, y_rel=object_pose.y, yaw_rel=object_pose.yaw)
-        if self.gripper_object == 1:
-            touch = np.array([1], dtype='int32')
-            self.pick_pose = self.tcp_pose
-        else:
-            touch = np.array([0], dtype='int32')
+            self.object_xyz = np.array([object_pose.x, object_pose.y, object_pose.z])
         # get the additional state
-        self.tcp_pose = self.get_pose()
-        # modify the euler to quaternion to suit the obs space
-        obj_quat = quaternion_from_euler(self.pick_pose.rpy.roll, self.pick_pose.rpy.pitch, self.pick_pose.rpy.yaw)
-        obj_6D = np.array([self.pick_pose.position.x, self.pick_pose.position.y, self.pick_pose.position.z, obj_quat[0], obj_quat[1], obj_quat[2], obj_quat[3]])
-        goal_obj_quat = quaternion_from_euler(self.target_pose[3], self.target_pose[4], self.target_pose[5])
-        goal_obj_6D = np.array([self.target_pose[0], self.target_pose[1], self.target_pose[2], goal_obj_quat[0], goal_obj_quat[1], goal_obj_quat[2], goal_obj_quat[3]])
-        endeff_xyz = np.array([self.tcp_pose.position.x, self.tcp_pose.position.y, self.tcp_pose.position.z])
+        tcp_pose = self.get_pose()
+        self.endeff_6d = np.array([tcp_pose.position.x, tcp_pose.position.y, tcp_pose.position.z, 
+                                   tcp_pose.orientation.x, tcp_pose.orientation.y, tcp_pose.orientation.z, tcp_pose.orientation.w])
+        if self.gripper_object == 1:
+            self.object_xyz = self.endeff_6d[:3]
         # save obs and print
-        self.obs = np.concatenate((obj_6D, goal_obj_6D, endeff_xyz, touch),axis=0)
-        print("observation:{}".format(self.obs))
+        self.obs = np.concatenate((self.object_xyz, self.target_xyz, self.endeff_6d),axis=0)
 
     def get_reward(self):
         # use pnp reward instead
