@@ -8,7 +8,7 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH='/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib:/opt/ros/melodic/lib:/usr/local/cuda-11.3/lib64:/home/lingxiao/.mujoco/mujoco200/bin'
 export PKG_CONFIG_PATH="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/build'
 export PYTHONPATH="/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/lib/python2.7/dist-packages:$PYTHONPATH"
