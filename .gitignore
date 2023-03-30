@@ -1,7 +1,7 @@
-*pyc
-*bak
-*swp
-*log
+*.pyc
+*.bak
+*.swp
+*.log
 __pycache__*
 build/
 devel/
