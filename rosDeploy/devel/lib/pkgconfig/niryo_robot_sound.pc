@@ -1,8 +1,0 @@
-prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel
-
-Name: niryo_robot_sound
-Description: Description of niryo_robot_sound
-Version: 4.1.0
-Cflags: -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include
-Libs: -L${prefix}/lib 
-Requires: message_runtime niryo_robot_msgs std_msgs

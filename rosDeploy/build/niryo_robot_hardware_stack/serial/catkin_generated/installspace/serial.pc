@@ -1,8 +1,0 @@
-prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/install
-
-Name: serial
-Description: Description of serial
-Version: 1.2.1
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib -lserial
-Requires: 

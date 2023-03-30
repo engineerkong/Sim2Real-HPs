@@ -1,8 +1,0 @@
-prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel
-
-Name: tools_interface
-Description: Description of tools_interface
-Version: 4.1.0
-Cflags: -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel/include -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/tools_interface/include
-Libs: -L${prefix}/lib -ltools_interface
-Requires: common message_runtime roscpp std_msgs ttl_driver

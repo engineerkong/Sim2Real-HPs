@@ -1,8 +1,0 @@
-prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel
-
-Name: joints_interface
-Description: Description of joints_interface
-Version: 4.1.0
-Cflags: -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/joints_interface/include
-Libs: -L${prefix}/lib -ljoints_interface -ljoints_interface_core
-Requires: actionlib can_driver common controller_manager hardware_interface niryo_robot_msgs roscpp ttl_driver

@@ -1,2 +1,0 @@
-set(niryo_robot_reports_MESSAGE_FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_reports/msg/Service.msg")
-set(niryo_robot_reports_SERVICE_FILES "/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_reports/srv/CheckConnection.srv;/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_reports/srv/RunAutoDiagnosis.srv")
