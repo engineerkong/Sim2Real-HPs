@@ -1,8 +1,0 @@
-prefix=/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/devel
-
-Name: cpu_interface
-Description: Description of cpu_interface
-Version: 4.1.0
-Cflags: -I/home/lingxiao/master/github/ros_deploy/Sim2Real-HPs/rosDeploy/src/niryo_robot_hardware_stack/cpu_interface/include
-Libs: -L${prefix}/lib -lcpu_interface
-Requires: common roscpp
