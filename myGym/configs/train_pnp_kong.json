@@ -5,8 +5,8 @@
     "engine"    :"pybullet",
     "render"    :"opengl",
     "camera"    :4,
-    "gui"       :0,
-    "visualize" :0,
+    "gui"       :1,
+    "visualize" :1,
     "visgym"    :0,
     #Robot
     "robot"         :"kong",
@@ -42,7 +42,7 @@
     "num_networks"      :1,
     "max_episode_steps" :512,
     "algo_steps"        :512,
-    "steps"             :200000,
+    "steps"             :150000,
     "pretrained_model"  :null,
     "multiprocessing"   :false,
     #Evaluation
