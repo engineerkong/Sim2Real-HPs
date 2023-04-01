@@ -5,8 +5,8 @@
     "engine"    :"pybullet",
     "render"    :"opengl",
     "camera"    :4,
-    "gui"       :1,
-    "visualize" :1,
+    "gui"       :0,
+    "visualize" :0,
     "visgym"    :0,
     #Robot
     "robot"         :"kong",
