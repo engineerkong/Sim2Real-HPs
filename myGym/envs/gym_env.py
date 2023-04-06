@@ -330,9 +330,11 @@ class GymEnv(CameraEnv):
             :return done: (bool) Whether this stop is episode's final
             :return info: (dict) Additional information about step
         """
+        print(f"action:{action}")
         self._apply_action_robot(action)
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
+        print(f"observation:{self._observation}")
         if self.dataset: reward, done, info = 0, False, {}
         else:
             reward = self.reward.compute(observation=self._observation)
@@ -387,7 +389,8 @@ class GymEnv(CameraEnv):
 
     def _place_object(self, obj_info):
         fixed = True if obj_info["fixed"] == 1 else False
-        pos = env_object.EnvObject.get_random_object_position(obj_info["sampling_area"])
+        # pos = env_object.EnvObject.get_random_object_position(obj_info["sampling_area"])
+        pos = obj_info["pos"]
         orn = env_object.EnvObject.get_random_z_rotation() if obj_info["rand_rot"] == 1 else [0, 0, 0, 1]
         object = env_object.EnvObject(obj_info["urdf"], pos, orn, pybullet_client=self.p, fixed=fixed)
         if self.color_dict: object.set_color(self.color_of_object(object))
