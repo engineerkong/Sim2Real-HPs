@@ -26,19 +26,18 @@ class Camera():
                  up_vector=[0, 0, 1], up_axis_index=2,
                  yaw=180, pitch=-40, roll=0, quaternion = [0,0,0,0],
                  distance=1.3, field_of_view=60,
-                 near_plane_distance=0.1, far_plane_distance=100.0,
+                 near_plane_distance=0.01, far_plane_distance=100.0,
                  is_absolute_position=False):
 
         self.env = env
         self.up_vector = up_vector
         self.up_axis_index = up_axis_index
         self.is_absolute_position = is_absolute_position
-        self.quaternion = quaternion
-        self.set_parameters(position, target_position, yaw, pitch, roll,
+        self.set_parameters(position, target_position, quaternion, yaw, pitch, roll,
                             distance, field_of_view, near_plane_distance,
                             far_plane_distance)
 
-    def set_parameters(self, position=None, target_position=None,
+    def set_parameters(self, position=None, target_position=None, quaternion=None,
                        yaw=None, pitch=None, roll=None, distance=None,
                        field_of_view=None, near_plane_distance=None,
                        far_plane_distance=None):
@@ -58,6 +57,7 @@ class Camera():
         """
         if position is not None: self.position = position
         if target_position is not None: self.target_position = target_position
+        if quaternion is not None: self.quaternion = quaternion
         if yaw is not None: self.yaw = yaw
         if pitch is not None: self.pitch = pitch
         if roll is not None: self.roll = roll
@@ -77,7 +77,7 @@ class Camera():
             self.view_matrix = self.env.p.computeViewMatrix(
                 self.position, self.target_position, self.up_vector)
         else:
-            position = self.target_position
+            position = self.position
             orientation = self.quaternion
             r_mat = self.env.p.getMatrixFromQuaternion(orientation)
             tx_vec = np.array([r_mat[0], r_mat[3], r_mat[6]])
@@ -85,7 +85,7 @@ class Camera():
             tz_vec = np.array([r_mat[2], r_mat[5], r_mat[8]])
 
             camera_position = np.array(position)
-            target_position = camera_position + 1 * tx_vec
+            target_position = camera_position + 0.01 * tx_vec
 
             self.view_matrix = self.env.p.computeViewMatrix(cameraEyePosition=camera_position,
                                       cameraTargetPosition=target_position,
