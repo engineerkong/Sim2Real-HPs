@@ -121,9 +121,8 @@ class TaskModule():
         obj = self.env.task_objects["robot"]
         self.pos = list(obj.get_cam_position())
         self.quat = list(obj.get_cam_orientation())
-        self.rpy = list(euler_from_quaternion(self.quat))
-        self.posrpy = self.pos + self.rpy
-        self.render_images(camera_6d=self.posrpy) if "ground_truth" not in self.vision_src else None
+        self.posquat = self.pos + self.quat
+        self.render_images(camera_6d=self.posquat) if "ground_truth" not in self.vision_src else None
         if self.vision_src == "vae":
             [info_dict["actual_state"], info_dict["goal_state"]], recons = (self.vision_module.encode_with_vae(
                 imgs=[self.image, self.goal_image], task=self.task_type, decode=self.env.visualize))

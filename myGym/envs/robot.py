@@ -133,6 +133,7 @@ class Robot:
         print("\n".join(map(str,self.gripper_names)))
         print("Gripper index is: " + str(self.gripper_index))
         print("End effector index is: " + str(self.end_effector_index))
+        print("Camera index is: " + str(self.camera_index))
 
         self.joints_num = len(self.motor_names)
         self.gjoints_num = len(self.gripper_names)
@@ -580,8 +581,8 @@ class Robot:
         if "gripper" in self.robot_action:
             self._move_gripper(action[-(self.gjoints_num):])
         else:
-            if self.gjoints_num:
-                self._move_gripper(self.gjoints_limits[1])
+            # if self.gjoints_num:
+            #     self._move_gripper(self.gjoints_limits[1])
             if "pnp" in self.task_type: 
             #"Need to provide env_objects to use gripper"
             #When gripper is not in robot action it will magnetize objects

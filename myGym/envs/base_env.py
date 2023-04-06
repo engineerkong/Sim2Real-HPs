@@ -474,7 +474,7 @@ class CameraEnv(BaseEnv):
         print("Change camera to " + str(self.current_camera))
         self.current_camera = camera_num
 
-    def render(self, mode="rgb_array", camera_id = None, camera_6d=None):
+    def render(self, mode="rgb_array", camera_id = None, camera_6d = None):
         """
         Get image (image, depth, segmentation_mask) from camera or active cameras
 
@@ -492,12 +492,13 @@ class CameraEnv(BaseEnv):
             if camera_id is not None:
                 camera_data[camera_id] = self.cameras[camera_id].render()
             elif camera_6d is not None:
-                roll = camera_6d[3]*180/np.pi
-                pitch = camera_6d[4]*180/np.pi
-                yaw = camera_6d[5]*180/np.pi
-                self.camera_rpy = Camera(env=self, target_position=camera_6d[:3], roll=roll, 
-                                         pitch=-pitch, yaw=yaw-90, distance=0.01, is_absolute_position=False)
-                camera_data = self.camera_rpy.render()
+                # euler = self.p.getEulerFromQuaternion(camera_6d[3:])
+                # yaw = euler[2]*180/np.pi-90
+                # pitch = -1*euler[1]*180/np.pi
+                # roll = euler[0]*180/np.pi
+                self.camera_quat = Camera(env=self, target_position=camera_6d[:3], quaternion=camera_6d[3:],
+                                        distance=0.01, is_absolute_position=False)
+                camera_data = self.camera_quat.render()
             else:
                 for camera_num in range(len(self.active_cameras)):
                     if self.active_cameras[camera_num]:
