@@ -5,8 +5,8 @@
     "engine"    :"pybullet",
     "render"    :"opengl",
     "camera"    :4,
-    "gui"       :0,
-    "visualize" :0,
+    "gui"       :1,
+    "visualize" :1,
     "visgym"    :0,
     #Robot
     "robot"         :"kong",
@@ -30,7 +30,7 @@
     "distractors"           : {"list":null, "moveable":1, "constant_speed":0, "movement_dims":3,
                                        "movement_endpoints":[-0.3, 0.3, 0.4, 0.7, 0.1, 0.3]},
     #Reward
-    "reward"        :"pnp",
+    "reward"        :"pnpkong",
     "distance_type" :"euclidean",
     "reward_type": "3dvs",
     "vae_path"      :null,
