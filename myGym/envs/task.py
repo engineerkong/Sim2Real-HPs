@@ -8,7 +8,6 @@ import cv2
 import random
 from scipy.spatial.distance import cityblock
 from pyquaternion import Quaternion
-from ..transform_functions import euler_from_quaternion
 currentdir = pkg_resources.resource_filename("myGym", "envs")
 
 
@@ -97,9 +96,9 @@ class TaskModule():
             elif key == "joints_angles":
                 info["additional_obs"]["joints_angles"] = self.env.robot.get_joints_states()
             elif key == "endeff_xyz":
-                info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs")[:3]
+                info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)[:3]
             elif key == "endeff_6D":
-                info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs")) \
+                info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)) \
                                                       + list(self.vision_module.get_obj_orientation(robot))
             elif key == "touch":
                 touch = self.env.robot.touch_sensors_active(self.env.env_objects["actual_state"]) or len(self.env.robot.magnetized_objects)>0
@@ -123,6 +122,9 @@ class TaskModule():
         self.quat = list(obj.get_cam_orientation())
         self.posquat = self.pos + self.quat
         self.render_images(camera_6d=self.posquat) if "ground_truth" not in self.vision_src else None
+        self.matrix = self.env.get_view_x_proj(position=self.pos, quaternion=self.quat)
+        # self.render_images(camera_6d=None)
+        # self.matrix = self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj
         if self.vision_src == "vae":
             [info_dict["actual_state"], info_dict["goal_state"]], recons = (self.vision_module.encode_with_vae(
                 imgs=[self.image, self.goal_image], task=self.task_type, decode=self.env.visualize))
@@ -130,10 +132,10 @@ class TaskModule():
         else:
             for key in ["actual_state", "goal_state"]:
                     if "endeff" in info_dict[key]:
-                           xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key)
-                           xyz = xyz[:3] if "xyz" in info_dict else xyz
+                        xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
+                        xyz = xyz[:3] if "xyz" in info_dict else xyz
                     else:
-                           xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key)
+                        xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key, matrix=self.matrix)
                     info_dict[key] = xyz
         self._observation = self.get_additional_obs(info_dict, self.env.task_objects["robot"])
         return self._observation

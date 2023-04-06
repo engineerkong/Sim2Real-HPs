@@ -492,11 +492,7 @@ class CameraEnv(BaseEnv):
             if camera_id is not None:
                 camera_data[camera_id] = self.cameras[camera_id].render()
             elif camera_6d is not None:
-                # euler = self.p.getEulerFromQuaternion(camera_6d[3:])
-                # yaw = euler[2]*180/np.pi-90
-                # pitch = -1*euler[1]*180/np.pi
-                # roll = euler[0]*180/np.pi
-                self.camera_quat = Camera(env=self, target_position=camera_6d[:3], quaternion=camera_6d[3:],
+                self.camera_quat = Camera(env=self, position=camera_6d[:3], quaternion=camera_6d[3:],
                                         distance=0.01, is_absolute_position=False)
                 camera_data = self.camera_quat.render()
             else:
@@ -505,6 +501,10 @@ class CameraEnv(BaseEnv):
                         camera_data[camera_num] = self.cameras[camera_num].render()
         return camera_data
 
+    def get_view_x_proj(self, position, quaternion):
+        self.camera_quat = Camera(env=self, position=position, quaternion=quaternion, distance=0.01, is_absolute_position=False)
+        return self.camera_quat.view_x_proj
+    
     def project_point_to_camera_image(self, point, camera_id):
         """
         Project 3D point in Cartesian world coordinates to 2D point in pixel space

@@ -158,7 +158,7 @@ class VisionModule:
         else:
             raise Exception("{} module does not provide bounding boxes!".format(self.src))
 
-    def get_obj_position(self, obj=None, img=None, depth=None,  key=None):
+    def get_obj_position(self, obj=None, img=None, depth=None,  key=None, matrix=None):
         """
         Get object position in world coordinates of environment from 2D and depth image
 
@@ -185,7 +185,7 @@ class VisionModule:
                 if self.src == "yolact":
                     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                     mask, centroid = self.get_obj_pixel_position(obj, img)
-                    centroid_transformed = self.yolact_cnn.find_3d_centroids_(mask, depth, self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj)
+                    centroid_transformed = self.yolact_cnn.find_3d_centroids_(mask, depth, matrix)
                     if centroid_transformed.size == 3:
                         self.centroid_transformed[obj.get_name()] = centroid_transformed
                         #print("{} was detected at {}".format(obj.get_name(),self.centroid_transformed[obj.get_name()]))
