@@ -11,7 +11,7 @@
     #Robot
     "robot"         :"kong",
     "robot_action"  :"joints",
-    "robot_init"    :[-0.4, 0.6, 0.4],
+    "robot_init"    :[0, 0.2, 0.3],
     "max_velocity"  :3,
     "max_force"     :100,
     "action_repeat" :1,
@@ -42,8 +42,8 @@
     "num_networks"      :1,
     "max_episode_steps" :512,
     "algo_steps"        :512,
-    "steps"             :150000,
-    "pretrained_model"  :null,
+    "steps"             :200000,
+    "pretrained_model"  :"./trained_models/pnp3new/pnp_table_kong_joints_sac_15/sac_40000",
     "multiprocessing"   :false,
     #Evaluation
     "eval_freq"     :10000,
