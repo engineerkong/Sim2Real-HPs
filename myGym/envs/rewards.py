@@ -1186,9 +1186,11 @@ class KongPnP(DistanceReward):
             current_diff_12 = self.task.calc_distance(obj1_position, obj2_position)
             norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12
         else:
+            prev_diff_12 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj2_position)
+            current_diff_12 = self.task.calc_distance(obj1_position, obj2_position)
             prev_diff_13 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj3_position)
             current_diff_13 = self.task.calc_distance(obj1_position, obj3_position)
-            norm_diff = (prev_diff_13 - current_diff_13) / prev_diff_13
+            norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12 + (prev_diff_13 - current_diff_13) / prev_diff_13
 
         self.prev_obj1_position = obj1_position
         self.prev_obj2_position = obj2_position
@@ -1219,6 +1221,7 @@ class KongPnP(DistanceReward):
         else:
             print("not reached")
             reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
+        print(f"reward:{reward}")
         if self.task.calc_distance(o1, o2) < 0.1:
             self.env.robot.release_all_objects()
             self.env.episode_over = True
