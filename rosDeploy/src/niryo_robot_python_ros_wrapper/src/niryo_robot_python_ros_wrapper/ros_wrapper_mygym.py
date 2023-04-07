@@ -7,21 +7,23 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 class NiryoRosWrapperMygym(NiryoRosWrapper):
 
-    def __init__(self, model, num_eval, num_episodes):
+    def __init__(self, model, num_eval, num_episodes, distance_threshold):
         super(NiryoRosWrapperMygym, self).__init__()
 
         self.model = model
         self.num_eval = num_eval
         self.num_episodes = num_episodes
+        self.distance_threshold = distance_threshold
         self.workspace = 'gazebo_1'
         self.object_xyz = np.zeros((3,))
-        self.target_xyz = np.array([0.2, -0.03, 0.011])
+        self.target_xyz = np.array([0.1, 0.3, 0.1])
         self.gripper_object = 0
         self.goal_achieve = 0
 
         self.create_wks_gazebo(self.workspace)
         obs_joints = [0, 0.4, -0.4, 0, -1.57, 0]
         self.move_joints(*obs_joints)
+        self.open_gripper()
         self.get_observation()
 
     def create_wks_gazebo(self, workspace_name):
@@ -53,7 +55,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
             list_num_eval[j] = j
             list_reward[j] += self.reward
             if self.goal_achieve == 1:
-                print("success pick and place!!!")
+                print("successfully pick and place!!!")
                 break
 
         return list_num_eval, list_reward
@@ -62,10 +64,11 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         # move joints to the action joints
         self.move_joints(*self.action)
         # calculate the distance among 3 states and decide to move the gripper
-        if np.linalg.norm(self.endeff_6d[:3] - self.object_xyz) <= 0.05:
+        if np.linalg.norm(self.endeff_6d[:3] - self.object_xyz) <= self.distance_threshold:
             self.close_gripper()
             self.gripper_object = 1
-        elif np.linalg.norm(self.endeff_6d[:3] - self.target_xyz) <= 0.05 and self.gripper_object == 1:
+        elif np.linalg.norm(self.endeff_6d[:3] - self.target_xyz) <= self.distance_threshold\
+                        and self.gripper_object == 1:
             self.open_gripper()
             self.gripper_object = 0
             self.goal_achieve = 1
@@ -86,6 +89,50 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.obs = np.concatenate((self.object_xyz, self.target_xyz, self.endeff_6d),axis=0)
 
     def get_reward(self):
-        # use pnp reward instead
-        reward_ctrl = -np.square(self.action).sum()
-        self.reward = reward_ctrl
+
+        o1 = self.object_xyz
+        o2 = self.target_xyz
+        o3 = self.endeff_6d[:3]
+        if self.gripper_object==1:
+            print("reached")
+            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
+        else:
+            print("not reached")
+            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
+        return reward
+    
+    def calc_dist_diff(self, obj1_position, obj2_position, obj3_position=None):
+        """
+        Calculate change in the distances between 3 objects in previous and in current step. Normalize the change by the value of distance in previous step.
+
+        Params:
+            :param obj1_position: (list) Position of the first object (actual_state)
+            :param obj2_position: (list) Position of the second object (goal_state)
+            :param obj3_position: (list) Position of the third object (additional_obs)
+        Returns:
+            :return norm_diff: (float) Sum of normalized differences of distances between 3 objects in previsous and in current step
+        """
+        def calc_distance(obj1, obj2):
+            dist = np.linalg.norm(np.asarray(obj1[:3]) - np.asarray(obj2[:3]))
+
+        if self.prev_obj1_position is None and self.prev_obj2_position is None and self.prev_obj3_position is None:
+            self.prev_obj1_position = obj1_position
+            self.prev_obj2_position = obj2_position
+            self.prev_obj3_position = obj3_position
+
+        if obj3_position is None:
+            prev_diff_12 = calc_distance(self.prev_obj1_position, self.prev_obj2_position)
+            current_diff_12 = calc_distance(obj1_position, obj2_position)
+            norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12
+        else:
+            prev_diff_12 = calc_distance(self.prev_obj1_position, self.prev_obj2_position)
+            current_diff_12 = calc_distance(obj1_position, obj2_position)
+            prev_diff_13 = calc_distance(self.prev_obj1_position, self.prev_obj3_position)
+            current_diff_13 = calc_distance(obj1_position, obj3_position)
+            norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12 + (prev_diff_13 - current_diff_13) / prev_diff_13
+
+        self.prev_obj1_position = obj1_position
+        self.prev_obj2_position = obj2_position
+        self.prev_obj3_position = obj3_position
+
+        return norm_diff

@@ -24,6 +24,7 @@ class MygymEnv:
         self.action_space = Box(-float(1), float(1), (6,))
         self.action_space.high = np.array([2.99987191833, 0.610167106497, 1.57009819509, 2.09003177926, 1.92282923692, 2.53002928369])
         self.action_space.low = np.array([-2.99987191833, -1.83259571459, -1.34006379968, -2.09003177926, -1.92003671012, -2.53002928369])
+
 print("---load---")
 env = MygymEnv()
 model = Model(env, MlpPolicy)
@@ -37,7 +38,8 @@ print("---deploy---")
 # detection_improve()
 rospy.init_node('niryo_robot_example_python_ros_wrapper')
 num_eval, num_episodes = 100, 100
-ros_robot = NiryoRosWrapperMygym(model, num_eval, num_episodes)
+distance_threshold = 0.05
+ros_robot = NiryoRosWrapperMygym(model, num_eval, num_episodes, distance_threshold)
 list_num_eval, list_reward = ros_robot.eval()
 print("list of number eval: {}".format(list_num_eval))
 print("list of reward: {}".format(list_reward))
