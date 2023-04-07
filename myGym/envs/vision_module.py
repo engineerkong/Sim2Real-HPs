@@ -111,14 +111,15 @@ class VisionModule:
                     try:
                         self.mask[obj.get_name()] = masks[class_names.index(obj.get_name())]
                         self.centroid[obj.get_name()] = centroids[class_names.index(obj.get_name())]
+                        found = True
                         #print("{} was detected".format(obj.get_name()))
                     except:
+                        found = False
                         if obj.get_name() not in self.mask.keys():
                             self.mask[obj.get_name()] = [[-1]]
                             self.centroid[obj.get_name()] = [-1,-1]
                         #print("{} not detected in present image".format(obj.get_name()))
-
-                    return self.mask[obj.get_name()], self.centroid[obj.get_name()]
+                    return self.mask[obj.get_name()], self.centroid[obj.get_name()], found
                 elif self.src == "dope":
                     pass
                     # @TODO
@@ -184,9 +185,9 @@ class VisionModule:
             if img is not None:
                 if self.src == "yolact":
                     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-                    mask, centroid = self.get_obj_pixel_position(obj, img)
+                    mask, centroid, found = self.get_obj_pixel_position(obj, img)
                     centroid_transformed = self.yolact_cnn.find_3d_centroids_(mask, depth, matrix)
-                    if centroid_transformed.size == 3:
+                    if centroid_transformed.size == 3 and found == True:
                         self.centroid_transformed[obj.get_name()] = centroid_transformed
                         #print("{} was detected at {}".format(obj.get_name(),self.centroid_transformed[obj.get_name()]))
                     elif obj.get_name() not in self.centroid_transformed.keys():
