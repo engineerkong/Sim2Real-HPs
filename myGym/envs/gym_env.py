@@ -64,6 +64,7 @@ class GymEnv(CameraEnv):
                  reward='distance',
                  distance_type='euclidean',
                  active_cameras=None,
+                 use_ee_camera=0,
                  dataset=False,
                  obs_space=None,
                  visualize=0,
@@ -86,6 +87,7 @@ class GymEnv(CameraEnv):
         self.action_repeat          = action_repeat
         self.dimension_velocity     = dimension_velocity
         self.active_cameras         = active_cameras
+        self.use_ee_camera          = use_ee_camera
         self.used_objects           = used_objects
         self.action_repeat          = action_repeat
         self.color_dict             = color_dict
@@ -301,7 +303,7 @@ class GymEnv(CameraEnv):
         """
         camera_args = self.workspace_dict[self.workspace]['camera']
         for cam_idx in range(len(camera_args['position'])):
-            self.add_camera(position=camera_args['position'][cam_idx], target_position=camera_args['target'][cam_idx], distance=0.001, is_absolute_position=True)
+            self.add_camera(position=camera_args['position'][cam_idx], target_position=camera_args['target'][cam_idx], distance=0.001, use_ee_camera=0)
 
     def get_observation(self):
         """
@@ -310,7 +312,7 @@ class GymEnv(CameraEnv):
         Returns:
             :return observation: (array) Represented position of task relevant objects
         """
-        self.observation["task_objects"] = self.task.get_observation()
+        self.observation["task_objects"] = self.task.get_observation(use_ee_camera=self.use_ee_camera)
         if self.dataset:
             self.observation["camera_data"] = self.render(mode="rgb_array")
             self.observation["objects"] = self.env_objects
@@ -342,6 +344,7 @@ class GymEnv(CameraEnv):
             #self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
+        print(f"reward:{reward}")
         if done: self.successful_finish(info)
         if self.task.subtask_over: 
             self.reset(only_subtask=True)
@@ -389,8 +392,10 @@ class GymEnv(CameraEnv):
 
     def _place_object(self, obj_info):
         fixed = True if obj_info["fixed"] == 1 else False
-        # pos = env_object.EnvObject.get_random_object_position(obj_info["sampling_area"])
-        pos = obj_info["pos"]
+        if "pos" in obj_info:
+            pos = obj_info["pos"]
+        elif "sampling_area" in obj_info:
+            pos = env_object.EnvObject.get_random_object_position(obj_info["sampling_area"])
         orn = env_object.EnvObject.get_random_z_rotation() if obj_info["rand_rot"] == 1 else [0, 0, 0, 1]
         object = env_object.EnvObject(obj_info["urdf"], pos, orn, pybullet_client=self.p, fixed=fixed)
         if self.color_dict: object.set_color(self.color_of_object(object))

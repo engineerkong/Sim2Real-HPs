@@ -5,6 +5,7 @@
     "engine"    :"pybullet",
     "render"    :"opengl",
     "camera"    :4,
+    "ee_camera" :1,
     "gui"       :1,
     "visualize" :1,
     "visgym"    :0,
@@ -17,8 +18,9 @@
     "action_repeat" :1,
     #Task
     "task_type"             :"pnp",
-    "task_objects"          :[{"init":{"obj_name":"cube_holes","fixed":0,"rand_rot":1, "sampling_area":[-0.45,0.45,0.45,0.15,0.1,0.1], "pos":[-0.2, 0.4, 0.1]},
-                           "goal":{"obj_name":"cube_target","fixed":1,"rand_rot":1, "sampling_area":[-0.45,0.45,0.45,0.15,0.1,0.1], "pos":[0.1, 0.3, 0.1]}}],
+    // Task objects: use either "sampling_area" or "pos" to set the position of objects
+    "task_objects"          :[{"init":{"obj_name":"cube_holes","fixed":0,"rand_rot":1, "pos":[-0.2, 0.4, 0.1]},
+                           "goal":{"obj_name":"cube_target","fixed":1,"rand_rot":1, "pos":[0.1, 0.3, 0.1]}}],
     "color_dict"            : {"cube_holes":[[0.2,0.5,0.2,1]], "target":[[0.3,0.3,0.3,1]]},
     "used_objects"          :{"num_range":[0,0], "obj_list":[]},
     // Observation

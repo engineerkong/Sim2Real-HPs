@@ -476,12 +476,12 @@ class CameraEnv(BaseEnv):
 
     def render(self, mode="rgb_array", camera_id = None, camera_6d = None):
         """
-        Get image (image, depth, segmentation_mask) from camera or active cameras
+        Get image (image, depth, segmentation_mask) from active camera or ee camera
 
         Parameters:
             :param mode: (str) rgb_array to return RGB image
-            :option1 param camera_id: (int) Get image from specified camera
-            :option2 param camera_6d: (int) Get image from specified camera's position and rotation
+            :option1 param camera_id: (int) Get image from active camera
+            :option2 param camera_6d: (int) Get image from ee camera's position and rotation
         Returns:
             :return camera_data: (dict) Key: (camera_id), Value: info from camera
         """
@@ -489,20 +489,22 @@ class CameraEnv(BaseEnv):
             return np.array([])
         camera_data = {}
         if self.render_on:
-            if camera_id is not None:
-                camera_data[camera_id] = self.cameras[camera_id].render()
-            elif camera_6d is not None:
-                self.camera_quat = Camera(env=self, position=camera_6d[:3], quaternion=camera_6d[3:],
-                                        distance=0.01, is_absolute_position=False)
+            if self.use_ee_camera == 1:
+                self.camera_quat = Camera(env=self, position=camera_6d[:3], quaternion=camera_6d[3:], use_ee_camera=self.use_ee_camera)
                 camera_data = self.camera_quat.render()
+            elif self.use_ee_camera == 0 and camera_id is not None:
+                camera_data[camera_id] = self.cameras[camera_id].render()
             else:
                 for camera_num in range(len(self.active_cameras)):
                     if self.active_cameras[camera_num]:
                         camera_data[camera_num] = self.cameras[camera_num].render()
         return camera_data
 
-    def get_view_x_proj(self, position, quaternion):
-        self.camera_quat = Camera(env=self, position=position, quaternion=quaternion, distance=0.01, is_absolute_position=False)
+    def get_view_x_proj(self, camera_6d):
+        """
+        Get the view x Projection from camera
+        """
+        self.camera_quat = Camera(env=self, position=camera_6d[:3], quaternion=camera_6d[3:], use_ee_camera=self.use_ee_camera)
         return self.camera_quat.view_x_proj
     
     def project_point_to_camera_image(self, point, camera_id):

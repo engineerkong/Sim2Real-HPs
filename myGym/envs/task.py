@@ -61,6 +61,9 @@ class TaskModule():
             self.generate_new_goal(self.env.objects_area_borders, self.env.active_cameras)
 
     def render_images(self, camera_6d=None):
+        """
+        Render images by using ee camera or active cameras
+        """
         if camera_6d is not None:
             render_info = self.env.render(mode="rgb_array", camera_6d=camera_6d)
             self.image = render_info["image"]
@@ -109,7 +112,7 @@ class TaskModule():
                 info["additional_obs"]["distractor"] = [p for sublist in poses for p in sublist]
         return info
 
-    def get_observation(self):
+    def get_observation(self, use_ee_camera):
         """
         Get task relevant observation data based on reward signal source
 
@@ -118,13 +121,15 @@ class TaskModule():
         """
         info_dict = self.obs_template.copy()
         obj = self.env.task_objects["robot"]
-        self.pos = list(obj.get_cam_position())
-        self.quat = list(obj.get_cam_orientation())
-        self.posquat = self.pos + self.quat
-        self.render_images(camera_6d=self.posquat) if "ground_truth" not in self.vision_src else None
-        self.matrix = self.env.get_view_x_proj(position=self.pos, quaternion=self.quat)
-        # self.render_images(camera_6d=None)
-        # self.matrix = self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj
+        if use_ee_camera == 1:
+            self.pos = list(obj.get_cam_position())
+            self.quat = list(obj.get_cam_orientation())
+            self.posquat = self.pos + self.quat
+            self.render_images(camera_6d=self.posquat) if "ground_truth" not in self.vision_src else None
+            self.matrix = self.env.get_view_x_proj(camera_6d=self.posquat)
+        else:
+            self.render_images(camera_6d=None)
+            self.matrix = self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj
         if self.vision_src == "vae":
             [info_dict["actual_state"], info_dict["goal_state"]], recons = (self.vision_module.encode_with_vae(
                 imgs=[self.image, self.goal_image], task=self.task_type, decode=self.env.visualize))

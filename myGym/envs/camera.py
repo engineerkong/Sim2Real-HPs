@@ -19,7 +19,7 @@ class Camera():
         :param field_of_view: (float) Field of view
         :param near_plane_distance: (float) Near plane distance
         :param far_plane_distance: (float) Far plane distance
-        :param is_absolute_position: (bool) Compute view matrix using poistion or yaw,pitch,roll
+        :param use_ee_camera: (bool) Compute view matrix using ee camera or active cameras
     """
     def __init__(self, env=None,
                  position=[0, 0, 0], target_position=[0, 0, 0],
@@ -27,12 +27,12 @@ class Camera():
                  yaw=180, pitch=-40, roll=0, quaternion = [0,0,0,0],
                  distance=1.3, field_of_view=60,
                  near_plane_distance=0.01, far_plane_distance=100.0,
-                 is_absolute_position=False):
+                 use_ee_camera=0):
 
         self.env = env
         self.up_vector = up_vector
         self.up_axis_index = up_axis_index
-        self.is_absolute_position = is_absolute_position
+        self.use_ee_camera = use_ee_camera
         self.set_parameters(position, target_position, quaternion, yaw, pitch, roll,
                             distance, field_of_view, near_plane_distance,
                             far_plane_distance)
@@ -73,10 +73,7 @@ class Camera():
         """
         self.aspect_ratio = float(
             self.env.camera_resolution[0]) / float(self.env.camera_resolution[1])
-        if (self.is_absolute_position):
-            self.view_matrix = self.env.p.computeViewMatrix(
-                self.position, self.target_position, self.up_vector)
-        else:
+        if self.use_ee_camera == 1:
             position = self.position
             orientation = self.quaternion
             r_mat = self.env.p.getMatrixFromQuaternion(orientation)
@@ -90,9 +87,9 @@ class Camera():
             self.view_matrix = self.env.p.computeViewMatrix(cameraEyePosition=camera_position,
                                       cameraTargetPosition=target_position,
                                       cameraUpVector=-tz_vec)
-            # self.view_matrix = self.env.p.computeViewMatrixFromYawPitchRoll(self.target_position, self.distance,
-            #                                                        self.yaw, self.pitch, self.roll,
-            #                                                        self.up_axis_index)
+        else:
+            self.view_matrix = self.env.p.computeViewMatrix(
+            self.position, self.target_position, self.up_vector)
         self.proj_matrix = self.env.p.computeProjectionMatrixFOV(self.field_of_view, self.aspect_ratio,
                                                         self.near_plane_distance, self.far_plane_distance)
 

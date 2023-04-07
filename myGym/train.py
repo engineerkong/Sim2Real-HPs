@@ -79,14 +79,15 @@ def configure_env(arg_dict, model_logdir=None, for_train=True):
                      "robot": arg_dict["robot"], "robot_init_joint_poses": arg_dict["robot_init"],
                      "robot_action": arg_dict["robot_action"],"max_velocity": arg_dict["max_velocity"], 
                      "max_force": arg_dict["max_force"],"task_type": arg_dict["task_type"],
-                     "action_repeat": arg_dict["action_repeat"],
-                     "task_objects":arg_dict["task_objects"], "observation":arg_dict["observation"], "distractors":arg_dict["distractors"],
+                     "action_repeat": arg_dict["action_repeat"], "task_objects":arg_dict["task_objects"], 
+                     "observation":arg_dict["observation"], "distractors":arg_dict["distractors"],
                      "num_networks":arg_dict.get("num_networks", 1), "network_switcher":arg_dict.get("network_switcher", "gt"),
                      "distance_type": arg_dict["distance_type"], "used_objects": arg_dict["used_objects"],
-                     "active_cameras": arg_dict["camera"], "color_dict":arg_dict.get("color_dict", {}),
-                     "max_steps": arg_dict["max_episode_steps"], "visgym":arg_dict["visgym"],
-                     "reward": arg_dict["reward"], "logdir": arg_dict["logdir"], "vae_path": arg_dict["vae_path"],
-                     "yolact_path": arg_dict["yolact_path"], "yolact_config": arg_dict["yolact_config"]}
+                     "active_cameras": arg_dict["camera"], "use_ee_camera": arg_dict["ee_camera"],
+                     "color_dict":arg_dict.get("color_dict", {}), "max_steps": arg_dict["max_episode_steps"], 
+                     "visgym":arg_dict["visgym"], "reward": arg_dict["reward"], "logdir": arg_dict["logdir"], 
+                     "vae_path": arg_dict["vae_path"], "yolact_path": arg_dict["yolact_path"], 
+                     "yolact_config": arg_dict["yolact_config"]}
     if for_train:
         env_arguments["gui_on"] = arg_dict["gui"]
     else:
