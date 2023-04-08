@@ -14,6 +14,9 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.num_eval = num_eval
         self.num_episodes = num_episodes
         self.distance_threshold = distance_threshold
+        self.prev_obj1_position = None
+        self.prev_obj2_position = None
+        self.prev_obj3_position = None
         self.workspace = 'gazebo_1'
         self.object_xyz = np.zeros((3,))
         self.target_xyz = np.array([0.1, 0.3, 0.1])
@@ -63,6 +66,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
     def step(self):
         # move joints to the action joints
         self.move_joints(*self.action)
+        print("move joints finished")
         # calculate the distance among 3 states and decide to move the gripper
         if np.linalg.norm(self.endeff_6d[:3] - self.object_xyz) <= self.distance_threshold:
             self.close_gripper()
@@ -95,11 +99,10 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         o3 = self.endeff_6d[:3]
         if self.gripper_object==1:
             print("reached")
-            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
+            self.reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
         else:
             print("not reached")
-            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
-        return reward
+            self.reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
     
     def calc_dist_diff(self, obj1_position, obj2_position, obj3_position=None):
         """
@@ -114,6 +117,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         """
         def calc_distance(obj1, obj2):
             dist = np.linalg.norm(np.asarray(obj1[:3]) - np.asarray(obj2[:3]))
+            return dist
 
         if self.prev_obj1_position is None and self.prev_obj2_position is None and self.prev_obj3_position is None:
             self.prev_obj1_position = obj1_position
