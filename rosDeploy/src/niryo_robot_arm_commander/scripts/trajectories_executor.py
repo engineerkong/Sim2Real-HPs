@@ -161,7 +161,7 @@ class TrajectoriesExecutor:
                 raise ArmCommanderException(
                     CommandStatus.PLAN_FAILED, "MoveIt failed to compute the plan.")
 
-            if self.__hardware_version == 'ned':
+            if self.__hardware_version == 'ned2':
                 self.__reset_controller()
             rospy.loginfo("Arm commander - Send MoveIt trajectory to controller.")
             status, message = self.execute_plan(plan)
