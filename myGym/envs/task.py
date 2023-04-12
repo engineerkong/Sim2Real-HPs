@@ -1,3 +1,4 @@
+from omegaconf import DictConfig, OmegaConf, open_dict
 from myGym.envs.vision_module import VisionModule
 import pybullet as p
 import warnings
@@ -94,22 +95,23 @@ class TaskModule():
         info = d.copy()
         info["additional_obs"] = {}
         for key in d["additional_obs"]:
-            if key == "joints_xyz":
-                info["additional_obs"]["joints_xyz"] = self.env.robot.observe_all_links()
-            elif key == "joints_angles":
-                info["additional_obs"]["joints_angles"] = self.env.robot.get_joints_states()
-            elif key == "endeff_xyz":
-                info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)[:3]
-            elif key == "endeff_6D":
-                info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)) \
-                                                      + list(self.vision_module.get_obj_orientation(robot))
-            elif key == "touch":
-                touch = self.env.robot.touch_sensors_active(self.env.env_objects["actual_state"]) or len(self.env.robot.magnetized_objects)>0
-                info["additional_obs"]["touch"] = [1] if touch else [0]
-            elif key == "distractor":
-                poses = [self.vision_module.get_obj_position(self.env.task_objects["distractor"][x],\
-                                    self.image, self.depth) for x in range(len(self.env.task_objects["distractor"]))]
-                info["additional_obs"]["distractor"] = [p for sublist in poses for p in sublist]
+            with open_dict(info):
+                if key == "joints_xyz":
+                    info["additional_obs"]["joints_xyz"] = self.env.robot.observe_all_links()
+                elif key == "joints_angles":
+                    info["additional_obs"]["joints_angles"] = self.env.robot.get_joints_states()
+                elif key == "endeff_xyz":
+                    info["additional_obs"]["endeff_xyz"] = self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)[:3]
+                elif key == "endeff_6D":
+                    info["additional_obs"]["endeff_6D"] = list(self.vision_module.get_obj_position(robot, self.image, self.depth, "additional_obs", matrix=self.matrix)) \
+                                                        + list(self.vision_module.get_obj_orientation(robot))
+                elif key == "touch":
+                    touch = self.env.robot.touch_sensors_active(self.env.env_objects["actual_state"]) or len(self.env.robot.magnetized_objects)>0
+                    info["additional_obs"]["touch"] = [1] if touch else [0]
+                elif key == "distractor":
+                    poses = [self.vision_module.get_obj_position(self.env.task_objects["distractor"][x],\
+                                        self.image, self.depth) for x in range(len(self.env.task_objects["distractor"]))]
+                    info["additional_obs"]["distractor"] = [p for sublist in poses for p in sublist]
         return info
 
     def get_observation(self, use_ee_camera):
@@ -136,12 +138,14 @@ class TaskModule():
             self.visualize_vae(recons) if self.env.visualize == 1 else None
         else:
             for key in ["actual_state", "goal_state"]:
-                    if "endeff" in info_dict[key]:
-                        xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
-                        xyz = xyz[:3] if "xyz" in info_dict else xyz
-                    else:
-                        xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key, matrix=self.matrix)
-                    info_dict[key] = xyz
+                if "endeff" in info_dict[key]:
+                    xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
+                    xyz = xyz[:3] if "xyz" in info_dict else xyz
+                else:
+                    xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key, matrix=self.matrix)
+                for i in range(len(xyz)):
+                    xyz[i] = float(xyz[i])
+                info_dict[key] = xyz
         self._observation = self.get_additional_obs(info_dict, self.env.task_objects["robot"])
         return self._observation
 
