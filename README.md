@@ -28,6 +28,9 @@ make install-dev
 # Install stable-baselines3 for the using of sac algorithm
 pip install stable-baselines3[extra]==1.5.0
 
+# Install hydra to configure
+pip install hydra-core --upgrade
+
 cd myGym
 
 # Download pretrained visual modules
