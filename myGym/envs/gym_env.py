@@ -1,3 +1,4 @@
+from omegaconf import DictConfig, OmegaConf, open_dict
 from myGym.envs import robot, env_object
 from myGym.envs import task as t
 from myGym.envs import distractor as d
@@ -417,7 +418,8 @@ class GymEnv(CameraEnv):
             for idx, o in enumerate(object_dict["obj_list"]):
                   urdf = self._get_urdf_filename(o["obj_name"])
                   if urdf:
-                    object_dict["obj_list"][idx]["urdf"] = urdf
+                    with open_dict(object_dict):
+                        object_dict["obj_list"][idx]["urdf"] = urdf
                   else:
                     del object_dict["obj_list"][idx]
             if "num_range" in object_dict.keys():
@@ -434,7 +436,8 @@ class GymEnv(CameraEnv):
             for o in ['init','goal']:
                 d = object_dict[o]
                 if d["obj_name"] != "null":
-                    d["urdf"] = self._get_urdf_filename(d["obj_name"])
+                    with open_dict(d):
+                        d["urdf"] = self._get_urdf_filename(d["obj_name"])
                     n = "actual_state" if o == "init" else "goal_state"
                     env_o = self._place_object(d)
                     self.highlight_active_object(env_o, o)

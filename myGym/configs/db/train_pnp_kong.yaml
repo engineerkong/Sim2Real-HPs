@@ -1,0 +1,88 @@
+---
+env_name: Gym-v0
+workspace: table
+engine: pybullet
+render: opengl
+camera: 4
+ee_camera: 1
+gui: 1
+visualize: 1
+visgym: 0
+robot: kong
+robot_action: joints
+robot_init:
+- 0
+- 0.2
+- 0.3
+max_velocity: 3
+max_force: 100
+action_repeat: 1
+task_type: pnp
+task_objects:
+- init:
+    obj_name: cube_holes
+    fixed: 0
+    rand_rot: 1
+    pos:
+    - -0.2
+    - 0.4
+    - 0.1
+  goal:
+    obj_name: cube_target
+    fixed: 1
+    rand_rot: 1
+    pos:
+    - 0.1
+    - 0.3
+    - 0.1
+color_dict:
+  cube_holes:
+  - - 0.2
+    - 0.5
+    - 0.2
+    - 1
+  target:
+  - - 0.3
+    - 0.3
+    - 0.3
+    - 1
+used_objects:
+  num_range:
+  - 0
+  - 0
+  obj_list: []
+observation:
+  actual_state: yolact
+  goal_state: obj_xyz
+  additional_obs:
+  - endeff_6D
+distractors:
+  list:
+  moveable: 1
+  constant_speed: 0
+  movement_dims: 3
+  movement_endpoints:
+  - -0.3
+  - 0.3
+  - 0.4
+  - 0.7
+  - 0.1
+  - 0.3
+reward: pnpkong
+distance_type: euclidean
+reward_type: 3dvs
+vae_path:
+yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
+yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
+train_framework: tensorflow
+algo: sac
+num_networks: 1
+max_episode_steps: 512
+algo_steps: 512
+steps: 200000
+pretrained_model: "./trained_models/pnp3new/pnp_table_kong_joints_sac_15/sac_40000"
+multiprocessing: false
+eval_freq: 10000
+eval_episodes: 10
+logdir: trained_models/pnp3new
+record: 0
