@@ -1,4 +1,5 @@
 from omegaconf import DictConfig, OmegaConf, open_dict
+import wandb
 from myGym.envs import robot, env_object
 from myGym.envs import task as t
 from myGym.envs import distractor as d
@@ -345,6 +346,7 @@ class GymEnv(CameraEnv):
             #self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
+        wandb.log({"reward": reward})
         print(f"reward:{reward}")
         if done: self.successful_finish(info)
         if self.task.subtask_over: 

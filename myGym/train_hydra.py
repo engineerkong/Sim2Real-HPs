@@ -1,5 +1,9 @@
 from omegaconf import DictConfig, OmegaConf, open_dict
 import hydra
+from hydra.core.hydra_config import HydraConfig
+import wandb
+from myGym.sampling import sample_contexts
+from functools import partial
 import pkg_resources
 import os, sys, time, yaml
 import argparse
@@ -267,8 +271,8 @@ def get_arguments(parser, config):
 def main(cfg : DictConfig):
     # parser = get_parser()
     # arg_dict = get_arguments(parser)
+    dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
     arg_dict = cfg["db"]
-    print(arg_dict)
     OmegaConf.set_struct(arg_dict, True)
     # Check if we chose one of the existing engines
     if arg_dict["engine"] not in AVAILABLE_SIMULATION_ENGINES:
@@ -291,7 +295,13 @@ def main(cfg : DictConfig):
 
     env = configure_env(arg_dict, model_logdir, for_train=1)
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
-    train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"])
+    with wandb.init(
+        mode="online",
+        project="mygym_train",
+        dir=os.getcwd(),
+        config=dict_cfg,
+    ):
+        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"])
     print(model_logdir)
 
 if __name__ == "__main__":

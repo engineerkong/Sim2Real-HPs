@@ -31,6 +31,9 @@ pip install stable-baselines3[extra]==1.5.0
 # Install hydra to configure
 pip install hydra-core --upgrade
 
+# Install wandb to visualize the training
+pip install wandb
+
 cd myGym
 
 # Download pretrained visual modules
@@ -62,6 +65,9 @@ sh ./speed_checker.sh
 ```
 cd myGym
 
-# Train policy on mygym by using kong and pnp
-python train.py --config ./configs/train_pnp_kong.json
+# Train policy on mygym by using kong and pnp (after using hydra, use json now will cause error)
+# python train.py --config ./configs/train_pnp_kong.json
+
+# Train policy on mygym by using kong and pnp (using hydra and wandb)
+python train_hydra.py
 ```
