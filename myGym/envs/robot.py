@@ -72,10 +72,12 @@ class Robot:
         if self.gripper_names:
             self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo = self.get_joints_limits(self.gripper_indices)
         joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
-        obs_joints = [0, 0.4, -0.4, 0, -1.57, 0]
-        self.init_joint_poses = obs_joints
-        #self.init_joint_poses = np.zeros((len(self.motor_names)))
-        #self.reset()
+        if self.name == 'kong':
+            obs_joints = [0, 0.4, -0.4, 0, -1.57, 0]
+            self.init_joint_poses = obs_joints
+        else:
+            self.init_joint_poses = np.zeros((len(self.motor_names)))
+            self.reset()
 
     def _load_robot(self):
         """
@@ -133,7 +135,8 @@ class Robot:
         print("\n".join(map(str,self.gripper_names)))
         print("Gripper index is: " + str(self.gripper_index))
         print("End effector index is: " + str(self.end_effector_index))
-        print("Camera index is: " + str(self.camera_index))
+        if hasattr(self,'camera_index') is True:
+            print("Camera index is: " + str(self.camera_index))
 
         self.joints_num = len(self.motor_names)
         self.gjoints_num = len(self.gripper_names)
