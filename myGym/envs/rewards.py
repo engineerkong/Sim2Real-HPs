@@ -1213,11 +1213,10 @@ class KongPnP(DistanceReward):
     def __init__(self, env, task):
         super(KongPnP, self).__init__(env, task)
         self.before_pick = True
-
-    def calc_dist_diff(self, obj1_position, obj2_position, obj3_position=None):
+    
+    def calc_dist_diff(self, obj1_position=None, obj2_position=None, obj3_position=None):
         """
         Calculate change in the distances between 3 objects in previous and in current step. Normalize the change by the value of distance in previous step.
-
         Params:
             :param obj1_position: (list) Position of the first object (actual_state)
             :param obj2_position: (list) Position of the second object (goal_state)
@@ -1225,25 +1224,27 @@ class KongPnP(DistanceReward):
         Returns:
             :return norm_diff: (float) Sum of normalized differences of distances between 3 objects in previsous and in current step
         """
-        if self.prev_obj1_position is None and self.prev_obj2_position is None and self.prev_obj3_position is None:
+        if self.prev_obj1_position is None:
             self.prev_obj1_position = obj1_position
+        if self.prev_obj2_position is None:
             self.prev_obj2_position = obj2_position
+        if self.prev_obj3_position is None:
             self.prev_obj3_position = obj3_position
 
         if obj3_position is None:
+            # grabbed
             prev_diff_12 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj2_position)
             current_diff_12 = self.task.calc_distance(obj1_position, obj2_position)
             norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12
+            self.prev_obj1_position = obj1_position
+            self.prev_obj2_position = obj2_position
         else:
-            prev_diff_12 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj2_position)
-            current_diff_12 = self.task.calc_distance(obj1_position, obj2_position)
+            # not grabbed
             prev_diff_13 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj3_position)
             current_diff_13 = self.task.calc_distance(obj1_position, obj3_position)
-            norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12 + (prev_diff_13 - current_diff_13) / prev_diff_13
-
-        self.prev_obj1_position = obj1_position
-        self.prev_obj2_position = obj2_position
-        self.prev_obj3_position = obj3_position
+            norm_diff = (prev_diff_13 - current_diff_13) / prev_diff_13
+            self.prev_obj1_position = obj1_position
+            self.prev_obj3_position = obj3_position
 
         return norm_diff
     
@@ -1256,24 +1257,22 @@ class KongPnP(DistanceReward):
         Returns:
             :return reward: (float) Reward signal for the environment
         """
-        o1 = observation["actual_state"]
-        o2 = observation["goal_state"]
+        o1 = observation["actual_state"][:3]
+        o2 = observation["goal_state"][:3]
         for key in observation["additional_obs"]:
             if key == "endeff_xyz":
                 o3 = observation["additional_obs"][key]
             elif key == "endeff_6D":
                 o3 = observation["additional_obs"][key][:3]
         if self.gripper_reached_object(observation):
-            print("reached")
+            # grabbed
+            print("grabbed")
             self.before_pick = False
             reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
         else:
-            print("not reached")
-            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
-        print(f"reward:{reward}")
-        if self.task.calc_distance(o1, o2) < 0.1:
-            self.env.robot.release_all_objects()
-            self.env.episode_over = True
+            # not grabbed
+            print("not grabbed")
+            reward = self.calc_dist_diff(obj1_position=o1, obj3_position=o3)
         self.task.check_goal()
         self.rewards_history.append(reward)
         return reward
