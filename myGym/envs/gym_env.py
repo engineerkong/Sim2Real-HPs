@@ -119,7 +119,7 @@ class GymEnv(CameraEnv):
             self.has_distractor = True
             self.distractor = ['bus'] if not self.distractors["list"] else self.distractors["list"]
 
-        reward_classes = {"1-network":   {"distance": DistanceReward, "complex_distance": ComplexDistanceReward, "sparse": SparseReward,
+        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "complex_distance": ComplexDistanceReward, "sparse": SparseReward,
                                               "distractor": VectorReward, "poke": PokeReachReward, "switch": SwitchReward,
                                               "btn": ButtonReward, "turn": TurnReward, "pnp":SingleStagePnP, "pnpkong":KongPnP},
                           "2-network":     {"poke": DualPoke, "pnp":TwoStagePnP,"pnpbgrip":TwoStagePnPBgrip},
@@ -343,13 +343,13 @@ class GymEnv(CameraEnv):
         else:
             reward = self.reward.compute(observation=self._observation)
             self.episode_reward += reward
-            #self.task.check_goal()
+            self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
-        wandb.log({"reward": reward})
+            wandb.log({"episode_reward":self.episode_reward, "reward": reward, "distance":self.task.last_distance})
         print(f"reward:{reward}")
         if done: self.successful_finish(info)
-        if self.task.subtask_over: 
+        if self.task.subtask_over:
             self.reset(only_subtask=True)
         #return self._observation, reward, done, info
         return self.flatten_obs(self._observation.copy()), reward, done, info

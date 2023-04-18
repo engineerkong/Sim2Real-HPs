@@ -45,7 +45,7 @@
     "max_episode_steps" :512,
     "algo_steps"        :512,
     "steps"             :200000,
-    "pretrained_model"  :"./trained_models/pnp3new/pnp_table_kong_joints_sac_15/sac_40000",
+    "pretrained_model"  :null,
     "multiprocessing"   :false,
     #Evaluation
     "eval_freq"     :10000,
