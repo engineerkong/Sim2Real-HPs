@@ -132,7 +132,56 @@ class DistanceReward(Reward):
 
         return norm_diff
 
+class ReachReward(Reward):
+    """
+    Reward class for reward signal calculation based on distance differences between 2 objects
 
+    Parameters:
+        :param env: (object) Environment, where the training takes place
+        :param task: (object) Task that is being trained, instance of a class TaskModule
+    """
+    def __init__(self, env, task):
+        super(ReachReward, self).__init__(env, task)
+        self.prev_action = None
+
+    def decide(self, observation=None):
+        return random.randint(0, self.env.num_networks-1)
+
+    def compute(self, observation, action):
+        """
+        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
+
+        Params:
+            :param observation: (list) Observation of the environment
+        Returns:
+            :return reward: (float) Reward signal for the environment
+        """
+        if self.prev_action is None:
+            self.prev_action = np.array(action)
+        o1 = observation["actual_state"]
+        o2 = observation["goal_state"]
+        a = np.array(action) - self.prev_action
+        vec = np.array(o1) - np.array(o2)
+        reward_dist = -np.linalg.norm(vec)
+        reward_ctrl = -np.square(a).sum()
+        finished = self.task.check_distance_threshold(observation)
+        print(f"dist:{reward_dist}, ctrl:{reward_ctrl}, finished:{finished}")
+        if finished:
+            reward = reward_dist + 0.1*reward_ctrl + 10
+        else:
+            reward = reward_dist + 0.1*reward_ctrl
+        print(f"sum_reward:{reward}")
+        self.task.check_goal()
+        self.rewards_history.append(reward)
+        self.prev_action = np.array(action)
+        return reward
+
+    def reset(self):
+        """
+        Reset stored value of distance between 2 objects. Call this after the end of an episode.
+        """
+        self.prev_action = None
+    
 class ComplexDistanceReward(DistanceReward):
     """
     Reward class for reward signal calculation based on distance differences between 3 objects, e.g. 2 objects and gripper for complex tasks
