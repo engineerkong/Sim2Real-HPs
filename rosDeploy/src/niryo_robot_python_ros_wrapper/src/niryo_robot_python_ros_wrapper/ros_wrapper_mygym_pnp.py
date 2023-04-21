@@ -3,7 +3,6 @@
 # Imports
 from niryo_robot_python_ros_wrapper.ros_wrapper import *
 import numpy as np
-from tf.transformations import euler_from_quaternion, quaternion_from_euler
 
 class NiryoRosWrapperMygym(NiryoRosWrapper):
 
@@ -98,10 +97,10 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         o2 = self.target_xyz
         o3 = self.endeff_6d[:3]
         if self.gripper_object==1:
-            print("reached")
+            print("grabbed")
             self.reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
         else:
-            print("not reached")
+            print("not grabbed")
             self.reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2, obj3_position=o3)
     
     def calc_dist_diff(self, obj1_position, obj2_position, obj3_position=None):

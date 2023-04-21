@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional, Tuple, Union
 import gym
 import torch as th
 
-class Model(object):
+class SAC(object):
     u"""
     SAC - OffPolicyAlgorithm - BaseAlgorithm
     """
