@@ -79,7 +79,7 @@ algo: sac
 num_networks: 1
 max_episode_steps: 512
 algo_steps: 512
-steps: 200000
+steps: 40000
 pretrained_model:
 multiprocessing: false
 eval_freq: 10000
