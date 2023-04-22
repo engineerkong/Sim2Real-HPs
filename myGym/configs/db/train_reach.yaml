@@ -59,8 +59,8 @@ distance_type: euclidean
 vae_path:
 yolact_path:
 yolact_config:
-train_framework: tensorflow
-algo: ppo2
+train_framework: pytorch
+algo: sac
 num_networks: 1
 max_episode_steps: 1024
 algo_steps: 1024
