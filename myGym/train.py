@@ -34,8 +34,7 @@ from myGym.stable_baselines_mygym.TorchPPOpolicies import TorchMlpPolicy
 
 
 from stable_baselines.gail import ExpertDataset, generate_expert_traj
-# from stable_baselines.sac.policies import MlpPolicy as MlpPolicySAC
-from stable_baselines3.sac.policies import MlpPolicy as MlpPolicySAC
+from stable_baselines.sac.policies import MlpPolicy as MlpPolicySAC
 from stable_baselines.ddpg.policies import MlpPolicy as MlpPolicyDDPG
 from stable_baselines.td3.policies import MlpPolicy as MlpPolicyTD3
 
