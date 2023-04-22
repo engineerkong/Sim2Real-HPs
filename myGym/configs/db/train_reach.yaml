@@ -60,12 +60,12 @@ vae_path:
 yolact_path:
 yolact_config:
 train_framework: tensorflow
-algo: sac
+algo: ppo2
 num_networks: 1
 max_episode_steps: 1024
 algo_steps: 1024
 steps: 100000
-pretrained_model:
+pretrained_model: trained_models/reach/1reach_table_kong_joints_ppo2_11/ppo2_100000.zip
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 5
