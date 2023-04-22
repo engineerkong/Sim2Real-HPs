@@ -40,7 +40,7 @@ https://github.com/incognite-lab/myGym
     yolact_vision - load yolact_vision for camera detection
                   - modify new_config_dict
 
-# change 2 (April):
+# change 2 (21. April):
     1) new pnp reward
     2) change camera view
     3) set the object to be in the fixed pos
@@ -51,3 +51,7 @@ https://github.com/incognite-lab/myGym
     8) use pretrained model
     9) generalise the repo
     10) use hydra to config
+    11) use wandb to record
+
+# change 3 (3. May):
+    1) use pytorch for sb3
