@@ -13,7 +13,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.num_episodes = num_episodes
         self.num_steps = num_steps
         self.threshold = threshold
-        self.target_xyz = np.array([0.1, 0.3, 0.1])
+        self.target_xyz = np.array([0.25, 0.0357, 0.15])
 
         self.reset()
 
