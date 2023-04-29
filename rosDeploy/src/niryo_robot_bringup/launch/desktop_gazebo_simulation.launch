@@ -29,7 +29,7 @@ This will reduce the amount of time spent waiting during program shutdown
     </include>
 
     <!-- Launching Gazebo World -->
-    <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world.launch.xml">
+    <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world_reach.launch.xml">
         <arg name="gui" value="$(arg gui)"/>
     </include>
 

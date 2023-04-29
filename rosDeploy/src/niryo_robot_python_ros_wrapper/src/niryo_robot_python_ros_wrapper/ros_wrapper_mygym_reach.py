@@ -6,7 +6,7 @@ import numpy as np
 
 class NiryoRosWrapperMygym(NiryoRosWrapper):
 
-    def __init__(self, model, num_steps, num_episodes, threshold):
+    def __init__(self, model, num_episodes, num_steps, threshold):
         super(NiryoRosWrapperMygym, self).__init__()
 
         self.model = model
@@ -40,9 +40,9 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
                     print("done!!! episode:{}, steps:{}, episode_reward:{}".format(i,j,episode_reward))
             if not self.done:
                 print("not done... episode:{}, steps:{}, episode_reward:{}".format(i,j,episode_reward))
-                
-    def step(self):
 
+    def step(self):
+        print(self.action)
         self.move_joints(*self.action)
 
     def get_observation(self):
