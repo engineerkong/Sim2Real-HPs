@@ -117,6 +117,83 @@ class DiagGaussianDistribution(Distribution):
         actions = self.actions_from_params(mean_actions, log_std)
         log_prob = self.log_prob(actions)
         return actions, log_prob
+
+class TanhBijector(object):
+    u"""
+    Bijective transformation of a probability distribution
+    using a squashing function (tanh)
+    TODO: use Pyro instead (https://pyro.ai/)
+
+    :param epsilon: small value to avoid NaN due to numerical imprecision.
+    """
+
+    def __init__(self, epsilon = 1e-6):
+        super(TanhBijector, self).__init__()
+        self.epsilon = epsilon
+    
+class SquashedDiagGaussianDistribution(DiagGaussianDistribution):
+    u"""
+    Gaussian distribution with diagonal covariance matrix, followed by a squashing function (tanh) to ensure bounds.
+
+    :param action_dim: Dimension of the action space.
+    :param epsilon: small value to avoid NaN due to numerical imprecision.
+    """
+
+    def __init__(self, action_dim, epsilon = 1e-6):
+        super(SquashedDiagGaussianDistribution, self).__init__(action_dim)
+        # Avoid NaN (prevents division by zero or log of zero)
+        self.epsilon = epsilon
+        self.gaussian_actions = None
+    
+
+class StateDependentNoiseDistribution(Distribution):
+    u"""
+    Distribution class for using generalized State Dependent Exploration (gSDE).
+    Paper: https://arxiv.org/abs/2005.05719
+
+    It is used to create the noise exploration matrix and
+    compute the log probability of an action with that noise.
+
+    :param action_dim: Dimension of the action space.
+    :param full_std: Whether to use (n_features x n_actions) parameters
+        for the std instead of only (n_features,)
+    :param use_expln: Use ``expln()`` function instead of ``exp()`` to ensure
+        a positive standard deviation (cf paper). It allows to keep variance
+        above zero and prevent it from growing too fast. In practice, ``exp()`` is usually enough.
+    :param squash_output: Whether to squash the output using a tanh function,
+        this ensures bounds are satisfied.
+    :param learn_features: Whether to learn features for gSDE or not.
+        This will enable gradients to be backpropagated through the features
+        ``latent_sde`` in the code.
+    :param epsilon: small value to avoid NaN due to numerical imprecision.
+    """
+
+    def __init__(
+        self,
+        action_dim,
+        full_std = True,
+        use_expln = False,
+        squash_output = False,
+        learn_features = False,
+        epsilon = 1e-6,
+    ):
+        super(StateDependentNoiseDistribution, self).__init__()
+        self.action_dim = action_dim
+        self.latent_sde_dim = None
+        self.mean_actions = None
+        self.log_std = None
+        self.weights_dist = None
+        self.exploration_mat = None
+        self.exploration_matrices = None
+        self._latent_sde = None
+        self.use_expln = use_expln
+        self.full_std = full_std
+        self.epsilon = epsilon
+        self.learn_features = learn_features
+        if squash_output:
+            self.bijector = TanhBijector(epsilon)
+        else:
+            self.bijector = None
     
 def make_proba_distribution(action_space, use_sde = False, dist_kwargs = None):
     u"""

@@ -1,5 +1,8 @@
-"""Policies: abstract base class and concrete implementations."""
+u"""Policies: abstract base class and concrete implementations."""
 
+from __future__ import division
+from __future__ import with_statement
+from __future__ import absolute_import
 import copy
 import gym
 import numpy as np
@@ -8,15 +11,14 @@ from torch import nn
 
 from sb3_py2.torch_layers import (
     FlattenExtractor,
-    NatureCNN,
     create_mlp,
 )
 from sb3_py2.distributions import make_proba_distribution
 from sb3_py2.utils import get_device, is_vectorized_observation, obs_as_tensor
-from sb3_py2.preprocessing import is_image_space, maybe_transpose, preprocess_obs
+from sb3_py2.preprocessing import get_action_dim, is_image_space, maybe_transpose, preprocess_obs
 
 def create_sde_features_extractor(features_dim, sde_net_arch, activation_fn):
-    """
+    u"""
     Create the neural network that will be used to extract features
     for the gSDE exploration function.
 
@@ -36,7 +38,7 @@ def create_sde_features_extractor(features_dim, sde_net_arch, activation_fn):
 _policy_registry = dict()
 
 def get_policy_from_name(base_policy_type, name):
-    """
+    u"""
     Returns the registered policy from the base type and name.
     See `register_policy` for registering policies and explanation.
 
@@ -51,7 +53,7 @@ def get_policy_from_name(base_policy_type, name):
     return _policy_registry[base_policy_type][name]
 
 class BaseModel(nn.Module):
-    """
+    u"""
     The base model object: makes predictions in response to observations.
 
     In the case of policies, the prediction is an action. In the case of critics, it is the
@@ -82,7 +84,6 @@ class BaseModel(nn.Module):
         normalize_images = True,
         optimizer_class = th.optim.Adam,
         optimizer_kwargs = None,
-        squash_output = False
     ):
         super(BaseModel, self).__init__()
 
@@ -100,34 +101,60 @@ class BaseModel(nn.Module):
         self.optimizer_class = optimizer_class
         self.optimizer_kwargs = optimizer_kwargs
         self.optimizer = None
-        self._squash_output = squash_output
+
         self.features_extractor_class = features_extractor_class
         self.features_extractor_kwargs = features_extractor_kwargs
 
-    def extract_features(self, obs):
+    def _update_features_extractor(
+        self,
+        net_kwargs,
+        features_extractor = None,
+    ):
+        u"""
+        Update the network keyword arguments and create a new features extractor object if needed.
+        If a ``features_extractor`` object is passed, then it will be shared.
+
+        :param net_kwargs: the base network keyword arguments, without the ones
+            related to features extractor
+        :param features_extractor: a features extractor object.
+            If None, a new object will be created.
+        :return: The updated keyword arguments
         """
+        net_kwargs = net_kwargs.copy()
+        if features_extractor is None:
+            # The features extractor is not shared, create a new one
+            features_extractor = self.make_features_extractor()
+        net_kwargs.update(dict(features_extractor=features_extractor, features_dim=features_extractor.features_dim))
+        return net_kwargs
+    
+    def make_features_extractor(self):
+        u"""Helper method to create a features extractor."""
+        return self.features_extractor_class(self.observation_space, **self.features_extractor_kwargs)
+
+    def extract_features(self, obs):
+        u"""
         Preprocess the observation if needed and extract features.
 
         :param obs:
         :return:
         """
-        assert self.features_extractor is not None, "No features extractor was set"
+        assert self.features_extractor is not None, u"No features extractor was set"
         preprocessed_obs = preprocess_obs(obs, self.observation_space, normalize_images=self.normalize_images)
         return self.features_extractor(preprocessed_obs)
 
 
     @property
     def device(self):
-        """Infer which device this policy lives on by inspecting its parameters.
+        u"""Infer which device this policy lives on by inspecting its parameters.
         If it has no parameters, the 'cpu' device is used as a fallback.
 
         :return:"""
         for param in self.parameters():
             return param.device
-        return get_device("cpu")
+        return get_device(u"cpu")
 
     def set_training_mode(self, mode):
-        """
+        u"""
         Put the policy in either training or evaluation mode.
 
         This affects certain modules, such as batch normalisation and dropout.
@@ -137,7 +164,7 @@ class BaseModel(nn.Module):
         self.train(mode)
 
     def obs_to_tensor(self, observation):
-        """
+        u"""
         Convert an input observation to a PyTorch tensor that can be fed to a model.
         Includes sugar-coating to handle different observations (e.g. normalizing images).
 
@@ -179,7 +206,7 @@ class BaseModel(nn.Module):
 
 
 class BasePolicy(BaseModel):
-    """The base policy object.
+    u"""The base policy object.
 
     Parameters are mostly the same as `BaseModel`; additions are documented below.
 
@@ -190,16 +217,19 @@ class BasePolicy(BaseModel):
     """
 
     def __init__(self, *args, **kwargs):
+        if 'squash_output' in kwargs: squash_output = kwargs['squash_output']; del kwargs['squash_output']
+        else: squash_output =  False
         super(BasePolicy, self).__init__(*args, **kwargs)
+        self._squash_output = squash_output
 
     @property
     def squash_output(self):
-        """(bool) Getter for squash_output."""
+        u"""(bool) Getter for squash_output."""
         return self._squash_output
 
     @staticmethod
     def init_weights(module, gain = 1):
-        """
+        u"""
         Orthogonal initialization (used in PPO and A2C)
         """
         if isinstance(module, (nn.Linear, nn.Conv2d)):
@@ -214,7 +244,7 @@ class BasePolicy(BaseModel):
         mask = None,
         deterministic = False,
     ):
-        """
+        u"""
         Get the policy action and state from an observation (and optional state).
         Includes sugar-coating to handle different observations (e.g. normalizing images).
 
@@ -256,7 +286,7 @@ class BasePolicy(BaseModel):
         return actions, state
 
     def scale_action(self, action):
-        """
+        u"""
         Rescale the action from [low, high] to [-1, 1]
         (no need for symmetric action space)
 
@@ -267,7 +297,7 @@ class BasePolicy(BaseModel):
         return 2.0 * ((action - low) / (high - low)) - 1.0
 
     def unscale_action(self, scaled_action):
-        """
+        u"""
         Rescale the action from [-1, 1] to [low, high]
         (no need for symmetric action space)
 
@@ -276,6 +306,81 @@ class BasePolicy(BaseModel):
         low, high = self.action_space.low, self.action_space.high
         return low + (0.5 * (scaled_action + 1.0) * (high - low))
 
+class ContinuousCritic(BaseModel):
+    u"""
+    Critic network(s) for DDPG/SAC/TD3.
+    It represents the action-state value function (Q-value function).
+    Compared to A2C/PPO critics, this one represents the Q-value
+    and takes the continuous action as input. It is concatenated with the state
+    and then fed to the network which outputs a single value: Q(s, a).
+    For more recent algorithms like SAC/TD3, multiple networks
+    are created to give different estimates.
+
+    By default, it creates two critic networks used to reduce overestimation
+    thanks to clipped Q-learning (cf TD3 paper).
+
+    :param observation_space: Obervation space
+    :param action_space: Action space
+    :param net_arch: Network architecture
+    :param features_extractor: Network to extract features
+        (a CNN when using images, a nn.Flatten() layer otherwise)
+    :param features_dim: Number of features
+    :param activation_fn: Activation function
+    :param normalize_images: Whether to normalize images or not,
+         dividing by 255.0 (True by default)
+    :param n_critics: Number of critic networks to create.
+    :param share_features_extractor: Whether the features extractor is shared or not
+        between the actor and the critic (this saves computation time)
+    """
+
+    def __init__(
+        self,
+        observation_space,
+        action_space,
+        net_arch,
+        features_extractor,
+        features_dim,
+        activation_fn = nn.ReLU,
+        normalize_images = True,
+        n_critics = 2,
+        share_features_extractor = True,
+    ):
+        super(ContinuousCritic, self).__init__(
+            observation_space,
+            action_space,
+            features_extractor=features_extractor,
+            normalize_images=normalize_images,
+        )
+
+        action_dim = get_action_dim(self.action_space)
+
+        self.share_features_extractor = share_features_extractor
+        self.n_critics = n_critics
+        self.q_networks = []
+        for idx in xrange(n_critics):
+            q_net = create_mlp(features_dim + action_dim, 1, net_arch, activation_fn)
+            q_net = nn.Sequential(*q_net)
+            self.add_module("qf{}".format(idx), q_net)
+            self.q_networks.append(q_net)
+
+    def forward(self, obs, actions):
+        # Learn the features extractor using the policy loss only
+        # when the features_extractor is shared with the actor
+        with th.set_grad_enabled(not self.share_features_extractor):
+            features = self.extract_features(obs)
+        qvalue_input = th.cat([features, actions], dim=1)
+        return tuple(q_net(qvalue_input) for q_net in self.q_networks)
+
+    def q1_forward(self, obs, actions):
+        u"""
+        Only predict the Q-value using the first network.
+        This allows to reduce computation when all the estimates are not needed
+        (e.g. when updating the policy in TD3).
+        """
+        with th.no_grad():
+            features = self.extract_features(obs)
+        return self.q_networks[0](th.cat([features, actions], dim=1))
+    
 class ActorCriticPolicy(BasePolicy):
     """
     Policy class for actor-critic algorithms (has both policy and value prediction).

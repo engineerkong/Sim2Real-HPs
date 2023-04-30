@@ -1,3 +1,5 @@
+from __future__ import with_statement
+from __future__ import absolute_import
 from itertools import izip_longest
 import torch as th
 from torch import nn
@@ -7,7 +9,7 @@ from sb3_py2.utils import get_device
 
 
 class BaseFeaturesExtractor(nn.Module):
-    """
+    u"""
     Base class that represents a features extractor.
 
     :param observation_space:
@@ -25,7 +27,7 @@ class BaseFeaturesExtractor(nn.Module):
         return self._features_dim
 
 class FlattenExtractor(BaseFeaturesExtractor):
-    """
+    u"""
     Feature extract that flatten the input.
     Used as a placeholder when feature extraction is not needed.
 
@@ -41,7 +43,7 @@ class FlattenExtractor(BaseFeaturesExtractor):
 
 
 class NatureCNN(BaseFeaturesExtractor):
-    """
+    u"""
     CNN from DQN nature paper:
         Mnih, Volodymyr, et al.
         "Human-level control through deep reinforcement learning."
@@ -81,7 +83,7 @@ def create_mlp(
     activation_fn = nn.ReLU,
     squash_output = False,
 ):
-    """
+    u"""
     Create a multi layer perceptron (MLP), which is
     a collection of fully-connected layers each followed by an activation function.
 
@@ -102,7 +104,7 @@ def create_mlp(
     else:
         modules = []
 
-    for idx in range(len(net_arch) - 1):
+    for idx in xrange(len(net_arch) - 1):
         modules.append(nn.Linear(net_arch[idx], net_arch[idx + 1]))
         modules.append(activation_fn())
 
@@ -113,9 +115,47 @@ def create_mlp(
         modules.append(nn.Tanh())
     return modules
 
+def get_actor_critic_arch(net_arch):
+    u"""
+    Get the actor and critic network architectures for off-policy actor-critic algorithms (SAC, TD3, DDPG).
+
+    The ``net_arch`` parameter allows to specify the amount and size of the hidden layers,
+    which can be different for the actor and the critic.
+    It is assumed to be a list of ints or a dict.
+
+    1. If it is a list, actor and critic networks will have the same architecture.
+        The architecture is represented by a list of integers (of arbitrary length (zero allowed))
+        each specifying the number of units per layer.
+       If the number of ints is zero, the network will be linear.
+    2. If it is a dict,  it should have the following structure:
+       ``dict(qf=[<critic network architecture>], pi=[<actor network architecture>])``.
+       where the network architecture is a list as described in 1.
+
+    For example, to have actor and critic that share the same network architecture,
+    you only need to specify ``net_arch=[256, 256]`` (here, two hidden layers of 256 units each).
+
+    If you want a different architecture for the actor and the critic,
+    then you can specify ``net_arch=dict(qf=[400, 300], pi=[64, 64])``.
+
+    .. note::
+        Compared to their on-policy counterparts, no shared layers (other than the features extractor)
+        between the actor and the critic are allowed (to prevent issues with target networks).
+
+    :param net_arch: The specification of the actor and critic networks.
+        See above for details on its formatting.
+    :return: The network architectures for the actor and the critic
+    """
+    if isinstance(net_arch, list):
+        actor_arch, critic_arch = net_arch, net_arch
+    else:
+        assert isinstance(net_arch, dict), u"Error: the net_arch can only contain be a list of ints or a dict"
+        assert u"pi" in net_arch, u"Error: no key 'pi' was provided in net_arch for the actor network"
+        assert u"qf" in net_arch, u"Error: no key 'qf' was provided in net_arch for the critic network"
+        actor_arch, critic_arch = net_arch[u"pi"], net_arch[u"qf"]
+    return actor_arch, critic_arch
 
 class MlpExtractor(nn.Module):
-    """
+    u"""
     Constructs an MLP that receives observations as an input and outputs a latent representation for the policy and
     a value network. The ``net_arch`` parameter allows to specify the amount and size of the hidden layers and how many
     of them are shared between the policy network and the value network. It is assumed to be a list with the following
@@ -146,7 +186,7 @@ class MlpExtractor(nn.Module):
         feature_dim,
         net_arch,
         activation_fn,
-        device = "auto",
+        device = u"auto",
     ):
         super(MlpExtractor, self).__init__()
         device = get_device(device)
@@ -163,14 +203,14 @@ class MlpExtractor(nn.Module):
                 shared_net.append(activation_fn())
                 last_layer_dim_shared = layer
             else:
-                assert isinstance(layer, dict), "Error: the net_arch list can only contain ints and dicts"
-                if "pi" in layer:
-                    assert isinstance(layer["pi"], list), "Error: net_arch[-1]['pi'] must contain a list of integers."
-                    policy_only_layers = layer["pi"]
+                assert isinstance(layer, dict), u"Error: the net_arch list can only contain ints and dicts"
+                if u"pi" in layer:
+                    assert isinstance(layer[u"pi"], list), u"Error: net_arch[-1]['pi'] must contain a list of integers."
+                    policy_only_layers = layer[u"pi"]
 
-                if "vf" in layer:
-                    assert isinstance(layer["vf"], list), "Error: net_arch[-1]['vf'] must contain a list of integers."
-                    value_only_layers = layer["vf"]
+                if u"vf" in layer:
+                    assert isinstance(layer[u"vf"], list), u"Error: net_arch[-1]['vf'] must contain a list of integers."
+                    value_only_layers = layer[u"vf"]
                 break  # From here on the network splits up in policy and value network
 
         last_layer_dim_pi = last_layer_dim_shared
@@ -179,13 +219,13 @@ class MlpExtractor(nn.Module):
         # Build the non-shared part of the network
         for pi_layer_size, vf_layer_size in izip_longest(policy_only_layers, value_only_layers):
             if pi_layer_size is not None:
-                assert isinstance(pi_layer_size, int), "Error: net_arch[-1]['pi'] must only contain integers."
+                assert isinstance(pi_layer_size, int), u"Error: net_arch[-1]['pi'] must only contain integers."
                 policy_net.append(nn.Linear(last_layer_dim_pi, pi_layer_size))
                 policy_net.append(activation_fn())
                 last_layer_dim_pi = pi_layer_size
 
             if vf_layer_size is not None:
-                assert isinstance(vf_layer_size, int), "Error: net_arch[-1]['vf'] must only contain integers."
+                assert isinstance(vf_layer_size, int), u"Error: net_arch[-1]['vf'] must only contain integers."
                 value_net.append(nn.Linear(last_layer_dim_vf, vf_layer_size))
                 value_net.append(activation_fn())
                 last_layer_dim_vf = vf_layer_size
@@ -201,7 +241,7 @@ class MlpExtractor(nn.Module):
         self.value_net = nn.Sequential(*value_net).to(device)
 
     def forward(self, features):
-        """
+        u"""
         :return: latent_policy, latent_value of the specified network.
             If all layers are shared, then ``latent_policy == latent_value``
         """
