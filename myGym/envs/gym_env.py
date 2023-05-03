@@ -346,7 +346,7 @@ class GymEnv(CameraEnv):
             self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
-            wandb.log({"episode_reward":self.episode_reward, "reward": reward, "distance":self.task.last_distance})
+            wandb.log({"episode_reward":self.episode_reward, "reward": reward, "distance_ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
         print(f"reward:{reward}")
         if done: self.successful_finish(info)
         if self.task.subtask_over:
@@ -377,6 +377,7 @@ class GymEnv(CameraEnv):
         Parameters:
             :param action: (list) Action data returned by trained model
         """
+        self.robot.collision = 0
         for i in range(self.action_repeat):
             objects = self.env_objects
             self.robot.apply_action(action, env_objects=objects)

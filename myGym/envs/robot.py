@@ -72,12 +72,9 @@ class Robot:
         if self.gripper_names:
             self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo = self.get_joints_limits(self.gripper_indices)
         joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
-        if self.name == 'kong':
-            obs_joints = [0, 0.4, -0.4, 0, -1.57, 0]
-            self.init_joint_poses = obs_joints
-        else:
-            self.init_joint_poses = np.zeros((len(self.motor_names)))
-            self.reset()
+        self.collision = 0
+        self.init_joint_poses = init_joint_poses
+        self.reset()
 
     def _load_robot(self):
         """
@@ -95,8 +92,16 @@ class Robot:
                 pkg_resources.resource_filename("myGym",
                                                 self.robot_path),
                 self.position, self.orientation, useFixedBase=True, flags=(self.p.URDF_USE_SELF_COLLISION))
-        for jid in range(self.p.getNumJoints(self.robot_uid)):
-                self.p.changeDynamics(self.robot_uid, jid,  collisionMargin=0., contactProcessingThreshold=0.0, ccdSweptSphereRadius=0)
+        # set the collision between forearm and hand link to be false
+        self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
+        # set the collision between robot and goal_object to be false
+        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+            for link_idx2 in range(-1, self.p.getNumJoints(3)):
+                self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+        # change dynamics
+        # for jid in range(self.p.getNumJoints(self.robot_uid)):
+        #         self.p.changeDynamics(self.robot_uid, jid,  collisionMargin=0., contactProcessingThreshold=0.0, ccdSweptSphereRadius=0)
+
         # if 'jaco' in self.name: #@TODO jaco gripper has closed loop between finger and finger_tip that is not respected by the simulator
         #     self.p.createConstraint(self.robot_uid, 11, self.robot_uid, 15, self.p.JOINT_FIXED, [0, 0, 0], [0, 0, 0], [0, 0, 0])
         #     self.p.createConstraint(self.robot_uid, 13, self.robot_uid, 17, self.p.JOINT_FIXED, [0, 0, 0], [0, 0, 0], [0, 0, 0])
@@ -334,16 +339,41 @@ class Robot:
         """
         joint_poses = np.clip(joint_poses, self.joints_limits[0], self.joints_limits[1])
         self.joints_state = []
+        # pdi control
         for i in range(len(self.motor_indices)):
             self.p.setJointMotorControl2(bodyUniqueId=self.robot_uid,
                                     jointIndex=self.motor_indices[i],
                                     controlMode=self.p.POSITION_CONTROL,
-                                    targetPosition=joint_poses[i],
+                                    targetPosition=joint_poses[i],                                     
                                     force=self.joints_max_force[i],
                                     maxVelocity=self.joints_max_velo[i],
-                                    positionGain=0.7,
-                                    velocityGain=0.3)
-        
+                                    positionGain=0.3,
+                                    velocityGain=0.1)
+        # joint_state1 = self.p.getJointState(self.robot_uid, 1)
+        # joint_state2 = self.p.getJointState(self.robot_uid, 2)
+        # joint_state3 = self.p.getJointState(self.robot_uid, 3)
+        # joint_state4 = self.p.getJointState(self.robot_uid, 4)
+        # joint_state5 = self.p.getJointState(self.robot_uid, 5)
+        # joint_state6 = self.p.getJointState(self.robot_uid, 6)
+        # joint_position1 = joint_state1[0]
+        # joint_position2 = joint_state2[0]
+        # joint_position3 = joint_state3[0]
+        # joint_position4 = joint_state4[0]
+        # joint_position5 = joint_state5[0]
+        # joint_position6 = joint_state6[0]
+        # print(joint_position1, joint_position2, joint_position3, joint_position4, joint_position5, joint_position6)
+        pts = self.p.getContactPoints()
+        if len(pts) != 0:
+            # print("num pts=", len(pts))
+            self.collision = 1
+            for pt in pts:
+                print(f"collision:{pt}")
+                line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
+                # if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
+                #     print(f"link1 and link2 have collision:{self.link_names[pt[3]]}, {self.link_names[pt[4]]}")
+                # else:
+                #     print(f"env has collision with robot link:{self.link_names[pt[4]]}")
+        # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
         self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  

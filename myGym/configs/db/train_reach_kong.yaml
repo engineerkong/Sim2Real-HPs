@@ -11,12 +11,15 @@ visgym: 0
 robot: kong
 robot_action: joints
 robot_init:
-- 0
-- 0.4
-- 0.6
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- 0.0
 max_velocity: 10
 max_force: 200
-action_repeat: 1
+action_repeat: 100
 task_type: reach
 task_objects:
 - init:
@@ -65,7 +68,7 @@ num_networks: 1
 max_episode_steps: 512
 algo_steps: 512
 steps: 100000
-pretrained_model: trained_models/reach/1reach_table_kong_joints_ppo2_11/ppo2_100000.zip
+pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 5
