@@ -92,12 +92,23 @@ class Robot:
                 pkg_resources.resource_filename("myGym",
                                                 self.robot_path),
                 self.position, self.orientation, useFixedBase=True, flags=(self.p.URDF_USE_SELF_COLLISION))
-        # set the collision between forearm and hand link to be false
+        # set the collision between forearm and hand link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
-        # set the collision between robot and goal_object to be false
+        # set the collision between mors_1 and mors_2 link to be false (unusual collision)
+        self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
+        # set the collision between robot and ground_plane to be false (no this collision in deploy)
         for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-            for link_idx2 in range(-1, self.p.getNumJoints(3)):
-                self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+            for link_idx2 in range(-1, self.p.getNumJoints(0)):
+                self.p.setCollisionFilterPair(self.robot_uid, 0, link_idx1, link_idx2, False)
+        # set the collision between robot and workspace_table to be false (no this collision in deploy)
+        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+            for link_idx2 in range(-1, self.p.getNumJoints(1)):
+                self.p.setCollisionFilterPair(self.robot_uid, 1, link_idx1, link_idx2, False)
+        # # set the collision between robot and goal_object to be false (goal_object just a pos)
+        # for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+        #     for link_idx2 in range(-1, self.p.getNumJoints(3)):
+        #         self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+        
         # change dynamics
         # for jid in range(self.p.getNumJoints(self.robot_uid)):
         #         self.p.changeDynamics(self.robot_uid, jid,  collisionMargin=0., contactProcessingThreshold=0.0, ccdSweptSphereRadius=0)

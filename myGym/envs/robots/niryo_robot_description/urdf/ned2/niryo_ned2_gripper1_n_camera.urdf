@@ -408,7 +408,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="gjoint_base_to_mors_1" type="fixed">
+  <joint name="gjoint_base_to_mors_1" type="prismatic">
     <origin rpy="1.5708 0 0" xyz="0.01455 -0.0796 0.0096137"/>
     <parent link="gripper"/>
     <child link="mors_1"/>
@@ -435,7 +435,7 @@
       </geometry>
     </collision>
   </link>
-  <joint name="gjoint_base_to_mors_2" type="fixed">
+  <joint name="gjoint_base_to_mors_2" type="prismatic">
     <origin rpy="1.5708 0 0" xyz="0.01455 -0.0796 -0.011066"/>
     <parent link="gripper"/>
     <child link="mors_2"/>
