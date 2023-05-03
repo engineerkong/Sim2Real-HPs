@@ -96,7 +96,8 @@ class DistanceReward(Reward):
         """
         o1 = observation["actual_state"]
         o2 = observation["goal_state"]
-        reward = self.calc_dist_diff(o1, o2)
+        collision = self.env.robot.collision
+        reward = self.calc_dist_diff(o1, o2) + collision * (-1)
         #self.task.check_distance_threshold(observation)
         self.task.check_goal()
         self.rewards_history.append(reward)
