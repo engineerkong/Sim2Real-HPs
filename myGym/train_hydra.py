@@ -2,6 +2,7 @@ from omegaconf import DictConfig, OmegaConf, open_dict
 import hydra
 from hydra.core.hydra_config import HydraConfig
 import wandb
+import random
 from functools import partial
 import pkg_resources
 import os, sys, time, yaml
@@ -49,6 +50,22 @@ from myGym.utils.callbacks import ProgressBarManager, SaveOnBestTrainingRewardCa
 # This is global variable for the type of engine we are working with
 AVAILABLE_SIMULATION_ENGINES = ["mujoco", "pybullet"]
 AVAILABLE_TRAINING_FRAMEWORKS = ["tensorflow", "pytorch"]
+
+def seed_everything(seed: int):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = True
+
+def seed_rl_context(agent, seed) -> None:
+    """Set seeds for a whole RL context (i.e., env and agent/policy)."""
+    agent.env.seed(seed)
+    agent.action_space.seed(seed)
+    agent.action_space.np_random.seed(seed)
+    agent.set_random_seed(seed)
 
 def save_results(arg_dict, model_name, env, model_logdir=None, show=False):
     if model_logdir is None:
@@ -134,7 +151,7 @@ def configure_implemented_combos(env, model_logdir, arg_dict):
 
     return implemented_combos
 
-def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None):
+def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None, seed=None):
     model_name = arg_dict["algo"] + '_' + str(arg_dict["steps"])
     conf_pth   = os.path.join(model_logdir, "train.json")
     model_path = os.path.join(model_logdir, "best_model.zip")
@@ -151,6 +168,9 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
         model = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][0].load(pretrained_model, vec_env)
     else:
         model = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][0](*model_args, **model_kwargs)
+
+    seed_everything(seed=seed)
+    seed_rl_context(model, seed=seed)
 
     if arg_dict["algo"] == "gail":
         # Multi processing: (using MPI)
@@ -292,13 +312,16 @@ def main(cfg : DictConfig):
 
     env = configure_env(arg_dict, model_logdir, for_train=1)
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
+    # seeds = np.random.randn(arg_dict['seeds_num']).astype(int)
+    # for seed in seeds:
+    seed = np.random.randn(1).astype(int)
     with wandb.init(
         mode="online",
         project="mygym_train",
         dir=os.getcwd(),
         config=dict_cfg,
     ):
-        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"])
+        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed[0])
     print(model_logdir)
 
 if __name__ == "__main__":
