@@ -10,7 +10,7 @@ def train():
 
 if __name__ == '__main__':
     threads = []
-    for i in range(3):
+    for i in range(5):
         thread = threading.Thread(target=train)
         thread.start()
         threads.append(thread)

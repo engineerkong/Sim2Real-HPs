@@ -312,16 +312,16 @@ def main(cfg : DictConfig):
 
     env = configure_env(arg_dict, model_logdir, for_train=1)
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
-    # seeds = np.random.randn(arg_dict['seeds_num']).astype(int)
     # for seed in seeds:
-    seed = np.random.randn(1).astype(int)
+    seed = np.random.randint(10000)
+    print(f"seed:{seed}")
     with wandb.init(
-        mode="online",
-        project="mygym_train",
+        mode="offline",
+        project="mygym_train_seeds",
         dir=os.getcwd(),
         config=dict_cfg,
     ):
-        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed[0])
+        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
     print(model_logdir)
 
 if __name__ == "__main__":

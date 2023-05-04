@@ -335,6 +335,12 @@ class GymEnv(CameraEnv):
             :return done: (bool) Whether this stop is episode's final
             :return info: (dict) Additional information about step
         """
+        # def generate_random_range(low, high):
+        #     result = np.zeros(len(low))
+        #     for i in range(len(low)):
+        #         result[i] = np.random.uniform(low[i], high[i], 1)
+        #     return result
+        # action = generate_random_range(self.action_low, self.action_high)
         print(f"action:{action}")
         self._apply_action_robot(action)
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
@@ -347,9 +353,12 @@ class GymEnv(CameraEnv):
             self.episode_reward_list.append(reward)
             self.task.check_goal()
             done = self.episode_over
+            upper_band = 4.8
+            lower_band = -3
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
             print(reward, self.task.init_distance, self.robot.collision)
-            wandb.log({"reward": reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
+            wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision,
+                       "upper_band":upper_band, "lower_band":lower_band})
         if done: 
             self.successful_finish(info)
             self.episode_iqm_reward = scipy.stats.trim_mean(np.array(self.episode_reward_list), proportiontocut=0.25, axis=None)
