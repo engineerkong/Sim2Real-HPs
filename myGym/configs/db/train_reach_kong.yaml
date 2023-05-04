@@ -57,7 +57,7 @@ distractors:
   - 0.7
   - 0.1
   - 0.3
-reward: distance
+reward: reach
 distance_type: euclidean
 vae_path:
 yolact_path:
@@ -65,8 +65,8 @@ yolact_config:
 train_framework: pytorch
 algo: sac
 num_networks: 1
-max_episode_steps: 512
-algo_steps: 512
+max_episode_steps: 100
+algo_steps: 100
 steps: 100000
 pretrained_model: 
 multiprocessing: false

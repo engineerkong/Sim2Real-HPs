@@ -166,12 +166,12 @@ class ReachReward(Reward):
         reward_dist = -np.linalg.norm(vec)
         reward_ctrl = -np.square(a).sum()
         finished = self.task.check_distance_threshold(observation)
-        print(f"dist:{reward_dist}, ctrl:{reward_ctrl}, finished:{finished}")
+        collision = self.env.robot.collision
         if finished:
-            reward = reward_dist + 0.1*reward_ctrl + 10
+            reward = reward_dist + 0.1*reward_ctrl + (-1)*collision + 5
         else:
-            reward = reward_dist + 0.1*reward_ctrl
-        print(f"sum_reward:{reward}")
+            reward = reward_dist + 0.1*reward_ctrl + (-1)*collision
+        print(f"reward: dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)

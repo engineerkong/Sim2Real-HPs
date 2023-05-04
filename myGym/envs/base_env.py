@@ -47,6 +47,7 @@ class BaseEnv(gym.Env):
         self.episode_over = False
         self.episode_failed = False
         self.episode_reward = 0.0
+        self.episode_reward_list = []
         self.episode_final_reward = []
         self.episode_final_distance = []
         self.episode_number = 0
@@ -190,6 +191,7 @@ class BaseEnv(gym.Env):
         self.episode_over = False
         self.episode_failed = False
         self.episode_reward = 0.0
+        self.episode_reward_list = []
         self.episode_steps = 0
 
     def reset(self, hard=False):

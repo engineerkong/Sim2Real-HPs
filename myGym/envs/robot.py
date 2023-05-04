@@ -104,10 +104,10 @@ class Robot:
         for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
             for link_idx2 in range(-1, self.p.getNumJoints(1)):
                 self.p.setCollisionFilterPair(self.robot_uid, 1, link_idx1, link_idx2, False)
-        # # set the collision between robot and goal_object to be false (goal_object just a pos)
-        # for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-        #     for link_idx2 in range(-1, self.p.getNumJoints(3)):
-        #         self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+        # set the collision between robot and goal_object to be false (goal_object just a pos)
+        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+            for link_idx2 in range(-1, self.p.getNumJoints(3)):
+                self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
         
         # change dynamics
         # for jid in range(self.p.getNumJoints(self.robot_uid)):
@@ -360,30 +360,27 @@ class Robot:
                                     maxVelocity=self.joints_max_velo[i],
                                     positionGain=0.3,
                                     velocityGain=0.1)
-        # joint_state1 = self.p.getJointState(self.robot_uid, 1)
-        # joint_state2 = self.p.getJointState(self.robot_uid, 2)
-        # joint_state3 = self.p.getJointState(self.robot_uid, 3)
-        # joint_state4 = self.p.getJointState(self.robot_uid, 4)
-        # joint_state5 = self.p.getJointState(self.robot_uid, 5)
-        # joint_state6 = self.p.getJointState(self.robot_uid, 6)
-        # joint_position1 = joint_state1[0]
-        # joint_position2 = joint_state2[0]
-        # joint_position3 = joint_state3[0]
-        # joint_position4 = joint_state4[0]
-        # joint_position5 = joint_state5[0]
-        # joint_position6 = joint_state6[0]
-        # print(joint_position1, joint_position2, joint_position3, joint_position4, joint_position5, joint_position6)
+        joint_state1 = self.p.getJointState(self.robot_uid, 1)
+        joint_state2 = self.p.getJointState(self.robot_uid, 2)
+        joint_state3 = self.p.getJointState(self.robot_uid, 3)
+        joint_state4 = self.p.getJointState(self.robot_uid, 4)
+        joint_state5 = self.p.getJointState(self.robot_uid, 5)
+        joint_state6 = self.p.getJointState(self.robot_uid, 6)
+        joint_position1 = joint_state1[0]
+        joint_position2 = joint_state2[0]
+        joint_position3 = joint_state3[0]
+        joint_position4 = joint_state4[0]
+        joint_position5 = joint_state5[0]
+        joint_position6 = joint_state6[0]
+        print(f"joint:{joint_position1, joint_position2, joint_position3, joint_position4, joint_position5, joint_position6}")
         pts = self.p.getContactPoints()
         if len(pts) != 0:
             # print("num pts=", len(pts))
-            self.collision = 1
             for pt in pts:
                 print(f"collision:{pt}")
                 line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
-                # if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
-                #     print(f"link1 and link2 have collision:{self.link_names[pt[3]]}, {self.link_names[pt[4]]}")
-                # else:
-                #     print(f"env has collision with robot link:{self.link_names[pt[4]]}")
+                if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
+                    self.collision = 1
         # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
