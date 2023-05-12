@@ -26,6 +26,7 @@ class NiryoActionClient(object):
         self.__action_preempt_timeout = rospy.get_param("/niryo_robot/python_ros_wrapper/action_preempt_timeout")
 
         self.__action_server = None
+        self.collision = 0
 
     @property
     def name(self):
@@ -75,7 +76,9 @@ class NiryoActionClient(object):
         if goal_state == GoalStatus.REJECTED:
             raise NiryoRosWrapperException('Goal has been rejected : {}'.format(response.message))
         elif goal_state == GoalStatus.ABORTED:
-            raise NiryoRosWrapperException('Goal has been aborted : {}'.format(response.message))
+            self.collision = 1
+            print('Goal has been aborted : {}'.format(response.message))
+            # raise NiryoRosWrapperException('Goal has been aborted : {}'.format(response.message))
         elif goal_state != GoalStatus.SUCCEEDED:
             raise NiryoRosWrapperException('Error when processing goal : {}'.format(response.message))
 

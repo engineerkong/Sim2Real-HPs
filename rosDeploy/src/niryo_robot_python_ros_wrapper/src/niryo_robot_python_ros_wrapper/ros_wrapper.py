@@ -2278,3 +2278,17 @@ class NiryoRosWrapper(AbstractNiryoRosWrapper):
     @property
     def robot_status(self):
         return self.__robot_status
+
+    def get_collision(self):
+        if self.__robot_action_nac.collision == 1:
+            print("__robot_action_nac has collision")
+            self.__robot_action_nac.collision = 0
+            self.__follow_joint_traj_nac.collision = 0
+            return 1
+        elif self.__follow_joint_traj_nac.collision == 1:
+            print("__follow_joint_traj_nac has collision")
+            self.__robot_action_nac.collision = 0
+            self.__follow_joint_traj_nac.collision = 0
+            return 1
+        else:
+            return 0

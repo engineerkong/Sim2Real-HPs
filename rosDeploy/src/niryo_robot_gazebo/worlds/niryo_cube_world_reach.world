@@ -18,20 +18,12 @@
             <pose frame=''>0.25 0.0 0.0005 0.0 0.0 0.0</pose>
         </model>
 
-        <!-- Place Workspace -->
-        <model name='workspace_grille'>
-            <include>
-                <uri>model://workspace_grille</uri>
-            </include>
-            <pose frame=''>0.0 0.25 0.0005 0.0 0.0 1.57</pose>
-        </model>
-
         <!--CUBES-->
         <model name='cube_blue'>
             <include>
                 <uri>model://cube_blue</uri>
             </include>
-            <pose frame=''>0.25 0.0357 0.15 0.0 0.0 0.5</pose>
+            <pose frame=''>0.25 0.0357 0.05 0.0 0.0 0.5</pose>
         </model>
         <physics name='default_physics' default='0' type='ode'>
             <max_step_size>0.001</max_step_size>
