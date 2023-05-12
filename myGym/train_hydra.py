@@ -228,6 +228,8 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
         pretrained_model = pkg_resources.resource_filename("myGym", pretrained_model)
     env = model_args[1]
     vec_env = env
+    # # sb3 load
+    # model = SAC_P.load(pretrained_model, vec_env)
     # torch load
     model = SAC_P("MlpPolicy", vec_env)
     params = torch.load('./trained_models/reach/reach_table_kong_joints_sac_6/model_torch.pth.tar')
