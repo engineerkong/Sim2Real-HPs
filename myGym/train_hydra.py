@@ -163,13 +163,11 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
         if not os.path.isabs(pretrained_model):
             pretrained_model = pkg_resources.resource_filename("myGym", pretrained_model)
         env = model_args[1]
-        vec_env = DummyVecEnv([lambda: env])
-        # vec_env = env
+        # vec_env = DummyVecEnv([lambda: env])
+        vec_env = env
         model = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][0].load(pretrained_model, vec_env)
     else:
         model = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][0](*model_args, **model_kwargs)
-
-    seed_everything(seed=seed)
     seed_rl_context(model, seed=seed)
 
     if arg_dict["algo"] == "gail":
@@ -215,6 +213,41 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
     if arg_dict["engine"] == "pybullet":
         save_results(arg_dict, model_name, env, model_logdir)
     return model
+
+def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None, seed=None):
+    
+    import functools
+    def recursive_getattr(obj, attr, *args):
+        def _getattr(obj, attr):
+            return getattr(obj, attr, *args)
+        return functools.reduce(_getattr, [obj] + attr.split("."))
+
+    model_args = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][1]
+    model_kwargs = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][2]
+    if not os.path.isabs(pretrained_model):
+        pretrained_model = pkg_resources.resource_filename("myGym", pretrained_model)
+    env = model_args[1]
+    vec_env = env
+    # methode1: sb3 load
+    # model = SAC_.load(pretrained_model, vec_env)
+    # methode2: torch load
+    model = SAC_P("MlpPolicy", vec_env)
+    params = torch.load('./trained_models/reach/reach_table_kong_joints_sac_6/model_torch.pth.tar')
+    for name in params:
+        attr = None
+        attr = recursive_getattr(model, name)
+        attr.load_state_dict(params[name])
+    seed_rl_context(model, seed=seed)
+
+    for i in range(100):
+        obs = env.reset()
+        for j in range(100):
+            print(f"obs:{obs}")
+            action = model.predict(obs)
+            print(f"act:{action}")
+            obs, reward, done, info = env.step(action[0])
+            if done:
+                break
 
 def get_parser():
     parser = argparse.ArgumentParser()
@@ -288,6 +321,13 @@ def get_arguments(parser, config):
 def main(cfg : DictConfig):
     # parser = get_parser()
     # arg_dict = get_arguments(parser)
+        
+    # for seed in seeds:
+    # seed = np.random.randint(10000)
+    seed = 10000
+    print(f"seed:{seed}")
+    seed_everything(seed=seed)
+
     dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
     arg_dict = cfg["db"]
     OmegaConf.set_struct(arg_dict, True)
@@ -310,14 +350,12 @@ def main(cfg : DictConfig):
             model_logdir = "_".join((model_logdir_ori, str(add)))
             add += 1
 
-    env = configure_env(arg_dict, model_logdir, for_train=1)
+    env = configure_env(arg_dict, model_logdir, for_train=1) # for_train: Monitor
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
-    # for seed in seeds:
-    seed = np.random.randint(10000)
-    print(f"seed:{seed}")
+
     with wandb.init(
         mode="offline",
-        project="mygym_train_seeds",
+        project="mygym_train_pre",
         dir=os.getcwd(),
         config=dict_cfg,
     ):

@@ -341,11 +341,9 @@ class GymEnv(CameraEnv):
         #         result[i] = np.random.uniform(low[i], high[i], 1)
         #     return result
         # action = generate_random_range(self.action_low, self.action_high)
-        print(f"action:{action}")
         self._apply_action_robot(action)
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
-        print(f"observation:{self._observation}")
         if self.dataset: reward, done, info = 0, False, {}
         else:
             reward = self.reward.compute(observation=self._observation, action=action)
