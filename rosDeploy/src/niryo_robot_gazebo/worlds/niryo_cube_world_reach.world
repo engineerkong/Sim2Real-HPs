@@ -10,6 +10,21 @@
             <uri>model://ground_plane</uri>
         </include>
 
+        <!-- Niryo Workspace -->
+        <model name='workspace_1'>
+            <include>
+                <uri>model://workspace_1</uri>
+            </include>
+            <pose frame=''>0.25 0.0 0.0005 0.0 0.0 0.0</pose>
+        </model>
+
+        <!--CUBES-->
+        <model name='cube_blue'>
+            <include>
+                <uri>model://cube_blue</uri>
+            </include>
+            <pose frame=''>0.25 0 0.0005 0.0 0.0 0.5</pose>
+        </model>
         <physics name='default_physics' default='0' type='ode'>
             <max_step_size>0.001</max_step_size>
             <real_time_factor>1</real_time_factor>
