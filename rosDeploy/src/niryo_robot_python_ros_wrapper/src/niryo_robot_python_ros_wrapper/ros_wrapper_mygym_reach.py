@@ -3,6 +3,7 @@
 # Imports
 from niryo_robot_python_ros_wrapper.ros_wrapper import *
 import numpy as np
+import random
 import wandb
 import os
 import scipy.stats
@@ -17,26 +18,43 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.num_episodes = num_episodes
         self.num_steps = num_steps
         self.threshold = threshold
-        self.target_xyz = np.array([0.5, 0.0, 0.0])
+        self.sampling_area = [0.3, 0.5, -0.2, 0.2, 0.05, 0.05]
+        # self.target_xyz = np.array([0.5, 0.0, 0.0]) # need to be care that the x,y are contrary with it in mygym
         self.prev_action = None
         self.reset()
 
     def reset(self):
+        
+        self.target_xyz = self.get_random_object_position(self.sampling_area)
         self.prev_obj1_position = None
         self.prev_obj2_position = None
         self.done = False
+        self.episode_reward = 0
         self.episode_reward_list = []
         obs_joints = [0, 0, 0, 0, 0, 0]
         self.move_joints(*obs_joints)
         self.get_observation()
+        print("init observation:{}".format(self.obs))
 
+    def get_random_object_position(self, boarders):
+
+        if any(isinstance(i, list) for i in boarders):
+            boarders = boarders[random.randint(0,len(boarders)-1)]
+        pos = []
+        pos.append(random.uniform(boarders[0], boarders[1])) #x
+        pos.append(random.uniform(boarders[2], boarders[3])) #y
+        pos.append(random.uniform(boarders[4], boarders[5])) #z
+        return pos
+    
     def generate_random_range(self, low, high):
+
         result = np.zeros(len(low))
         for i in range(len(low)):
             result[i] = np.random.uniform(low[i], high[i], 1)
         return result
             
     def test(self):
+
         self.obs = [-1.0228927688002336e-08, 0.24520003516036062, 0.38804871518259465, -0.14393927545798518, 0.33133210103521077, 0.1, 
                     -1.0228927688002336e-08, 0.24520003516036062, 0.38804871518259465]
         print("obs:{}".format(self.obs))
@@ -44,20 +62,16 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         print("action:{}".format(self.action))
 
     def eval(self):
+
         with wandb.init(
             mode="offline",
             project="ros_test_seeds",
             dir=os.getcwd()
         ):
             for i in range(self.num_episodes):
-                episode_reward = 0
                 self.reset()
-                print("init observation:{}".format(self.obs))
                 for j in range(self.num_steps):
                     print("steps:{}".format(j))
-                    # self.action = self.generate_random_range(self.env.action_space.low, self.env.action_space.high)
-                    # self.move_pose(0.25, 0.0357, 0.05, 0, 0, 0)
-                    # self.action = self.get_joints()
                     self.action, self._states = self.model.predict(self.obs)
                     print("action:{}".format(self.action))                    
                     self.step()
@@ -67,16 +81,17 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
                     print("observation:{}".format(self.obs))
                     self.get_done()
                     self.get_reward()
-                    episode_reward += self.reward
+                    self.episode_reward += self.reward
                     self.episode_reward_list.append(self.reward)
                     wandb.log({"reward":self.reward})
                     if self.done:
                         break
                 self.episode_iqm_reward = scipy.stats.trim_mean(np.array(self.episode_reward_list), proportiontocut=0.25, axis=None)
                 wandb.log({"episode iqm reward":self.episode_iqm_reward})
-                print("finished... done:{}, episode:{}, steps:{}, episode_reward:{}".format(self.done, i,j,episode_reward))
+                print("finished... done:{}, episode:{}, steps:{}, episode_reward:{}".format(self.done, i, j, self.episode_reward))
 
     def step(self):
+
         action = np.clip(self.action, self.env.action_space.low, self.env.action_space.high)
         self.move_joints(*action)
 

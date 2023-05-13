@@ -24,9 +24,6 @@ class MygymReachEnv:
         
         self.observation_space = Box(-float('inf'), float('inf'), (9,))
         self.action_space = Box(-float(1), float(1), (6,))
-        # self.action_space.high = np.array([2.98987191833, 0.600167106497, 1.56009819509, 2.08003177926, 1.91282923692, 2.52002928369])
-        # self.action_space.low = np.array([-2.98987191833, -1.82259571459, -1.33006379968, -2.08003177926, -1.91003671012, -2.52002928369])
-        # actually
         self.action_space.high = np.array([2.99987191833, 0.610167106497, 1.57009819509, 2.09003177926, 1.92282923692, 2.53002928369])
         self.action_space.low = np.array([-2.99987191833, -1.83259571459, -1.34006379968, -2.09003177926, -1.92003671012, -2.53002928369])
         self.reward_range = (-float('inf'), float('inf'))
