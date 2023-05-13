@@ -177,7 +177,7 @@ class TaskModule():
             return True
         return False
 
-    def check_object_moved(self, object, threshold=0.3):
+    def check_object_moved(self, object, threshold=0.01):
         """
         Check if object moved more than allowed threshold
 
@@ -204,7 +204,7 @@ class TaskModule():
             return -1
         return False
 
-    def check_distance_threshold(self, observation, threshold=0.1):
+    def check_distance_threshold(self, observation, threshold=0.01):
         """
         Check if the distance between relevant task objects is under threshold for successful task completion
         Returns:
@@ -213,7 +213,7 @@ class TaskModule():
         self.current_norm_distance = self.calc_distance(observation["goal_state"], observation["actual_state"])
         return self.current_norm_distance < threshold
     
-    def check_distrot_threshold(self, observation, threshold=0.1):
+    def check_distrot_threshold(self, observation, threshold=0.01):
         """
         Check if the distance between relevant task objects is under threshold for successful task completion
         Returns:
@@ -228,7 +228,7 @@ class TaskModule():
         return False
 
 
-    def check_points_distance_threshold(self, threshold=0.1):
+    def check_points_distance_threshold(self, threshold=0.01):
         o1 = self.env.task_objects["actual_state"]
         if (self.task_type == 'pnp') and (self.env.robot_action != 'joints_gripper') and (len(self.env.robot.magnetized_objects) == 0):
             o2 = self.env.robot
