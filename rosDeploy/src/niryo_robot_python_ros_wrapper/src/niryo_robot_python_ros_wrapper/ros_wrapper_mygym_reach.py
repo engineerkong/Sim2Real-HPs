@@ -9,17 +9,16 @@ import scipy.stats
 
 class NiryoRosWrapperMygym(NiryoRosWrapper):
 
-    def __init__(self, model, num_episodes, num_steps, threshold):
+    def __init__(self, env, model, num_episodes, num_steps, threshold):
         super(NiryoRosWrapperMygym, self).__init__()
 
+        self.env = env
         self.model = model
         self.num_episodes = num_episodes
         self.num_steps = num_steps
         self.threshold = threshold
-        self.target_xyz = np.array([-0.14393927545798518, 0.33133210103521077, 0.1])
+        self.target_xyz = np.array([0.5, 0.0, 0.0])
         self.prev_action = None
-        self.action_high = np.array([2.99987191833, 0.610167106497, 1.57009819509, 2.09003177926, 1.92282923692, 2.53002928369])
-        self.action_low = np.array([-2.99987191833, -1.83259571459, -1.34006379968, -2.09003177926, -1.92003671012, -2.53002928369])
         self.reset()
 
     def reset(self):
@@ -53,26 +52,24 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
             for i in range(self.num_episodes):
                 episode_reward = 0
                 self.reset()
+                print("init observation:{}".format(self.obs))
                 for j in range(self.num_steps):
                     print("steps:{}".format(j))
-                    # self.action = self.generate_random_range(self.action_low, self.action_high)
+                    # self.action = self.generate_random_range(self.env.action_space.low, self.env.action_space.high)
                     # self.move_pose(0.25, 0.0357, 0.05, 0, 0, 0)
                     # self.action = self.get_joints()
                     self.action, self._states = self.model.predict(self.obs)
-                    upper_band = 4.8
-                    lower_band = -3
-                    # print("action:{}".format(self.action))
+                    print("action:{}".format(self.action))                    
                     self.step()
                     joint_state = self.get_joints()
-                    # print("state:{}".format(joint_state))
+                    print("state:{}".format(joint_state))
                     self.get_observation()
                     print("observation:{}".format(self.obs))
                     self.get_done()
                     self.get_reward()
-                    # print("reward:{}".format(self.reward))
                     episode_reward += self.reward
                     self.episode_reward_list.append(self.reward)
-                    wandb.log({"reward":self.reward, "upper_band":upper_band, "lower_band":lower_band})
+                    wandb.log({"reward":self.reward})
                     if self.done:
                         break
                 self.episode_iqm_reward = scipy.stats.trim_mean(np.array(self.episode_reward_list), proportiontocut=0.25, axis=None)
@@ -80,34 +77,35 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
                 print("finished... done:{}, episode:{}, steps:{}, episode_reward:{}".format(self.done, i,j,episode_reward))
 
     def step(self):
-    
-        self.move_joints(*self.action)
+        action = np.clip(self.action, self.env.action_space.low, self.env.action_space.high)
+        self.move_joints(*action)
 
     def get_observation(self):
 
         tcp_pose = self.get_pose()
-        self.endeff_xyz = np.array([tcp_pose.position.x, tcp_pose.position.y, tcp_pose.position.z])
-        self.obs = np.concatenate((self.endeff_xyz, self.target_xyz, self.endeff_xyz),axis=0)
+        self.endeff_xyz_trans = np.array([-tcp_pose.position.y, tcp_pose.position.x, tcp_pose.position.z])
+        self.target_xyz_trans = np.array([-self.target_xyz[1], self.target_xyz[0], self.target_xyz[2]])
+        self.obs = np.concatenate((self.endeff_xyz_trans, self.target_xyz_trans, self.endeff_xyz_trans),axis=0)
 
     def get_reward(self):
         
-        # self.reward = self.calc_dist_diff(self.endeff_xyz, self.target_xyz) + collision * (-1)
+        # self.reward = self.calc_dist_diff(self.endeff_xyz_trans, self.target_xyz_trans) + collision * (-1)
         if self.prev_action is None:
             self.prev_action = np.array(self.action)
         a = np.array(self.action) - self.prev_action
-        vec = np.array(self.endeff_xyz) - np.array(self.target_xyz)
+        vec = np.array(self.endeff_xyz_trans) - np.array(self.target_xyz_trans)
         reward_dist = -np.linalg.norm(vec)
         reward_ctrl = -np.square(a).sum()
         collision = self.get_collision()
-        print(self.done)
         if self.done:
             self.reward = reward_dist + 0.1*reward_ctrl + (-1)*collision + 5
         else:
             self.reward = reward_dist + 0.1*reward_ctrl + (-1)*collision
+        print("reward: dist {}, ctrl {}, coll {}, finished {}, sum {}".format(reward_dist, 0.1*reward_ctrl, (-1)*collision, self.done, self.reward))
 
     def get_done(self):
 
-        distance = self.calc_distance(self.endeff_xyz, self.target_xyz)
+        distance = self.calc_distance(self.endeff_xyz_trans, self.target_xyz_trans)
         if distance <= self.threshold:
             self.done = True
     

@@ -44,7 +44,7 @@ for name in params:
 print("---deploy---")
 # detection_improve()
 rospy.init_node('niryo_robot_example_python_ros_wrapper')
-num_episodes, num_steps = 10, 100
+num_episodes, num_steps = 100, 100
 threshold = 0.1
-ros_robot = NiryoRosWrapperMygym(model, num_episodes, num_steps, threshold)
-ros_robot.test()
+ros_robot = NiryoRosWrapperMygym(env, model, num_episodes, num_steps, threshold)
+ros_robot.eval()
