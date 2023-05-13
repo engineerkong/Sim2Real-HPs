@@ -39,7 +39,8 @@ class Robot:
                  dimension_velocity = 0.5,
                  max_velocity = None, #1.,
                  max_force = None, #50.,
-                 pybullet_client=None):
+                 pybullet_client=None,
+                 train_test=1):
 
         self.p = pybullet_client
         self.robot_dict = get_robot_dict()
@@ -66,6 +67,9 @@ class Robot:
         self.magnetized_objects = {}
         self.gripper_active = False
         self._load_robot()
+        self.train_test = train_test
+        print(f"111111111111111:{self.train_test}")
+        self._set_collisions()
         self.num_joints = self.p.getNumJoints(self.robot_uid)
         self._set_motors()
         self.joints_limits, self.joints_ranges, self.joints_rest_poses, self.joints_max_force, self.joints_max_velo = self.get_joints_limits(self.motor_indices)       
@@ -92,30 +96,16 @@ class Robot:
                 pkg_resources.resource_filename("myGym",
                                                 self.robot_path),
                 self.position, self.orientation, useFixedBase=True, flags=(self.p.URDF_USE_SELF_COLLISION))
+            
+    def _set_collisions(self):
         # set the collision between forearm and hand link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
         # set the collision between mors_1 and mors_2 link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
-        # set the collision between robot and ground_plane to be false (no this collision in deploy)
-        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-            for link_idx2 in range(-1, self.p.getNumJoints(0)):
-                self.p.setCollisionFilterPair(self.robot_uid, 0, link_idx1, link_idx2, False)
-        # set the collision between robot and workspace_table to be false (no this collision in deploy)
-        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-            for link_idx2 in range(-1, self.p.getNumJoints(1)):
-                self.p.setCollisionFilterPair(self.robot_uid, 1, link_idx1, link_idx2, False)
         # set the collision between robot and goal_object to be false (goal_object just a pos)
         for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
             for link_idx2 in range(-1, self.p.getNumJoints(3)):
                 self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
-        
-        # change dynamics
-        # for jid in range(self.p.getNumJoints(self.robot_uid)):
-        #         self.p.changeDynamics(self.robot_uid, jid,  collisionMargin=0., contactProcessingThreshold=0.0, ccdSweptSphereRadius=0)
-
-        # if 'jaco' in self.name: #@TODO jaco gripper has closed loop between finger and finger_tip that is not respected by the simulator
-        #     self.p.createConstraint(self.robot_uid, 11, self.robot_uid, 15, self.p.JOINT_FIXED, [0, 0, 0], [0, 0, 0], [0, 0, 0])
-        #     self.p.createConstraint(self.robot_uid, 13, self.robot_uid, 17, self.p.JOINT_FIXED, [0, 0, 0], [0, 0, 0], [0, 0, 0])
 
     def _set_motors(self):
         """
@@ -360,27 +350,20 @@ class Robot:
                                     maxVelocity=self.joints_max_velo[i],
                                     positionGain=0.3,
                                     velocityGain=0.1)
-        # joint_state1 = self.p.getJointState(self.robot_uid, 1)
-        # joint_state2 = self.p.getJointState(self.robot_uid, 2)
-        # joint_state3 = self.p.getJointState(self.robot_uid, 3)
-        # joint_state4 = self.p.getJointState(self.robot_uid, 4)
-        # joint_state5 = self.p.getJointState(self.robot_uid, 5)
-        # joint_state6 = self.p.getJointState(self.robot_uid, 6)
-        # joint_position1 = joint_state1[0]
-        # joint_position2 = joint_state2[0]
-        # joint_position3 = joint_state3[0]
-        # joint_position4 = joint_state4[0]
-        # joint_position5 = joint_state5[0]
-        # joint_position6 = joint_state6[0]
-        # print(f"joint:{joint_position1, joint_position2, joint_position3, joint_position4, joint_position5, joint_position6}")
+            joint_state = self.p.getJointState(self.robot_uid, self.motor_indices[i])
+            self.joints_state.append(joint_state[0])
+        # print(f"joint:{self.joints_state}")
         pts = self.p.getContactPoints()
         if len(pts) != 0:
             # print("num pts=", len(pts))
             for pt in pts:
                 # print(f"collision:{pt}")
                 line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
-                if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
+                if self.train_test:
                     self.collision = 1
+                else:
+                    if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
+                        self.collision = 1
         # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
