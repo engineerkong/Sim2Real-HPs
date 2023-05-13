@@ -50,7 +50,7 @@ def get_workspace_dict():
                                                         'target': [[0.18, -1.12, 0.85], [0.81, 2.99, 0.8], [-1.82, 1.57, 0.7], [3.15, 0.43, 0.55], [2.17, 1.25, 3.1]]},
                                             'borders':[-0.5, 2.5, 0.8, 1.6, 0.1, 0.1]},
                                 'table':    {'urdf': 'table.urdf', 'texture': 'table.jpg',
-                                            'transform': {'position':[-0.0, -0.0, -1.05], 'orientation':[0.0, 0.0, 0*np.pi]},
+                                            'transform': {'position':[-0.0, -0.0, -0.0], 'orientation':[0.0, 0.0, 0*np.pi]},
                                             'robot': {'position': [0.0, 0.0, 0.0], 'orientation': [0.0, 0.0, 0.5*np.pi]},
                                             'camera': {'position': [[0.0, 2.4, 1.0], [-0.0, -1.5, 1.0], [1.8, 0.9, 1.0], [-1.8, 0.9, 1.0], [0., 0.85, 1.4],
                                                                     [0.0, 1.6, 0.8], [-0.0, -0.5, 0.8], [0.8, 0.9, 0.6], [-0.8, 0.9, 0.8], [0.0, 0.9, 1.]],
@@ -73,7 +73,7 @@ def get_workspace_dict():
 
 
 def get_robot_dict():
-    r_dict =   {'kong': {'path': '/envs/robots/niryo_robot_description/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf', 'position': np.array([0.0, -0.05, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
+    r_dict =   {'kong': {'path': '/envs/robots/niryo_robot_description/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf', 'position': np.array([0.0, -0.05, 0.0]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka': {'path': '/envs/robots/kuka_magnetic_gripper_sdf/kuka_magnetic.urdf', 'position': np.array([0.0, -0.08, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka_push': {'path': '/envs/robots/kuka_magnetic_gripper_sdf/kuka_push.urdf', 'position': np.array([0.0, 0.0, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka_gripper': {'path': '/envs/robots/kuka_gripper/kuka_gripper.urdf', 'position': np.array([0.0, 0.0, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
