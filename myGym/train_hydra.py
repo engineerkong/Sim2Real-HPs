@@ -232,7 +232,7 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
     # model = SAC_P.load(pretrained_model, vec_env)
     # torch load
     model = SAC_P("MlpPolicy", vec_env)
-    params = torch.load('./trained_models/reach/reach_table_kong_joints_sac_6/model_torch.pth.tar')
+    params = torch.load('./trained_models/reach/SAC-Reach-0505-1/model_torch.pth.tar')
     for name in params:
         attr = None
         attr = recursive_getattr(model, name)
@@ -242,9 +242,7 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
     for i in range(100):
         obs = env.reset()
         for j in range(100):
-            print(f"obs:{obs}")
             action = model.predict(obs)
-            print(f"act:{action}")
             obs, reward, done, info = env.step(action[0])
             if done:
                 break
@@ -322,15 +320,15 @@ def main(cfg : DictConfig):
     # parser = get_parser()
     # arg_dict = get_arguments(parser)
         
-    # for seed in seeds:
-    # seed = np.random.randint(10000)
-    seed = 10000
+    seed = np.random.randint(10000)
     print(f"seed:{seed}")
     seed_everything(seed=seed)
 
     dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
     arg_dict = cfg["db"]
     OmegaConf.set_struct(arg_dict, True)
+    train_test = arg_dict["train_test"]
+    
     # Check if we chose one of the existing engines
     if arg_dict["engine"] not in AVAILABLE_SIMULATION_ENGINES:
         print(f"Invalid simulation engine. Valid arguments: --engine {AVAILABLE_SIMULATION_ENGINES}.")
@@ -339,7 +337,8 @@ def main(cfg : DictConfig):
         with open_dict(arg_dict):
             arg_dict["logdir"] = os.path.join("./", arg_dict["logdir"])
     os.makedirs(arg_dict["logdir"], exist_ok=True)
-    model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((arg_dict["task_type"],arg_dict["workspace"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"])))
+    ttname = "train" if train_test else "test"
+    model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((ttname,arg_dict["task_type"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"],str(seed))))
     model_logdir = model_logdir_ori
     add = 2
     while True:
@@ -350,16 +349,19 @@ def main(cfg : DictConfig):
             model_logdir = "_".join((model_logdir_ori, str(add)))
             add += 1
 
-    env = configure_env(arg_dict, model_logdir, for_train=1) # for_train: Monitor
+    env = configure_env(arg_dict, model_logdir, train_test) # train: Monitor
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
 
     with wandb.init(
         mode="offline",
-        project="mygym_train_pre",
+        project="mygym_train",
         dir=os.getcwd(),
         config=dict_cfg,
     ):
-        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
+        if train_test:
+            train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
+        else:
+            eval(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
     print(model_logdir)
 
 if __name__ == "__main__":
