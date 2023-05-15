@@ -223,7 +223,7 @@ class PushReward(Reward):
         reward = 0.5*reward_near + reward_dist +  0.1*reward_ctrl + (-1)*collision
         if finished:
             reward += 5
-        print(f"reward: near {0.5*reward_dist}, dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
+        print(f"reward: near {0.5*reward_near}, dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
