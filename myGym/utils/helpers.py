@@ -73,7 +73,8 @@ def get_workspace_dict():
 
 
 def get_robot_dict():
-    r_dict =   {'kong': {'path': '/envs/robots/niryo_robot_description/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf', 'position': np.array([0.0, -0.05, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]},
+    r_dict =   {'ned2': {'path': '/envs/robots/niryo_robot_description/urdf/ned2/niryo_ned2.urdf', 'position': np.array([0.0, -0.05, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]},
+                             'ned2_gripper_camera': {'path': '/envs/robots/niryo_robot_description/urdf/ned2/niryo_ned2_gripper1_n_camera.urdf', 'position': np.array([0.0, -0.05, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka': {'path': '/envs/robots/kuka_magnetic_gripper_sdf/kuka_magnetic.urdf', 'position': np.array([0.0, -0.08, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka_push': {'path': '/envs/robots/kuka_magnetic_gripper_sdf/kuka_push.urdf', 'position': np.array([0.0, 0.0, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},
                              'kuka_gripper': {'path': '/envs/robots/kuka_gripper/kuka_gripper.urdf', 'position': np.array([0.0, 0.0, -0.041]), 'orientation': [0.0, 0.0, 0*np.pi]},

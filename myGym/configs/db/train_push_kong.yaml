@@ -8,7 +8,7 @@ ee_camera: 0
 gui: 1
 visualize: 0
 visgym: 0
-robot: kong
+robot: ned2
 robot_action: joints
 robot_init:
 - 0.0
@@ -77,7 +77,7 @@ num_networks: 1
 max_episode_steps: 500
 algo_steps: 500
 steps: 100000
-pretrained_model: ./trained_models/push/SAC-Push-1405-1/best_model
+pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 5

@@ -75,7 +75,7 @@ class Robot:
         self.joints_limits, self.joints_ranges, self.joints_rest_poses, self.joints_max_force, self.joints_max_velo = self.get_joints_limits(self.motor_indices)       
         if self.gripper_names:
             self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo = self.get_joints_limits(self.gripper_indices)
-        joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
+        # joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
         self.collision = 0
         self.init_joint_poses = init_joint_poses
         self.reset()
@@ -157,7 +157,7 @@ class Robot:
             exit()
         if self.gripper_index == None:
             print("No gripper detected. Please add gripper joint and link to the URDF file (see panda.urdf for example)")
-            exit()
+            # exit()
         
         if 'gripper' in self.robot_action and not self.gripper_indices:
             print("Gripper control active but no gripped joints detected. Please add gjoints to the URDF file (see panda.urdf for example)")
@@ -374,8 +374,8 @@ class Robot:
         # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
-        self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  
-        self.gripper_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1]  
+        # self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  
+        # self.gripper_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1]  
     
     def _move_gripper(self, action):
         """
