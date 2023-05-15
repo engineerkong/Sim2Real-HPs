@@ -11,9 +11,12 @@ visgym: 0
 robot: kong
 robot_action: joints
 robot_init:
-- 0
-- 0.2
-- 0.3
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- -1.57
+- 0.0
 max_velocity: 3
 max_force: 100
 action_repeat: 1

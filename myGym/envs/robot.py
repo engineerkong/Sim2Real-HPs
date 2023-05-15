@@ -68,7 +68,7 @@ class Robot:
         self.gripper_active = False
         self._load_robot()
         self.train_test = train_test
-        print(f"111111111111111:{self.train_test}")
+
         self._set_collisions()
         self.num_joints = self.p.getNumJoints(self.robot_uid)
         self._set_motors()
@@ -102,10 +102,14 @@ class Robot:
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
         # set the collision between mors_1 and mors_2 link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
+        # # set the collision between robot and init(goal)_object to be false (goal_object just a pos)
+        # for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+        #     for link_idx2 in range(-1, self.p.getNumJoints(3)):
+        #         self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
         # set the collision between robot and goal_object to be false (goal_object just a pos)
         for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-            for link_idx2 in range(-1, self.p.getNumJoints(3)):
-                self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+            for link_idx2 in range(-1, self.p.getNumJoints(4)):
+                self.p.setCollisionFilterPair(self.robot_uid, 4, link_idx1, link_idx2, False)
 
     def _set_motors(self):
         """
@@ -357,12 +361,15 @@ class Robot:
         if len(pts) != 0:
             # print("num pts=", len(pts))
             for pt in pts:
-                # print(f"collision:{pt}")
-                line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
                 if self.train_test:
-                    self.collision = 1
+                    if (pt[1] == self.robot_uid and pt[2] != 3) or (pt[1] != 3 and pt[2] == self.robot_uid):
+                        # print(f"collision:{pt}")
+                        line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
+                        self.collision = 1
                 else:
                     if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
+                        # print(f"collision:{pt}")
+                        line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
                         self.collision = 1
         # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
@@ -630,7 +637,7 @@ class Robot:
         #    for joint_index in range(self.gripper_index, self.end_effector_index + 1):
         #        self.p.resetJointState(self.robot_uid, joint_index, self.p.getJointInfo(self.robot_uid, joint_index)[9])
 
-    def magnetize_object(self, object, distance_threshold=.01):
+    def magnetize_object(self, object, distance_threshold=.05):
         if len(self.magnetized_objects) == 0 :
             if np.linalg.norm(np.asarray(self.get_position()) - np.asarray(object.get_position()[:3])) <= distance_threshold:
                 self.p.changeVisualShape(object.uid, -1, rgbaColor=[.8, .1 , 0.1, 0.5])

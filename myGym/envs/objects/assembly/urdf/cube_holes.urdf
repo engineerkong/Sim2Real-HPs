@@ -16,7 +16,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.0001 0.0 0.0"/>
       <geometry>
-        <mesh filename="../obj/cube_holes.obj" scale=".0004 .0004 .0004"/>
+        <mesh filename="../obj/cube_holes.obj" scale=".001 .001 .001"/>
       </geometry>
        <material name="black">
         <color rgba="0 0 0 1"/>
@@ -25,7 +25,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0.0001 0.0 0.0"/>
       <geometry>
-	 	<mesh filename="../obj/cube_holes.obj" scale=".0004 .0004 .0004"/>
+	 	<mesh filename="../obj/cube_holes.obj" scale=".001 .001 .001"/>
       </geometry>
     </collision>
   </link>

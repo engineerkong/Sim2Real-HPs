@@ -177,7 +177,7 @@ class TaskModule():
             return True
         return False
 
-    def check_object_moved(self, object, threshold=0.01):
+    def check_object_moved(self, object, threshold=0.05):
         """
         Check if object moved more than allowed threshold
 
@@ -204,7 +204,7 @@ class TaskModule():
             return -1
         return False
 
-    def check_distance_threshold(self, observation, threshold=0.01):
+    def check_distance_threshold(self, observation, threshold=0.05):
         """
         Check if the distance between relevant task objects is under threshold for successful task completion
         Returns:
@@ -213,7 +213,7 @@ class TaskModule():
         self.current_norm_distance = self.calc_distance(observation["goal_state"], observation["actual_state"])
         return self.current_norm_distance < threshold
     
-    def check_distrot_threshold(self, observation, threshold=0.01):
+    def check_distrot_threshold(self, observation, threshold=0.05):
         """
         Check if the distance between relevant task objects is under threshold for successful task completion
         Returns:

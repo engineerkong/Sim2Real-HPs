@@ -309,7 +309,6 @@ def get_arguments(parser, config):
     for key, value in vars(args).items():
         if value is not None and key is not "config":
             if key in ["robot_init"]:
-                print(1)
                 arg_dict[key] = [float(arg_dict[key][i]) for i in range(len(arg_dict[key]))]
             else:
                 arg_dict[key] = value
@@ -354,7 +353,7 @@ def main(cfg : DictConfig):
 
     with wandb.init(
         mode="offline",
-        project="mygym_train",
+        project="mygym_train_push",
         dir=os.getcwd(),
         config=dict_cfg,
     ):
