@@ -251,8 +251,7 @@ class TaskModule():
         if self.task_type in ['pnprot','pnpswipe']:
             finished = self.check_distrot_threshold(self._observation)  
         if self.task_type in ['push', 'throw']:
-            self.check_distance_threshold(self._observation)
-            finished = self.check_points_distance_threshold()
+            finished = self.check_distance_threshold(self._observation)
         if self.task_type == "switch":
             self.check_distance_threshold(self._observation)
             finished = abs(self.env.reward.get_angle()) >= 18
