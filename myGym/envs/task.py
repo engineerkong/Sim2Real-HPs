@@ -271,7 +271,7 @@ class TaskModule():
         #        self.env.episode_over = False
         if finished:
             self.end_episode_success()
-        if self.check_time_exceeded() or self.env.episode_steps == self.env.max_steps:
+        if self.env.episode_steps == self.env.max_steps:
             self.end_episode_fail("Max amount of steps reached")
         if "ground_truth" not in self.vision_src and (self.check_vision_failure()):
             self.stored_observation = []
