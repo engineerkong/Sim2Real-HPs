@@ -172,7 +172,6 @@ class ReachReward(Reward):
         else:
             reward = reward_dist + 0.1*reward_ctrl + (-1)*collision
         print(f"reward: dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
-        self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
         return reward
@@ -216,7 +215,7 @@ class PushReward(Reward):
         vec_1 = np.array(o1) - np.array(o3)
         vec_2 = np.array(o1) - np.array(o2)
         reward_ctrl = -np.square(a).sum()
-        finished = self.task.check_points_distance_threshold()
+        finished = self.task.check_distance_threshold(observation)
         collision = self.env.robot.collision
         reward_near = -np.linalg.norm(vec_1)
         reward_dist = -np.linalg.norm(vec_2)
@@ -224,7 +223,6 @@ class PushReward(Reward):
         if finished:
             reward += 5
         print(f"reward: near {0.5*reward_near}, dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
-        self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
         return reward
