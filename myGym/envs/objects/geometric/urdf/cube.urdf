@@ -1,42 +1,21 @@
 <?xml version="1.0" ?>
 <robot name="cube.urdf">
   <link name="baseLink">
-    <contact>
-      <!-- <lateral_friction value="1.0"/>
-      <inertia_scaling value="3.0"/> -->
-      <!-- <friction_anchor/> -->
-      <!-- <lateral_friction value="1.3"/> -->
-      <!-- <rolling_friction value="1.3"/> -->
-      <!-- <lateral_friction value="20"/> -->
-      <stiffness value="300"/>
-      <!-- <damping value="10"/> -->
-      <!-- <damping value="20"/> -->
-    </contact>
-    <shader type="vertex">
-          <normal_map>__default__</normal_map>
-        </shader>
-        <ambient>0.204 0.396 0.643 1</ambient>
-        <diffuse>0.204 0.396 0.643 1</diffuse>
-        <specular>0.333 0.341 0.325 1</specular>
-        <emissive>0 0 0 1</emissive>
     <inertial>
       <mass value="1e-4"/>
       <inertia ixx="1.0e-8" ixy="0" ixz="0" iyy="1.0e-8" iyz="0" izz="1.0e-8"/>
-      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
-      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-	<mesh filename="./obj/cube.obj" scale=".0004 .0004 .0004"/>
+	      <mesh filename="./obj/cube.obj" scale=".001 .001 .001"/>
       </geometry>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-     </material>
     </visual>
     <collision>
-      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-	<mesh filename="./obj/cube.obj" scale=".0004 .0004 .0004"/>
+	      <mesh filename="./obj/cube.obj" scale=".001 .001 .001"/>
       </geometry>
     </collision>
   </link>
