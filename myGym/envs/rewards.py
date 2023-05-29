@@ -193,6 +193,7 @@ class PushReward(Reward):
     def __init__(self, env, task):
         super(PushReward, self).__init__(env, task)
         self.prev_action = None
+        self.init_dist = None
 
     def decide(self, observation=None):
         return random.randint(0, self.env.num_networks-1)
@@ -209,20 +210,28 @@ class PushReward(Reward):
         if self.prev_action is None:
             self.prev_action = np.array(action)
         o1 = observation["actual_state"]
+        if o1[2] < 0.025: # remove error in physics engine
+            o1[2] = 0.025
         o2 = observation["goal_state"]
         o3 = observation["additional_obs"]["endeff_xyz"]
         a = np.array(action) - self.prev_action
         vec_1 = np.array(o1) - np.array(o3)
         vec_2 = np.array(o1) - np.array(o2)
-        reward_ctrl = -np.square(a).sum()
+        near = np.linalg.norm(vec_1)
+        dist = np.linalg.norm(vec_2)
+        # if self.init_dist is None:
+        #     self.init_dist = dist
+        # if dist > self.init_dist:
+        #     dist = self.init_dist
+        reward_ctrl = np.square(a).sum()
         finished = self.task.check_distance_threshold(observation)
         collision = self.env.robot.collision
-        reward_near = -np.linalg.norm(vec_1)
-        reward_dist = -np.linalg.norm(vec_2)
-        reward = 0.5*reward_near + reward_dist +  0.1*reward_ctrl + (-1)*collision
-        if finished:
+        reward = (-0.5)*near + (-1)*dist + (-0.1)*reward_ctrl + (-1)*collision
+        if near < 0.05:
             reward += 5
-        print(f"reward: near {0.5*reward_near}, dist {reward_dist}, ctrl {0.1*reward_ctrl}, coll {(-1)*collision}, finished {finished}, sum {reward}")
+        if finished:
+            reward += 10
+        print(f"reward: near {(-1)*(near)}, dist {(-2)*(dist)}, ctrl {(-0.1)*reward_ctrl}, coll {(-1)*collision}, closed {near<0.1}, finished {finished}, sum {reward}")
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
         return reward
@@ -232,6 +241,7 @@ class PushReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
+        self.init_dist = None
     
 class ComplexDistanceReward(DistanceReward):
     """

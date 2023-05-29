@@ -352,7 +352,7 @@ def main(cfg : DictConfig):
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
 
     with wandb.init(
-        mode="offline",
+        mode="online",
         project="mygym_train_push",
         dir=os.getcwd(),
         config=dict_cfg,

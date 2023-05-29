@@ -110,6 +110,7 @@ class Robot:
         for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
             for link_idx2 in range(-1, self.p.getNumJoints(4)):
                 self.p.setCollisionFilterPair(self.robot_uid, 4, link_idx1, link_idx2, False)
+        self.p.setCollisionFilterPair(3, 4, -1, -1, False)
 
     def _set_motors(self):
         """
@@ -363,12 +364,12 @@ class Robot:
             for pt in pts:
                 if self.train_test:
                     if (pt[1] == self.robot_uid and pt[2] != 3) or (pt[1] != 3 and pt[2] == self.robot_uid):
-                        print(f"collision:{pt}")
+                        # print(f"collision:{pt}")
                         line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
                         self.collision = 1
                 else:
                     if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
-                        print(f"collision:{pt}")
+                        # print(f"collision:{pt}")
                         line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
                         self.collision = 1
         # print(f"collision:{self.collision}")

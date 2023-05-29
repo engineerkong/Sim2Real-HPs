@@ -248,6 +248,12 @@ class GymEnv(CameraEnv):
         Returns:
             :return self._observation: (list) Observation data of the environment
         """
+        close = True
+        while close:
+            close = self.reset_(random_pos=True, hard=False, random_robot=False, only_subtask=False)
+        return self.flatten_obs(self._observation.copy())
+
+    def reset_(self, random_pos=True, hard=False, random_robot=False, only_subtask=False):
         if not only_subtask:
             self.robot.reset(random_robot=random_robot)
             super().reset(hard=hard)
@@ -276,8 +282,13 @@ class GymEnv(CameraEnv):
         self.reward.reset()
         self.p.stepSimulation()
         self._observation = self.get_observation()
-        return self.flatten_obs(self._observation.copy())
-
+        dist = np.linalg.norm(np.asarray(self._observation["actual_state"][:3]) - np.asarray(self._observation["goal_state"][:3]))
+        if dist <= 0.1:
+            close = True
+        else:
+            close = False
+        return close
+        
     def shift_next_subtask(self):
         # put current init and goal back in env_objects
         self.env_objects["distractor"].extend([self.env_objects["actual_state"], self.env_objects["goal_state"]])
@@ -344,7 +355,7 @@ class GymEnv(CameraEnv):
         #     return result
         # action = generate_random_range(self.action_low, self.action_high)
         self._apply_action_robot(action)
-        print(f"act:{action}")
+        # print(f"act:{action}")
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
         print(f"obs:{self._observation}")
