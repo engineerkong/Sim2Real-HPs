@@ -11,7 +11,6 @@ import imageio
 from typing import Union, List, Dict, Any, Optional
 from tqdm.auto import tqdm
 import numpy as np
-import tensorflow as tf
 import gym
 import pybullet as p
 from numpy import matrix
@@ -20,7 +19,6 @@ import warnings
 from stable_baselines.common.vec_env import VecEnv, sync_envs_normalization, DummyVecEnv
 from stable_baselines.common.evaluation import evaluate_policy
 
-#tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 class CustomEvalCallback(EvalCallback):
     """
@@ -206,39 +204,6 @@ class CustomEvalCallback(EvalCallback):
         
 
         print ("mean subtasks finished:{}".format(meansgoals))
-
-        #if not self.is_tb_set:
-        #    with self.model.graph.as_default():
-        #        tf.summary.scalar('value_target', tf.reduce_mean(self.model.value_target))
-        #        self.model.summary = tf.summary.merge_all()
-        #    self.is_tb_set = True
-        
-        # Modify to suit sb3
-        # summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/1.Episode_success', simple_value=(success_episodes_num/n_eval_episodes*100))])
-        # self.locals['writer'].add_summary(summary, self.num_timesteps)
-        # summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/3.Mean_distance_error', simple_value=(distance_error_sum / n_eval_episodes))])
-        # self.locals['writer'].add_summary(summary, self.num_timesteps)
-        # summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/4.Mean_step_num', simple_value=(steps_sum // n_eval_episodes))])
-        # self.locals['writer'].add_summary(summary, self.num_timesteps)
-        # summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/2.Mean_reward', simple_value=np.mean(episode_rewards))])
-        # self.locals['writer'].add_summary(summary, self.num_timesteps)
-        # summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/2.Mean_sgoals', simple_value=meansgoals)])
-        # self.locals['writer'].add_summary(summary, self.num_timesteps)
-        
-        # for i in range (self.eval_env.env.task.number_tasks):
-        #     #print("Task: {}".format(i)) 
-        #     for j, (k,l) in enumerate(zip(meansr,meansrs)):  
-        #         m = np.count_nonzero(srsu[:,j])/n_eval_episodes*100
-        #         #print("Reward {}: {} , steps: {} , Success: {}".format(j, k, l, m )) 
-        #         summary = tf.Summary(value=[tf.Summary.Value(tag='Task{}/Subgoal{}/Reward'.format(i,j),
-        #                                                                       simple_value=k)])
-        #         self.locals['writer'].add_summary(summary, self.num_timesteps)
-        #         summary = tf.Summary(value=[tf.Summary.Value(tag='Task{}/Subgoal{}/Steps'.format(i,j),
-        #                                                                       simple_value=l)])
-        #         self.locals['writer'].add_summary(summary, self.num_timesteps)
-        #         summary = tf.Summary(value=[tf.Summary.Value(tag='Task{}/Subgoal{}/Success'.format(i,j),
-        #                                                                       simple_value=m)])
-        #         self.locals['writer'].add_summary(summary, self.num_timesteps)
 
         self.eval_env.reset()
         return results

@@ -220,7 +220,6 @@ dependencies:
     - gym==0.17.0
     - imagesize==1.2.0
     - joblib==1.0.1
-    - jsonmerge==1.8.0
     - keras==2.7.0rc2
     - keras-applications==1.0.8
     - lark-parser==0.7.8
@@ -251,12 +250,8 @@ dependencies:
     - sphinxcontrib-jsmath==1.0.1
     - sphinxcontrib-qthelp==1.0.3
     - sphinxcontrib-serializinghtml==1.1.5
-    - stable-baselines==2.10.2
     - stable-baselines3==1.2.0
     - tensorboard==1.15.0
-    - tensorflow==1.15.5
-    - tensorflow-estimator==1.15.1
-    - tensorflow-io-gcs-filesystem==0.21.0
     - threadpoolctl==2.2.0
     - wheel==0.37.0
-prefix: /home/michal/anaconda3/envs/mygym
+prefix: /home/lingxiao/anaconda3/envs/mygym

@@ -1,2 +1,2 @@
 defaults:
-  - db: train_push_kong
+  - db: train_pnp_kong

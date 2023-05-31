@@ -15,8 +15,6 @@ try:
     from myGym.yolact_vision.inference_tool import InfTool
 except:
     print("Problem importing YOLACT.")
-from myGym.vae.vis_helpers import load_checkpoint
-from myGym.vae import  sample
 
 class VisionModule:
     """
@@ -237,33 +235,6 @@ class VisionModule:
         dec_img = np.asarray((img * 255).cpu().detach(), dtype="uint8")
         return dec_img
 
-    def encode_with_vae(self, imgs, task="reach", decode=0):
-        """
-        Encode the input image into an n-dimensional latent variable using VAE model
-
-        Parameters:
-            :param imgs: (list of arrays) Input images
-            :param task: (string) Type of learned task (reach, push, ...)
-            :param decode: (bool) Whether to decode encoded images from latent representation back to image array
-        Returns:
-            :return latent_z: (list) Latent representation of images
-            :return dec_img: (list of arrays) Decoded images from latent representation back to image arrays
-        """
-        if self.src != "vae":
-            raise Exception("Encoding can only be done with VAE module!")
-        imgs_input = []
-        for img in imgs:
-            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-            if img.shape[0] != self.vae_imsize:
-                res = [0,450,100, 500] if task == "reach" else [60,390,160,480]
-                img = cv2.resize(img[res[0]:res[1],res[2]:res[3]], (self.vae_imsize, self.vae_imsize))
-            im = torch.tensor(img).type(torch.FloatTensor)
-            im = im.reshape(img.shape[2], img.shape[0], img.shape[0]).unsqueeze(0)/255
-            imgs_input = torch.cat((imgs_input, im), dim=0) if torch.is_tensor(imgs_input) else im
-        latent_z = self.vae_embedder.infer(imgs_input)[0].detach().cpu()
-        dec_img = sample.decode_images(self.vae_embedder, latent_z) if decode == 1 else []
-        return latent_z.squeeze().tolist(), dec_img
-
     def inference_yolact(self, img):
         """
         Infere using YOLACT model
@@ -288,15 +259,7 @@ class VisionModule:
         Parameters:
             :param network: (string) Source of information from environment (yolact, vae)
         """
-        if network == "vae":
-            weights_pth = pkg_resources.resource_filename("myGym", self.vae_path)
-            try:
-                self.vae_embedder, imsize = load_checkpoint(weights_pth, use_cuda=True)
-            except:
-                raise Exception("For vae observation, you need to download pre-trained vision model and specify its path in config. Specified {} not found.".format(self.vae_path))
-            self.vae_imsize = imsize
-            self.obsdim = (2*self.vae_embedder.n_latents) + 3
-        elif network == "yolact":
+        if network == "yolact":
             weights = pkg_resources.resource_filename("myGym", self.yolact_path)
             if ".obj" in self.yolact_config:
                 config = pkg_resources.resource_filename("myGym", self.yolact_config)

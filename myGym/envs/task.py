@@ -58,8 +58,6 @@ class TaskModule():
         self.vision_module.centroid = {}
         self.vision_module.centroid_transformed = {}
         self.env.task_objects["robot"] = self.env.robot
-        if self.vision_src == "vae":
-            self.generate_new_goal(self.env.objects_area_borders, self.env.active_cameras)
 
     def render_images(self, camera_6d=None):
         """
@@ -73,7 +71,7 @@ class TaskModule():
             render_info = self.env.render(mode="rgb_array", camera_id=self.env.active_cameras)
             self.image = render_info[self.env.active_cameras]["image"]
             self.depth = render_info[self.env.active_cameras]["depth"]
-        if self.env.visualize == 1 and self.vision_src != "vae":
+        if self.env.visualize == 1:
             cv2.imshow("Vision input", cv2.cvtColor(self.image, cv2.COLOR_RGB2BGR))
             cv2.waitKey(1)
 
@@ -132,11 +130,7 @@ class TaskModule():
         else:
             self.render_images(camera_6d=None)
             self.matrix = self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj
-        if self.vision_src == "vae":
-            [info_dict["actual_state"], info_dict["goal_state"]], recons = (self.vision_module.encode_with_vae(
-                imgs=[self.image, self.goal_image], task=self.task_type, decode=self.env.visualize))
-            self.visualize_vae(recons) if self.env.visualize == 1 else None
-        else:
+        if self.vision_src == "yolact":
             for key in ["actual_state", "goal_state"]:
                 if "endeff" in info_dict[key]:
                     xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
@@ -187,7 +181,7 @@ class TaskModule():
         Returns:
             :return: (bool)
         """
-        if self.vision_src != "vae":
+        if self.vision_src == "yolact":
             object_position = object.get_position()
             pos_diff = np.array(object_position[:2]) - np.array(object.init_position[:2])
             distance = np.linalg.norm(pos_diff)

@@ -193,7 +193,6 @@ class PushReward(Reward):
     def __init__(self, env, task):
         super(PushReward, self).__init__(env, task)
         self.prev_action = None
-        self.init_dist = None
 
     def decide(self, observation=None):
         return random.randint(0, self.env.num_networks-1)
@@ -219,10 +218,6 @@ class PushReward(Reward):
         vec_2 = np.array(o1) - np.array(o2)
         near = np.linalg.norm(vec_1)
         dist = np.linalg.norm(vec_2)
-        # if self.init_dist is None:
-        #     self.init_dist = dist
-        # if dist > self.init_dist:
-        #     dist = self.init_dist
         reward_ctrl = np.square(a).sum()
         finished = self.task.check_distance_threshold(observation)
         collision = self.env.robot.collision
@@ -241,8 +236,86 @@ class PushReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
-        self.init_dist = None
     
+# pick and place rewards
+class PnPReward(DistanceReward):
+    """
+    Pick and place with simple Distance reward. The gripper is operated automatically.
+    Applicable for 1 network.
+
+    Parameters:
+        :param env: (object) Environment, where the training takes place
+        :param task: (object) Task that is being trained, instance of a class TaskModule
+    """
+    def __init__(self, env, task):
+        super(PnPReward, self).__init__(env, task)
+        self.prev_action = None
+        self.before_pick = True
+    
+    def compute(self, observation, action):
+        """
+        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
+
+        Params:
+            :param observation: (list) Observation of the environment
+        Returns:
+            :return reward: (float) Reward signal for the environment
+        """
+        if self.prev_action is None:
+            self.prev_action = np.array(action)
+        o1 = observation["actual_state"][:3]
+        o2 = observation["goal_state"][:3]
+        for key in observation["additional_obs"]:
+            if key == "endeff_xyz":
+                o3 = observation["additional_obs"][key]
+            elif key == "endeff_6D":
+                o3 = observation["additional_obs"][key][:3]
+        a = np.array(action) - self.prev_action
+        vec_1 = np.array(o1) - np.array(o3)
+        vec_2 = np.array(o1) - np.array(o2)
+        near = np.linalg.norm(vec_1)
+        dist = np.linalg.norm(vec_2)
+        reward_ctrl = np.square(a).sum()
+        if self.gripper_reached_object(observation):
+            # grabbed
+            print("grabbed")
+            self.before_pick = False
+            reward_dist = np.linalg.norm(vec_2)
+            reward_grip = 5
+        else:
+            # not grabbed
+            print("not grabbed")
+            reward_dist = np.linalg.norm(vec_1)
+            reward_grip = 0
+        finished = self.task.check_distance_threshold(observation)
+        collision = self.env.robot.collision
+        reward = (-1)*reward_dist + (-0.1)*reward_ctrl + (-1)*collision + reward_grip
+        if finished:
+            reward += 10
+        print(f"reward: dist {(-1)*(reward_dist)}, ctrl {(-0.1)*reward_ctrl}, coll {(-1)*collision}, grip {reward_grip}, finished {finished}, sum {reward}")
+        self.rewards_history.append(reward)
+        self.prev_action = np.array(action)
+        return reward
+
+    def gripper_reached_object(self, observation):
+        gripper_name = [x for x in self.env.task.obs_template["additional_obs"] if "endeff" in x][0]
+        gripper = observation["additional_obs"][gripper_name][:3]
+        object = observation["actual_state"]
+        self.env.p.addUserDebugLine(gripper, object, lifeTime=0.1)
+        if self.before_pick:
+            self.env.robot.magnetize_object(self.env.env_objects["actual_state"])
+        if self.env.env_objects["actual_state"] in self.env.robot.magnetized_objects.keys():
+            self.env.p.changeVisualShape(self.env.env_objects["actual_state"].uid, -1, rgbaColor=[0, 255, 0, 1])
+            return True
+        return False
+
+    def reset(self):
+        """
+        Reset stored value of distance between 2 objects. Call this after the end of an episode.
+        """
+        self.prev_action = None
+        self.before_pick = True
+
 class ComplexDistanceReward(DistanceReward):
     """
     Reward class for reward signal calculation based on distance differences between 3 objects, e.g. 2 objects and gripper for complex tasks
@@ -1260,104 +1333,6 @@ class DualPoke(PokeReachReward):
         if b > a or c > a:
             distance = c
         return distance
-
-# pick and place rewards
-class KongPnP(DistanceReward):
-    """
-    Pick and place with simple Distance reward. The gripper is operated automatically.
-    Applicable for 1 network.
-
-    Parameters:
-        :param env: (object) Environment, where the training takes place
-        :param task: (object) Task that is being trained, instance of a class TaskModule
-    """
-    def __init__(self, env, task):
-        super(KongPnP, self).__init__(env, task)
-        self.before_pick = True
-    
-    def calc_dist_diff(self, obj1_position=None, obj2_position=None, obj3_position=None):
-        """
-        Calculate change in the distances between 3 objects in previous and in current step. Normalize the change by the value of distance in previous step.
-        Params:
-            :param obj1_position: (list) Position of the first object (actual_state)
-            :param obj2_position: (list) Position of the second object (goal_state)
-            :param obj3_position: (list) Position of the third object (additional_obs)
-        Returns:
-            :return norm_diff: (float) Sum of normalized differences of distances between 3 objects in previsous and in current step
-        """
-        if self.prev_obj1_position is None:
-            self.prev_obj1_position = obj1_position
-        if self.prev_obj2_position is None:
-            self.prev_obj2_position = obj2_position
-        if self.prev_obj3_position is None:
-            self.prev_obj3_position = obj3_position
-
-        if obj3_position is None:
-            # grabbed
-            prev_diff_12 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj2_position)
-            current_diff_12 = self.task.calc_distance(obj1_position, obj2_position)
-            norm_diff = (prev_diff_12 - current_diff_12) / prev_diff_12
-            self.prev_obj1_position = obj1_position
-            self.prev_obj2_position = obj2_position
-        else:
-            # not grabbed
-            prev_diff_13 = self.task.calc_distance(self.prev_obj1_position, self.prev_obj3_position)
-            current_diff_13 = self.task.calc_distance(obj1_position, obj3_position)
-            norm_diff = (prev_diff_13 - current_diff_13) / prev_diff_13
-            self.prev_obj1_position = obj1_position
-            self.prev_obj3_position = obj3_position
-
-        return norm_diff
-    
-    def compute(self, observation):
-        """
-        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
-
-        Params:
-            :param observation: (list) Observation of the environment
-        Returns:
-            :return reward: (float) Reward signal for the environment
-        """
-        o1 = observation["actual_state"][:3]
-        o2 = observation["goal_state"][:3]
-        for key in observation["additional_obs"]:
-            if key == "endeff_xyz":
-                o3 = observation["additional_obs"][key]
-            elif key == "endeff_6D":
-                o3 = observation["additional_obs"][key][:3]
-        if self.gripper_reached_object(observation):
-            # grabbed
-            print("grabbed")
-            self.before_pick = False
-            reward = self.calc_dist_diff(obj1_position=o1, obj2_position=o2)
-        else:
-            # not grabbed
-            print("not grabbed")
-            reward = self.calc_dist_diff(obj1_position=o1, obj3_position=o3)
-        self.task.check_goal()
-        self.rewards_history.append(reward)
-        return reward
-
-    def gripper_reached_object(self, observation):
-        gripper_name = [x for x in self.env.task.obs_template["additional_obs"] if "endeff" in x][0]
-        gripper = observation["additional_obs"][gripper_name][:3]
-        object = observation["actual_state"]
-        self.env.p.addUserDebugLine(gripper, object, lifeTime=0.1)
-        if self.before_pick:
-            self.env.robot.magnetize_object(self.env.env_objects["actual_state"])
-        if self.env.env_objects["actual_state"] in self.env.robot.magnetized_objects.keys():
-            self.env.p.changeVisualShape(self.env.env_objects["actual_state"].uid, -1, rgbaColor=[0, 255, 0, 1])
-            return True
-        return False
-
-    def reset(self):
-        """
-        Reset stored value of distance between 2 objects. Call this after the end of an episode.
-        """
-        self.prev_obj1_position = None
-        self.prev_obj2_position = None
-        self.prev_obj3_position = None
-        self.before_pick = True
 
 # pick and place rewards
 class SingleStagePnP(DistanceReward):

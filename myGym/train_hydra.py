@@ -9,47 +9,23 @@ import os, sys, time, yaml
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
-import json, commentjson
 import gym
 import torch
 from myGym import envs
 import myGym.utils.cfg_comparator as cfg
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
-from stable_baselines.common.policies import MlpPolicy
-from stable_baselines.common import make_vec_env
-from stable_baselines.common.vec_env import DummyVecEnv
-from stable_baselines.bench import Monitor
-from stable_baselines import results_plotter
-from stable_baselines.her import GoalSelectionStrategy, HERGoalEnvWrapper
-# For now I am importing both with slightly modified names P-PyTorch T-TensorFlow
-# from stable_baselines import PPO1 as PPO1_T, PPO2 as PPO2_T, HER as HER_T, SAC as SAC_T, DDPG as DDPG_T
-from stable_baselines import PPO1 as PPO1_T, PPO2 as PPO2_T, HER as HER_T, SAC as SAC_T, DDPG as DDPG_T
-from stable_baselines import TD3 as TD3_T, A2C as A2C_T, ACKTR as ACKTR_T, TRPO as TRPO_T, GAIL as GAIL_T
-try:
-    from stable_baselines3 import PPO as PPO_P, A2C as A2C_P, SAC as SAC_P, TD3 as TD3_P
-except:
-    print("Torch isn't probably installed correctly")
 
-from myGym.stable_baselines_mygym.algo import MyAlgo
-from myGym.stable_baselines_mygym.reference import REFER
-from myGym.stable_baselines_mygym.multi_ppo2 import MultiPPO2
-from myGym.stable_baselines_mygym.multi_acktr import MultiACKTR
-from myGym.stable_baselines_mygym.policies import MyMlpPolicy
-from myGym.stable_baselines_mygym.TorchPPO import TorchPPO
-from myGym.stable_baselines_mygym.TorchPPOpolicies import TorchMlpPolicy
-
-
-from stable_baselines.gail import ExpertDataset, generate_expert_traj
-from stable_baselines.sac.policies import MlpPolicy as MlpPolicySAC
-from stable_baselines.ddpg.policies import MlpPolicy as MlpPolicyDDPG
-from stable_baselines.td3.policies import MlpPolicy as MlpPolicyTD3
+from stable_baselines3.common.vec_env import DummyVecEnv
+from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common import results_plotter
+from stable_baselines3 import PPO as PPO_P, A2C as A2C_P, SAC as SAC_P, TD3 as TD3_P
 
 # Import helper classes and functions for monitoring
 from myGym.utils.callbacks import ProgressBarManager, SaveOnBestTrainingRewardCallback,  PlottingCallback, CustomEvalCallback
 
 # This is global variable for the type of engine we are working with
-AVAILABLE_SIMULATION_ENGINES = ["mujoco", "pybullet"]
-AVAILABLE_TRAINING_FRAMEWORKS = ["tensorflow", "pytorch"]
+AVAILABLE_SIMULATION_ENGINES = ["pybullet"]
+AVAILABLE_TRAINING_FRAMEWORKS = ["pytorch"]
 
 def seed_everything(seed: int):
     random.seed(seed)
@@ -81,10 +57,7 @@ def save_results(arg_dict, model_name, env, model_logdir=None, show=False):
     plt.savefig(os.path.join(model_logdir, model_name) + '_distance_results.png')
     plt.close()
     plt.close()
-    if isinstance(env, HERGoalEnvWrapper):
-        results_plotter.plot_curves([(np.arange(len(env.env.episode_final_distance)),np.asarray(env.env.episode_final_distance))],'episodes',arg_dict["algo"] + " " + arg_dict["env_name"] + ' final step distance')
-    else:
-        results_plotter.plot_curves([(np.arange(len(env.unwrapped.episode_final_distance)),np.asarray(env.unwrapped.episode_final_distance))],'episodes',arg_dict["algo"] + " " + arg_dict["env_name"] + ' final step distance')
+    results_plotter.plot_curves([(np.arange(len(env.unwrapped.episode_final_distance)),np.asarray(env.unwrapped.episode_final_distance))],'episodes',arg_dict["algo"] + " " + arg_dict["env_name"] + ' final step distance')
     plt.gcf().set_size_inches(8, 6)
     plt.ylabel("Step Distances")
     plt.savefig(os.path.join(model_logdir, model_name) + "_final_distance_results.png")
@@ -112,42 +85,20 @@ def configure_env(arg_dict, model_logdir=None, for_train=True):
     else:
         env_arguments["gui_on"] = arg_dict["gui"]
 
-    if arg_dict["algo"] == "her":
-        env = gym.make(arg_dict["env_name"], **env_arguments, obs_space="dict")  # her needs obs as a dict
-    else:
-        env = gym.make(arg_dict["env_name"], **env_arguments)
+    env = gym.make(arg_dict["env_name"], **env_arguments)
     if for_train:
         if arg_dict["engine"] == "mujoco":
             env = VecMonitor(env, model_logdir) if arg_dict["multiprocessing"] else Monitor(env, model_logdir)
         elif arg_dict["engine"] == "pybullet":
             env = Monitor(env, model_logdir, info_keywords=tuple('d'))
-
-    if arg_dict["algo"] == "her":
-        env = HERGoalEnvWrapper(env)
     return env
 
 
 def configure_implemented_combos(env, model_logdir, arg_dict):
-    implemented_combos = {"ppo2": {"tensorflow": [PPO2_T, (MlpPolicy, env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "ppo": {"tensorflow": [PPO1_T, (MlpPolicy, env),  {"verbose": 1, "tensorboard_log": model_logdir}],},
-                          "her": {"tensorflow": [HER_T, (MlpPolicyDDPG, env, DDPG_T), {"goal_selection_strategy": 'future', "verbose": 1,"tensorboard_log": model_logdir}]},
-                          "sac": {"tensorflow": [SAC_T, (MlpPolicySAC, env), {"verbose": 1, "tensorboard_log": model_logdir}],},
-                          "ddpg": {"tensorflow": [DDPG_T, (MlpPolicyDDPG, env),{"verbose": 1, "tensorboard_log": model_logdir}]},
-                          "td3": {"tensorflow": [TD3_T, (MlpPolicyTD3, env), {"verbose": 1, "tensorboard_log": model_logdir}],},
-                          "acktr": {"tensorflow": [ACKTR_T, (MlpPolicy, env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "trpo": {"tensorflow": [TRPO_T, (MlpPolicy, env), {"verbose": 1, "tensorboard_log": model_logdir}]},
-                          "gail": {"tensorflow": [GAIL_T, (MlpPolicy, env), {"verbose": 1, "tensorboard_log": model_logdir}]},
-                          "a2c":    {"tensorflow": [A2C_T, (MlpPolicy, env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}],},
-                          "torchppo": {"tensorflow": [TorchPPO, (TorchMlpPolicy, env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "myalgo": {"tensorflow": [MyAlgo, (MyMlpPolicy, env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "ref":   {"tensorflow": [REFER,  (MlpPolicy, env),    {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "multi":  {"tensorflow": [MultiPPO2,   (MlpPolicy, env),    {"n_steps": arg_dict["algo_steps"],"n_models": arg_dict["num_networks"], "verbose": 1, "tensorboard_log": model_logdir}]},
-                          "multiacktr":  {"tensorflow": [MultiACKTR,   (MlpPolicy, env),    {"n_steps": arg_dict["algo_steps"],"n_models": arg_dict["num_networks"], "verbose": 1, "tensorboard_log": model_logdir}]}}
-
-    implemented_combos["ppo"]["pytorch"] = [PPO_P, ('MlpPolicy', env), {"n_steps": 1024, "verbose": 1, "tensorboard_log": model_logdir}]
-    implemented_combos["sac"]["pytorch"] = [SAC_P, ('MlpPolicy', env), {"verbose": 1, "tensorboard_log": model_logdir}]
-    implemented_combos["td3"]["pytorch"] = [TD3_P, ('MlpPolicy', env), {"verbose": 1, "tensorboard_log": model_logdir}]
-    implemented_combos["a2c"]["pytorch"] = [A2C_P, ('MlpPolicy', env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]
+    implemented_combos = {"ppo":{"pytorch":[PPO_P, ('MlpPolicy', env), {"n_steps": 1024, "verbose": 1, "tensorboard_log": model_logdir}]},
+                          "sac":{"pytorch":[SAC_P, ('MlpPolicy', env), {"verbose": 1, "tensorboard_log": model_logdir}]},
+                          "td3":{"pytorch":[TD3_P, ('MlpPolicy', env), {"verbose": 1, "tensorboard_log": model_logdir}]},
+                          "a2c":{"pytorch":[A2C_P, ('MlpPolicy', env), {"n_steps": arg_dict["algo_steps"], "verbose": 1, "tensorboard_log": model_logdir}]}}
 
     return implemented_combos
 
@@ -169,16 +120,6 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
     else:
         model = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][0](*model_args, **model_kwargs)
     seed_rl_context(model, seed=seed)
-
-    if arg_dict["algo"] == "gail":
-        # Multi processing: (using MPI)
-        if arg_dict["train_framework"] == 'tensorflow':
-            # Generate expert trajectories (train expert)
-            generate_expert_traj(model, model_name, n_timesteps=3000, n_episodes=100)
-            # Load the expert dataset
-            dataset = ExpertDataset(expert_path=model_name+'.npz', traj_limitation=10, verbose=1)
-            model = GAIL_T('MlpPolicy', model_name, dataset, verbose=1)
-            # Note: in practice, you need to train for 1M steps to have a working policy
 
     start_time = time.time()
     callbacks_list = []
@@ -214,6 +155,7 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
         save_results(arg_dict, model_name, env, model_logdir)
     return model
 
+# TODO
 def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None, seed=None):
     
     import functools
@@ -228,11 +170,8 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
         pretrained_model = pkg_resources.resource_filename("myGym", pretrained_model)
     env = model_args[1]
     vec_env = env
-    # # sb3 load
-    # model = SAC_P.load(pretrained_model, vec_env)
-    # torch load
     model = SAC_P("MlpPolicy", vec_env)
-    params = torch.load('./trained_models/reach/SAC-Reach-0505-1/model_torch.pth.tar')
+    params = torch.load(pretrained_model)
     for name in params:
         attr = None
         attr = recursive_getattr(model, name)
@@ -247,77 +186,8 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
             if done:
                 break
 
-def get_parser():
-    parser = argparse.ArgumentParser()
-    #Envinronment
-    parser.add_argument("-cfg", "--config", default="./configs/debugdist.json", help="Can be passed instead of all arguments")
-    parser.add_argument("-n", "--env_name", type=str, help="The name of environment")
-    parser.add_argument("-ws", "--workspace", type=str, help="The name of workspace")
-    parser.add_argument("-p", "--engine", type=str,  help="Name of the simulation engine you want to use")
-    parser.add_argument("-d", "--render", type=str,  help="Type of rendering: opengl, opencv")
-    parser.add_argument("-c", "--camera", type=int, help="The number of camera used to render and record")
-    parser.add_argument("-vi", "--visualize", type=int,  help="Whether visualize camera render and vision in/out or not: 1 or 0")
-    parser.add_argument("-vg", "--visgym", type=int,  help="Whether visualize gym background: 1 or 0")
-    parser.add_argument("-g", "--gui", type=int, help="Wether the GUI of the simulation should be used or not: 1 or 0")
-    #Robot
-    parser.add_argument("-b", "--robot", type=str, help="Robot to train: kuka, panda, jaco ...")
-    parser.add_argument("-bi", "--robot_init", nargs="*", type=float, help="Initial robot's end-effector position")
-    parser.add_argument("-ba", "--robot_action", type=str, help="Robot's action control: step - end-effector relative position, absolute - end-effector absolute position, joints - joints' coordinates")
-    parser.add_argument("-mv", "--max_velocity", type=float, help="Maximum velocity of robotic arm")
-    parser.add_argument("-mf", "--max_force", type=float, help="Maximum force of robotic arm")
-    parser.add_argument("-ar", "--action_repeat", type=int, help="Substeps of simulation without action from env")
-    #Task
-    parser.add_argument("-tt", "--task_type", type=str,  help="Type of task to learn: reach, push, throw, pick_and_place")
-    parser.add_argument("-to", "--task_objects", nargs="*", type=str, help="Object (for reach) or a pair of objects (for other tasks) to manipulate with")
-    parser.add_argument("-u", "--used_objects", nargs="*", type=str, help="List of extra objects to randomly appear in the scene")
-    #Distractors
-    parser.add_argument("-di", "--distractors", type=str, help="Object (for reach) to evade")
-    parser.add_argument("-dm", "--distractor_moveable", type=int, help="can distractor move (0/1)")
-    parser.add_argument("-ds", "--distractor_constant_speed", type=int, help="is speed of distractor constant (0/1)")
-    parser.add_argument("-dd", "--distractor_movement_dimensions", type=int, help="in how many directions can the distractor move (1/2/3)")
-    parser.add_argument("-de", "--distractor_movement_endpoints", nargs="*", type=float, help="2 coordinates (starting point and ending point)")
-    parser.add_argument("-no", "--observed_links_num", type=int, help="number of robot links in observation space")
-    #Reward
-    parser.add_argument("-re", "--reward", type=str,  help="Defines how to compute the reward")
-    parser.add_argument("-dt", "--distance_type", type=str, help="Type of distance metrics: euclidean, manhattan")
-    #Train
-    parser.add_argument("-w", "--train_framework", type=str,  help="Name of the training framework you want to use: {tensorflow, pytorch}")
-    parser.add_argument("-a", "--algo", type=str,  help="The learning algorithm to be used (ppo2 or her)")
-    parser.add_argument("-s", "--steps", type=int, help="The number of steps to train")
-    parser.add_argument("-ms", "--max_episode_steps", type=int,  help="The maximum number of steps per episode")
-    parser.add_argument("-ma", "--algo_steps", type=int,  help="The number of steps per for algo training (PPO2,A2C)")
-    #Evaluation
-    parser.add_argument("-ef", "--eval_freq", type=int,  help="Evaluate the agent every eval_freq steps")
-    parser.add_argument("-e", "--eval_episodes", type=int,  help="Number of episodes to evaluate performance of the robot")
-    #Saving and Logging
-    parser.add_argument("-l", "--logdir", type=str,  help="Where to save results of training and trained models")
-    parser.add_argument("-r", "--record", type=int, help="1: make a gif of model perfomance, 2: make a video of model performance, 0: don't record")
-    #Mujoco
-    parser.add_argument("-i", "--multiprocessing", type=int,  help="True: multiprocessing on (specify also the number of vectorized environemnts), False: multiprocessing off")
-    parser.add_argument("-v", "--vectorized_envs", type=int,  help="The number of vectorized environments to run at once (mujoco multiprocessing only)")
-    #Paths
-    parser.add_argument("-m", "--model_path", type=str, help="Path to the the trained model to test")
-    parser.add_argument("-vp", "--vae_path", type=str, help="Path to a trained VAE in 2dvu reward type")
-    parser.add_argument("-yp", "--yolact_path", type=str, help="Path to a trained Yolact in 3dvu reward type")
-    parser.add_argument("-yc", "--yolact_config", type=str, help="Path to saved config obj or name of an existing one in the data/Config script (e.g. 'yolact_base_config') or None for autodetection")
-    parser.add_argument('-ptm', "--pretrained_model", type=str, help="Path to a model that you want to continue training")
-    return parser
-
-def get_arguments(parser, config):
-    args = parser.parse_args()
-    arg_dict = config
-    for key, value in vars(args).items():
-        if value is not None and key is not "config":
-            if key in ["robot_init"]:
-                arg_dict[key] = [float(arg_dict[key][i]) for i in range(len(arg_dict[key]))]
-            else:
-                arg_dict[key] = value
-    return arg_dict
-
 @hydra.main(version_base=None, config_path="configs", config_name="config")
 def main(cfg : DictConfig):
-    # parser = get_parser()
-    # arg_dict = get_arguments(parser)
         
     seed = np.random.randint(10000)
     print(f"seed:{seed}")
@@ -352,8 +222,8 @@ def main(cfg : DictConfig):
     implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
 
     with wandb.init(
-        mode="online",
-        project="mygym_train_push",
+        mode="offline",
+        project="mygym_train_pnp",
         dir=os.getcwd(),
         config=dict_cfg,
     ):

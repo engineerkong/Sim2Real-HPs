@@ -11,7 +11,6 @@ import imageio
 from typing import Union, List, Dict, Any, Optional
 from tqdm.auto import tqdm
 import numpy as np
-import tensorflow as tf
 import gym
 
 import warnings
@@ -147,21 +146,6 @@ class CustomEvalCallback(EvalCallback):
             "mean_reward": "{:.2f}".format(np.mean(episode_rewards)),
             "std_reward": "{:.2f}".format(np.std(episode_rewards))
         }
-        #if not self.is_tb_set:
-        #    with self.model.graph.as_default():
-        #        tf.summary.scalar('value_target', tf.reduce_mean(self.model.value_target))
-        #        self.model.summary = tf.summary.merge_all()
-        #    self.is_tb_set = True
-        #summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/1.Episode_success', simple_value=(success_episodes_num/n_eval_episodes*100))])
-        #self.locals['writer'].add_summary(summary, self.num_timesteps)
-        #summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/3.Mean_distance_error', simple_value=(distance_error_sum / n_eval_episodes))])
-        #self.locals['writer'].add_summary(summary, self.num_timesteps)
-        #summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/4.Mean_step_num', simple_value=(steps_sum // n_eval_episodes))])
-        #self.locals['writer'].add_summary(summary, self.num_timesteps)
-        #summary = tf.Summary(value=[tf.Summary.Value(tag='Evaluation/2.Mean_reward', simple_value=np.mean(episode_rewards))])
-
-        #self.locals['writer'].add_summary(summary, self.num_timesteps)
-
 
         return results
 

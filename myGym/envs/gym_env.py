@@ -122,9 +122,10 @@ class GymEnv(CameraEnv):
             self.has_distractor = True
             self.distractor = ['bus'] if not self.distractors["list"] else self.distractors["list"]
 
-        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "complex_distance": ComplexDistanceReward, "sparse": SparseReward,
+        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "pnpkong":PnPReward, 
+                                              "complex_distance": ComplexDistanceReward, "sparse": SparseReward,
                                               "distractor": VectorReward, "poke": PokeReachReward, "switch": SwitchReward,
-                                              "btn": ButtonReward, "turn": TurnReward, "pnp":SingleStagePnP, "pnpkong":KongPnP},
+                                              "btn": ButtonReward, "turn": TurnReward, "pnp":SingleStagePnP},
                           "2-network":     {"poke": DualPoke, "pnp":TwoStagePnP,"pnpbgrip":TwoStagePnPBgrip},
                           "3-network":     {"pnp":ThreeStagePnP, "pnprot":ThreeStagePnPRot, "pnpswipe":ThreeStageSwipe, "pnpswiperot":ThreeStageSwipeRot},
                           "4-network":     {"pnp":FourStagePnP}}
@@ -143,14 +144,14 @@ class GymEnv(CameraEnv):
         """
         Set-up environment scene. Load static objects, apply textures. Load robot.
         """
-        self._add_scene_object_uid(self._load_urdf(path="rooms/plane.urdf"), "floor")
+        self._add_scene_object_uid(self._load_urdf(path="rooms/urdf/plane.urdf"), "floor")
         if self.visgym:
-            self._add_scene_object_uid(self._load_urdf(path="rooms/room.urdf"), "gym")
+            self._add_scene_object_uid(self._load_urdf(path="rooms/urdf/room.urdf"), "gym")
             #self._change_texture("gym", self._load_texture("verticalmaze.jpg"))
-            [self._add_scene_object_uid(self._load_urdf(path="rooms/visual/" + self.workspace_dict[w]['urdf']), w)
+            [self._add_scene_object_uid(self._load_urdf(path="rooms/urdf/" + self.workspace_dict[w]['urdf']), w)
              for w in self.workspace_dict if w != self.workspace]
-        self._add_scene_object_uid(self._load_urdf(path="rooms/collision/"+self.workspace_dict[self.workspace]['urdf']), self.workspace)
-        ws_texture = self.workspace_dict[self.workspace]['texture'] if self.task.vision_src != "vae" else "grey.png"
+        self._add_scene_object_uid(self._load_urdf(path="rooms/urdf/"+self.workspace_dict[self.workspace]['urdf']), self.workspace)
+        ws_texture = self.workspace_dict[self.workspace]['texture']
         if ws_texture: self._change_texture(self.workspace, self._load_texture(ws_texture))
         self._change_texture("floor", self._load_texture("parquet1.jpg"))
         self.objects_area_borders = self.workspace_dict[self.workspace]['borders']

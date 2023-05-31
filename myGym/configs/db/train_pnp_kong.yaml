@@ -1,6 +1,6 @@
 ---
 env_name: Gym-v0
-workspace: table
+workspace: workspace
 engine: pybullet
 render: opengl
 camera: 4
@@ -19,36 +19,25 @@ robot_init:
 - 0.0
 max_velocity: 3
 max_force: 100
-action_repeat: 1
+action_repeat: 100
 task_type: pnp
 task_objects:
 - init:
-    obj_name: cube_holes
+    obj_name: cube
     fixed: 0
     rand_rot: 1
     pos:
     - -0.2
     - 0.4
-    - 0.1
+    - 0.011
   goal:
-    obj_name: cube_target
+    obj_name: target
     fixed: 1
     rand_rot: 1
     pos:
     - 0.1
     - 0.3
-    - 0.1
-color_dict:
-  cube_holes:
-  - - 0.2
-    - 0.5
-    - 0.2
-    - 1
-  target:
-  - - 0.3
-    - 0.3
-    - 0.3
-    - 1
+    - 0.011
 used_objects:
   num_range:
   - 0
@@ -61,16 +50,16 @@ observation:
   - endeff_6D
 distractors:
   list:
-  moveable: 1
+  moveable: 0
   constant_speed: 0
-  movement_dims: 3
+  movement_dims: 0
   movement_endpoints:
-  - -0.3
-  - 0.3
-  - 0.4
-  - 0.7
-  - 0.1
-  - 0.3
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
 reward: pnpkong
 distance_type: euclidean
 reward_type: 3dvs
@@ -80,12 +69,13 @@ yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
 train_framework: pytorch
 algo: sac
 num_networks: 1
-max_episode_steps: 512
-algo_steps: 512
-steps: 40000
+max_episode_steps: 100
+algo_steps: 100
+steps: 400000
 pretrained_model:
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 10
+train_test: 1
 logdir: trained_models/pnp3new
 record: 0
