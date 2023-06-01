@@ -122,13 +122,7 @@ class GymEnv(CameraEnv):
             self.has_distractor = True
             self.distractor = ['bus'] if not self.distractors["list"] else self.distractors["list"]
 
-        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "pnpkong":PnPReward, 
-                                              "complex_distance": ComplexDistanceReward, "sparse": SparseReward,
-                                              "distractor": VectorReward, "poke": PokeReachReward, "switch": SwitchReward,
-                                              "btn": ButtonReward, "turn": TurnReward, "pnp":SingleStagePnP},
-                          "2-network":     {"poke": DualPoke, "pnp":TwoStagePnP,"pnpbgrip":TwoStagePnPBgrip},
-                          "3-network":     {"pnp":ThreeStagePnP, "pnprot":ThreeStagePnPRot, "pnpswipe":ThreeStageSwipe, "pnpswiperot":ThreeStageSwipeRot},
-                          "4-network":     {"pnp":FourStagePnP}}
+        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "pnpkong":PnPReward}}
         scheme = "{}-network".format(str(self.num_networks))
         assert reward in reward_classes[scheme].keys(), "Failed to find the right reward class. Check reward_classes in gym_env.py"
         self.reward = reward_classes[scheme][reward](env=self, task=self.task)
@@ -249,9 +243,16 @@ class GymEnv(CameraEnv):
         Returns:
             :return self._observation: (list) Observation data of the environment
         """
-        close = True
-        while close:
-            close = self.reset_(random_pos=True, hard=False, random_robot=False, only_subtask=False)
+        if self.task_type == "reach":
+            self.reset_(random_pos=True, hard=False, random_robot=False, only_subtask=False)
+        else:
+            close = True
+            while close:
+                self.reset_(random_pos=True, hard=False, random_robot=False, only_subtask=False)
+                print(self._observation)
+                dist = np.linalg.norm(np.asarray(self._observation["actual_state"][:3]) - np.asarray(self._observation["goal_state"][:3]))
+                if dist >= 0.1:
+                    close = False
         return self.flatten_obs(self._observation.copy())
 
     def reset_(self, random_pos=True, hard=False, random_robot=False, only_subtask=False):
@@ -283,12 +284,6 @@ class GymEnv(CameraEnv):
         self.reward.reset()
         self.p.stepSimulation()
         self._observation = self.get_observation()
-        dist = np.linalg.norm(np.asarray(self._observation["actual_state"][:3]) - np.asarray(self._observation["goal_state"][:3]))
-        if dist <= 0.1:
-            close = True
-        else:
-            close = False
-        return close
         
     def shift_next_subtask(self):
         # put current init and goal back in env_objects

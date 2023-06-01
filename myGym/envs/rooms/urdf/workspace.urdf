@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<robot name="table">
-  <link name="table">
+<robot name="workspace">
+  <link name="workspace">
     <contact>
       <lateral_friction value="0.1"/>
     </contact>
@@ -10,15 +10,15 @@
        <origin rpy="0 -0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0.3 0.0005"/>
+      <origin rpy="0 0 0" xyz="0 0.0 0.0"/>
       <geometry>
-				<box size="0.5 0.5 0.001"/>
+				<box size="0.297 0.21 0.001"/>
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0.3 0.0005"/>
+      <origin rpy="0 0 0" xyz="0 0.0 0.0"/>
       <geometry>
-	 	    <box size="0.5 0.5 0.001"/>
+	 	    <box size="0.297 0.21 0.001"/>
       </geometry>
     </collision>
   </link>

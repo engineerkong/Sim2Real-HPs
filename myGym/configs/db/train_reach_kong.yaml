@@ -1,21 +1,21 @@
 ---
 env_name: Gym-v0
-workspace: table
+workspace: workspace
 engine: pybullet
 render: opengl
-camera: 0
+camera: 4
 ee_camera: 0
 gui: 1
 visualize: 0
 visgym: 0
-robot: ned2
+robot: ned2_camera
 robot_action: joints
 robot_init:
 - 0.0
 - 0.0
 - 0.0
 - 0.0
-- 0.0
+- -1.57
 - 0.0
 max_velocity: 10
 max_force: 200
@@ -25,16 +25,16 @@ task_objects:
 - init:
     obj_name: 'null'
   goal:
-    obj_name: cube_holes
+    obj_name: cube
     fixed: 1
     rand_rot: 0
     sampling_area:
-    - -0.2
-    - 0.2
-    - 0.3
-    - 0.5
-    - 0.012
-    - 0.012
+    - -0.15
+    - 0.15
+    - 0.15
+    - 0.35
+    - 0.011
+    - 0.011
 used_objects:
   num_range:
   - 0
@@ -44,24 +44,24 @@ observation:
   actual_state: obj_xyz
   goal_state: obj_xyz
   additional_obs:
-  - endeff_xyz
+  - endeff_6D
 distractors:
   list:
-  moveable: 1
+  moveable: 0
   constant_speed: 0
-  movement_dims: 3
+  movement_dims: 0
   movement_endpoints:
-  - -0.3
-  - 0.3
-  - 0.4
-  - 0.7
-  - 0.1
-  - 0.3
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
 reward: reach
 distance_type: euclidean
 vae_path:
-yolact_path:
-yolact_config:
+yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
+yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
 train_framework: pytorch
 algo: sac
 num_networks: 1
@@ -71,7 +71,7 @@ steps: 50000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
-eval_episodes: 5
+eval_episodes: 10
 train_test: 1
 logdir: trained_models/reach
 record: 0

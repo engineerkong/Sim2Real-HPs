@@ -66,7 +66,8 @@ class Robot:
         self.task_type = task_type
         self.magnetized_objects = {}
         self.gripper_active = False
-        self.grasp = False
+        self.pnp_finish = False
+        
         self._load_robot()
         self.train_test = train_test
 
@@ -100,19 +101,19 @@ class Robot:
                 self.position, self.orientation, useFixedBase=True, flags=(self.p.URDF_USE_SELF_COLLISION))
             
     def _set_collisions(self):
-        # set the collision between forearm and hand link to be false (unusual collision)
+        # set the collision filter between forearm and hand link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
-        # set the collision between mors_1 and mors_2 link to be false (unusual collision)
-        self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
-        # # set the collision between robot and init(goal)_object to be false (goal_object just a pos)
-        # for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-        #     for link_idx2 in range(-1, self.p.getNumJoints(3)):
-        #         self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
-        # set the collision between robot and goal_object to be false (goal_object just a pos)
-        for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-            for link_idx2 in range(-1, self.p.getNumJoints(4)):
-                self.p.setCollisionFilterPair(self.robot_uid, 4, link_idx1, link_idx2, False)
-        self.p.setCollisionFilterPair(3, 4, -1, -1, False)
+        # set the collision filter between robot and object to be false when reach and pnp
+        if self.task_type in ["reach", "pnp"]:
+            for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+                for link_idx2 in range(-1, self.p.getNumJoints(3)):
+                    self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
+        # set the collision filter of target to be false when pnp and push
+        if self.task_type in ["pnp", "push"]:
+            for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
+                for link_idx2 in range(-1, self.p.getNumJoints(4)):
+                    self.p.setCollisionFilterPair(self.robot_uid, 4, link_idx1, link_idx2, False)
+            self.p.setCollisionFilterPair(3, 4, -1, -1, False)
 
     def _set_motors(self):
         """
@@ -346,7 +347,6 @@ class Robot:
             :param joint_poses: (list) Desired poses of individual joints
         """
         joint_poses = np.clip(joint_poses, self.joints_limits[0], self.joints_limits[1])
-        joint_poses = np.array([0,0,0,0,0,0])
         self.joints_state = []
         # pdi control
         for i in range(len(self.motor_indices)):
@@ -360,26 +360,10 @@ class Robot:
                                     velocityGain=0.1)
             joint_state = self.p.getJointState(self.robot_uid, self.motor_indices[i])
             self.joints_state.append(joint_state[0])
-        # print(f"joint:{self.joints_state}")
-        pts = self.p.getContactPoints()
-        if len(pts) != 0:
-            # print("num pts=", len(pts))
-            for pt in pts:
-                if self.train_test:
-                    if (pt[1] == self.robot_uid and pt[2] != 3) or (pt[1] != 3 and pt[2] == self.robot_uid):
-                        # print(f"collision:{pt}")
-                        line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
-                        self.collision = 1
-                else:
-                    if pt[1] == self.robot_uid and pt[2] == self.robot_uid:
-                        # print(f"collision:{pt}")
-                        line_id = self.p.addUserDebugLine(pt[5], pt[6], [1, 1, 1], 3000, 0)
-                        self.collision = 1
-        # print(f"collision:{self.collision}")
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
-        self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  
-        self.gripper_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1]  
+        # self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  
+        # self.gripper_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1]  
     
     def _move_gripper(self, action):
         """
@@ -619,63 +603,70 @@ class Robot:
             # if self.gjoints_num:
             #     self._move_gripper(self.gjoints_limits[1])
             if "pnp" in self.task_type: 
-                grasp_pos = self.get_ned2_gripper_position()
-                object_pos = env_objects["actual_state"].get_position()[:3]
-                target_pos = env_objects["goal_state"].get_position()[:3]
-                close_to_object = True if np.linalg.norm(np.asarray(grasp_pos) - np.asarray(object_pos)) <= 0.05 else False
-                close_to_target = True if np.linalg.norm(np.asarray(grasp_pos) - np.asarray(target_pos)) <= 0.05 else False
-                self.grasp_object(close_to_object, close_to_target)
-        #     #"Need to provide env_objects to use gripper"
-        #     #When gripper is not in robot action it will magnetize objects
-        #         self.gripper_active = True
-        #         self.magnetize_object(env_objects["actual_state"])
-        #     #    else:
-        #     #        self.gripper_active = False
-        #     #        self.release_all_objects()
-        #     #else:
-        #     #    self.apply_action_joints(action)
+                # gripper
+                # self.grasp_object(env_objects['actual_state'], env_objects['goal_state'])
+                # electromagnet
+                self.magnetize_object(env_objects['actual_state'], env_objects['goal_state'])
+        # detect collision and peneration of objects
+        contacts = self.p.getContactPoints()
+        if len(contacts) != 0:
+            for contact in contacts:
+                if self.train_test:
+                    if (contact[1] == self.robot_uid and contact[2] != 3) or (contact[1] != 3 and contact[2] == self.robot_uid):
+                        # print(f"collision:{contact}")
+                        line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
+                        self.collision = 1
+                else:
+                    if contact[1] == self.robot_uid and contact[2] == self.robot_uid:
+                        # print(f"collision:{contact}")
+                        line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
+                        self.collision = 1
+                if contact[8] < -0.01:
+                    print(f"peneration:{contact[1], contact[2], contact[8]}")
+        # print(f"collision:{self.collision}")
         
-        #         if len(self.magnetized_objects):
-        #     #pos_diff = np.array(self.end_effector_pos) - np.array(self.end_effector_prev_pos)
-        #     #ori_diff = np.array(self.end_effector_ori) - np.array(self.end_effector_prev_ori)
-        #             final_pos = self.get_ned2_gripper_position()
-        #             final_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1] 
-        #             for key,val in self.magnetized_objects.items():
-        #                 self.p.resetBasePositionAndOrientation(key.uid,final_pos,final_ori)
-        #     #self.end_effector_prev_pos = self.end_effector_pos
-        #     #self.end_effector_prev_ori = self.end_effector_ori
-        # #if 'gripper' not in self.robot_action:
-        # #    for joint_index in range(self.gripper_index, self.end_effector_index + 1):
-        # #        self.p.resetJointState(self.robot_uid, joint_index, self.p.getJointInfo(self.robot_uid, joint_index)[9])
+    def magnetize_object(self, object, target):
+        ee_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
+        ee_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
+        object_pos = object.get_position()[:3]
+        target_pos = target.get_position()[:3]
+        close_to_object = True if np.linalg.norm(np.asarray(ee_pos) - np.asarray(object_pos)) <= 0.05 else False
+        close_to_target = True if np.linalg.norm(np.asarray(ee_pos) - np.asarray(target_pos)) <= 0.05 else False
+        if close_to_object and self.gripper_active == False and self.pnp_finish is False:
+            self.activate_em(object)
+            self.gripper_active = True
+        elif close_to_target and self.gripper_active == True:
+            self.deactivate_em(object)
+            self.gripper_active = False
+            self.pnp_finish = True
 
-    def magnetize_object(self, object, distance_threshold=.05):
-        if len(self.magnetized_objects) == 0:
-            # gripper instead of end-effector
-            final_pos = self.get_ned2_gripper_position()
-            final_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1] 
-            if np.linalg.norm(np.asarray(final_pos) - np.asarray(object.get_position()[:3])) <= distance_threshold:
-                self.p.changeVisualShape(object.uid, -1, rgbaColor=[.8, .1 , 0.1, 0.5])
-                #self.end_effector_prev_pos = self.end_effector_pos
-                #self.end_effector_prev_ori = self.end_effector_ori
-                self.p.resetBasePositionAndOrientation(object.uid,final_pos,final_ori)
-                constraint_id = self.p.createConstraint(object.uid, -1, self.robot_uid, 8, self.p.JOINT_FIXED, [0,0,0], [0,0.06,0.025], [0,0,0], [0,0,0,1], [0,0,0,1])
-                #self.p.resetBasePositionAndOrientation(object.uid,self.get_position(),self.get_orientation())
-                self.magnetized_objects[object] = constraint_id
-                self.gripper_active = True
+    def activate_em(self, object):
+        self.p.changeVisualShape(object.uid, -1, rgbaColor=[.8, .1 , 0.1, 0.5])
+        self.constraint_id = self.p.createConstraint(object.uid, -1, self.robot_uid, self.end_effector_index, 
+                                                     self.p.JOINT_FIXED, [0,0,0], [-0.02,0.0,0.0], [0,0,0], [0,0,0,1], [0,0,0,1])
 
-    def grasp_object(self, close_to_object, close_to_target):
-        if self.grasp is False:
-            if close_to_object:
-                self._move_gripper(self.gjoints_limits[0]) # close gripper
-                self.grasp is True
-            else:
-                self._move_gripper(self.gjoints_limits[1]) # open gripper
-        else:
-            if close_to_target:
-                self._move_gripper(self.gjoints_limits[1]) # open gripper
-                self.grasp is False
-            else:
-                self._move_gripper(self.gjoints_limits[0]) # close gripper
+    def deactivate_em(self, object):
+        self.p.changeVisualShape(object.uid, -1, rgbaColor=[.8, 1 , 0.1, 0.5])
+        self.p.removeConstraint(self.constraint_id)
+
+    # def grasp_object(self, object, target):
+    #     gripper_pos, gripper_ori = self.get_ned2_gripper()
+    #     object_pos = object.get_position()[:3]
+    #     target_pos = target.get_position()[:3]
+    #     close_to_object = True if np.linalg.norm(np.asarray(gripper_pos) - np.asarray(object_pos)) <= 0.05 else False
+    #     close_to_target = True if np.linalg.norm(np.asarray(gripper_pos) - np.asarray(target_pos)) <= 0.05 else False
+    #     if self.gripper_active is False:
+    #         if close_to_object:
+    #             self._move_gripper(self.gjoints_limits[0]) # close gripper
+    #             self.gripper_active = True
+    #         else:
+    #             self._move_gripper(self.gjoints_limits[1]) # open gripper
+    #     else:
+    #         if close_to_target:
+    #             self._move_gripper(self.gjoints_limits[1]) # open gripper
+    #             self.gripper_active = False
+    #         else:
+    #             self._move_gripper(self.gjoints_limits[0]) # close gripper
 
     def release_object(self, object):
         if object in self.magnetized_objects.keys():
@@ -706,19 +697,19 @@ class Robot:
         final = direction_vector.add_vector(gripper)
         return final
 
-    def get_ned2_gripper_position(self):
+    def get_ned2_gripper(self):
         """
         Returns the position of the tip of the pointy gripper. Tested on Ned2 only
         """
         gripper_position = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         gripper_orientation = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
         gripper_matrix      = self.p.getMatrixFromQuaternion(gripper_orientation)
-        direction_vector    = Vector([0,0,0], [0.06, 0, 0.0])
+        direction_vector    = Vector([0,0,0], [0.0, 0.0, 0.0])
         m = np.array([[gripper_matrix[0], gripper_matrix[1], gripper_matrix[2]], [gripper_matrix[3], gripper_matrix[4], gripper_matrix[5]], [gripper_matrix[6], gripper_matrix[7], gripper_matrix[8]]])
         direction_vector.rotate_with_matrix(m)
         gripper = Vector([0,0,0], gripper_position)
         final = direction_vector.add_vector(gripper)
-        return final
+        return final, gripper_orientation
     
     def get_name(self):
         """

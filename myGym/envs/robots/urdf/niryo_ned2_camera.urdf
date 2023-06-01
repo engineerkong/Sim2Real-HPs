@@ -295,6 +295,60 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
+  <!-- Joint for camera -->
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 0 1"/>
+    <origin rpy="1.5707963268 0 0.174532925199" xyz="0 0.0385 0"/>
+    <parent link="wrist_link"/>
+    <child link="camera_link"/>
+  </joint>
+  <!-- Camera link -->
+  <link name="camera_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.037 0.037"/>
+      </geometry>
+      <material name="DarkGrey"/>
+    </visual>
+  </link>
+  <!-- Add gazebo settings to make the link an camera ! -->
+  <gazebo reference="camera_link">
+    <material>Gazebo/DarkGrey</material>
+    <sensor name="camera_gazebo" type="camera">
+      <update_rate>15.0</update_rate>
+      <camera name="head">
+        <!--69,33 degrees-->
+        <horizontal_fov>1.21</horizontal_fov>
+        <!--  <aspect_ratio>1.333</aspect_ratio>-->
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.03</near>
+          <far>2</far>
+        </clip>
+        <distortion>
+          <k1>-0.4146402</k1>
+          <k2>0.2407384</k2>
+          <p1>-0.0</p1>
+          <p2>-0.0</p2>
+          <k3>-0.1040042</k3>
+          <center>0.5 0.5</center>
+        </distortion>
+      </camera>
+      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>gazebo_camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
   <!-- gazebo joint state publisher for all joints. Necessary to control mors -->
   <gazebo>
     <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">

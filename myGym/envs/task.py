@@ -130,16 +130,15 @@ class TaskModule():
         else:
             self.render_images(camera_6d=None)
             self.matrix = self.env.unwrapped.cameras[self.env.active_cameras].view_x_proj
-        if self.vision_src == "yolact":
-            for key in ["actual_state", "goal_state"]:
-                if "endeff" in info_dict[key]:
-                    xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
-                    xyz = xyz[:3] if "xyz" in info_dict else xyz
-                else:
-                    xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key, matrix=self.matrix)
-                for i in range(len(xyz)):
-                    xyz[i] = float(xyz[i])
-                info_dict[key] = xyz
+        for key in ["actual_state", "goal_state"]:
+            if "endeff" in info_dict[key]:
+                xyz = self.vision_module.get_obj_position(self.env.task_objects["robot"], self.image, self.depth, key=key, matrix=self.matrix)
+                xyz = xyz[:3] if "xyz" in info_dict else xyz
+            else:
+                xyz = self.vision_module.get_obj_position(self.env.task_objects[key],self.image,self.depth, key, matrix=self.matrix)
+            for i in range(len(xyz)):
+                xyz[i] = float(xyz[i])
+            info_dict[key] = xyz
         self._observation = self.get_additional_obs(info_dict, self.env.task_objects["robot"])
         return self._observation
 
@@ -240,11 +239,20 @@ class TaskModule():
         """
         
         finished = None
-        if self.task_type in ['reach', 'poke', 'pnp', 'pnpbgrip']:
+        if self.task_type =='reach': # reach
+            finished = self.check_distance_threshold(self._observation)  
+        if self.task_type == "pnp": # pnp
+            self.check_distance_threshold(self._observation)
+            finished = self.env.robot.pnp_finish
+            if finished is True:
+                self.env.robot.pnp_finish = False
+        if self.task_type == 'push': # push
+            finished = self.check_distance_threshold(self._observation)
+        if self.task_type in ['poke', 'pnpbgrip']:
             finished = self.check_distance_threshold(self._observation)  
         if self.task_type in ['pnprot','pnpswipe']:
             finished = self.check_distrot_threshold(self._observation)  
-        if self.task_type in ['push', 'throw']:
+        if self.task_type == 'throw':
             finished = self.check_distance_threshold(self._observation)
         if self.task_type == "switch":
             self.check_distance_threshold(self._observation)
