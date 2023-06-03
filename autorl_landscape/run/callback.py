@@ -84,6 +84,8 @@ class LandscapeEvalCallback(BaseCallback):
         self.max_ep_length = conf.viz.max_ep_length
         self.hist_bins = conf.viz.hist_bins + 1  # internally used for np.linspace, so one more is needed
 
+        self.task_info = conf["task"]
+
     def _on_training_start(self) -> None:
         logging.warning(f"{self.run.id=} {self.run.name=}")
         # print("num_timesteps new_obs rewards dones sum(replay_buffer) sum(q_net) sum(q_net_target) exploration_rate")
@@ -152,7 +154,8 @@ class LandscapeEvalCallback(BaseCallback):
             return
 
         # Evaluate the agent:
-        eval_env = make_env(self.model.env.envs[0].spec.id, self.eval_seed)
+        
+        eval_env = make_env(self.model.env.envs[0].spec.id, self.eval_seed, arg_dict=self.task_info)
         eval_env.seed(self.eval_seed)
 
         # Sync training and eval env if there is VecNormalize

@@ -41,7 +41,9 @@ def train_agent(
             (conf.combo.eval.final_eval_episodes * conf.combo.final_eval_times,)
     """
     n_envs = conf.env.n_envs if hasattr(conf.env, "n_envs") else None
-    env = make_env(conf.env.name, seed, n_envs)
+    arg_dict = conf['task']
+
+    env = make_env(conf.env.name, seed, n_envs, arg_dict)
 
     # Quick fix to accept both single tags and lists of tags (because of resume):
     experiment_tags: List[str] = []
