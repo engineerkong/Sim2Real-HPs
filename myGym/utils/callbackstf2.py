@@ -1,6 +1,5 @@
-from stable_baselines.results_plotter import load_results, ts2xy
-from stable_baselines.common.callbacks import BaseCallback, EvalCallback
-from stable_baselines import results_plotter
+from stable_baselines3.common.results_plotter import load_results,ts2xy
+from stable_baselines3.common.callbacks import BaseCallback, EvalCallback
 
 import os
 import matplotlib.pyplot as plt
@@ -15,8 +14,7 @@ import gym
 
 import warnings
 
-from stable_baselines.common.vec_env import VecEnv, sync_envs_normalization, DummyVecEnv
-from stable_baselines.common.evaluation import evaluate_policy
+from stable_baselines3.common.vec_env import VecEnv, sync_envs_normalization
 
 
 class CustomEvalCallback(EvalCallback):
