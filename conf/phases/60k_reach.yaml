@@ -1,0 +1,9 @@
+# @package _global_
+
+# Good setting for reach_ned2
+phases:
+  - 20000
+  - 40000
+  - 60000
+eval:
+  freq_eval_interval: 20000

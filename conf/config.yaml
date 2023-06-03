@@ -3,6 +3,7 @@ defaults: # bigger sub-configurations to swap around
   - ls: ???
   - slurm: ???
   - phases: ???
+  - task: ???
   - _self_
 
 wandb:

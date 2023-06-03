@@ -1,0 +1,9 @@
+# @package _global_
+
+# Good setting for pnp_ned2
+phases:
+  - 40000
+  - 80000
+  - 120000
+eval:
+  freq_eval_interval: 20000
