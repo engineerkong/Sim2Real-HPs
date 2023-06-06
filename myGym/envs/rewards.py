@@ -172,10 +172,10 @@ class ReachReward(Reward):
         finished = self.task.check_distance_threshold(observation)
         if finished:
             reward = 10
-            print(f"achieved!!! reward: sum {reward}")
+            # print(f"achieved!!! reward: sum {reward}")
         else:
             reward = reward_dist + reward_ctrl + reward_coll
-            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
+            # print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
@@ -231,16 +231,16 @@ class PnPReward(DistanceReward):
         finished = self.env.robot.pnp_finish
         if finished:
             reward = 10
-            print(f"achieved!!! reward: sum {reward}")
+            # print(f"achieved!!! reward: sum {reward}")
         elif self.env.robot.gripper_active:
             reward_dist = (-1)*dist_2
             reward = reward_dist + reward_ctrl + reward_coll + 5
-            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+            # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
             print("not grasped")
             reward_dist = (-1)*dist_1
             reward = reward_dist + reward_ctrl + reward_coll
-            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+            # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
@@ -293,10 +293,10 @@ class PushReward(Reward):
         finished = self.task.check_distance_threshold(observation)
         if finished:
             reward = 10
-            print(f"achieved!!! reward: sum {reward}")
+            # print(f"achieved!!! reward: sum {reward}")
         else:
             reward = reward_dist + reward_ctrl + reward_coll
-            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
+            # print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
