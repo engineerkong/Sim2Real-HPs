@@ -305,14 +305,15 @@ def _prepare_hydra(args: argparse.Namespace) -> DictConfig:
         conf.wandb.project = None
         conf.wandb.entity = None
     else:
-        tags = get_all_tags(conf.wandb.entity, conf.wandb.project)
-        tags = tags - {"debug"}
-        if not isinstance(conf.wandb.experiment_tag, str):
-            error_msg = "conf.wandb.experiment_tag needs to be str!"
-            raise ValueError(error_msg)
-        if conf.wandb.experiment_tag in tags:
-            error_msg = f"Use a unique experiment tag for new experiments! Used: {tags}"
-            raise ValueError(error_msg)
+        # tags = get_all_tags(conf.wandb.entity, conf.wandb.project)
+        # tags = tags - {"debug"}
+        # if not isinstance(conf.wandb.experiment_tag, str):
+        #     error_msg = "conf.wandb.experiment_tag needs to be str!"
+        #     raise ValueError(error_msg)
+        # if conf.wandb.experiment_tag in tags:
+        #     error_msg = f"Use a unique experiment tag for new experiments! Used: {tags}"
+        #     raise ValueError(error_msg)
+        pass
 
     print(OmegaConf.to_yaml(conf))
     return conf
