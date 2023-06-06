@@ -7,7 +7,7 @@ agent:
   hps:
     policy: 'MlpPolicy' # zoo
     # use_sde: False
-    learning_starts: 10000 # zoo
+    learning_starts: 1000 # zoo
     buffer_size: 500000
     optimize_memory_usage: true # for smaller replay buffers on disk
     replay_buffer_kwargs:

@@ -4,17 +4,17 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.monitor import Monitor
 from myGym import envs
 
-# def make_env(env_name: str, seed: int, n_envs = None) -> gym.Env:
-#     """Quick helper to create a gym env and seed it."""
-#     if n_envs is not None:
-#         env = make_vec_env(env_name, n_envs, seed)
-#     else:
-#         env = gym.make(env_name)
-#         env = Monitor(env)
-#         env.seed(seed)
-#     return env
+def make_env(env_name: str, seed: int, n_envs = None) -> gym.Env:
+    """Quick helper to create a gym env and seed it."""
+    if n_envs is not None:
+        env = make_vec_env(env_name, n_envs, seed)
+    else:
+        env = gym.make(env_name)
+        env = Monitor(env)
+        env.seed(seed)
+    return env
 
-def make_env(env_name: str, seed: int, n_envs = None, arg_dict = {}) -> gym.Env:
+def make_env_mygym(env_name: str, seed: int, n_envs = None, arg_dict = {}) -> gym.Env:
     """Quick helper to create a gym env and seed it."""
     env_arguments = {"render_on": True, "visualize": arg_dict["visualize"], "workspace": arg_dict["workspace"],
                      "robot": arg_dict["robot"], "robot_init_joint_poses": arg_dict["robot_init"],

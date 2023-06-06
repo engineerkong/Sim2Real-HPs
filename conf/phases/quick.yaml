@@ -2,8 +2,8 @@
 
 # For quickly checking whether stuff works
 phases:
-  - 500
-  - 1000
+  - 50
+  - 100
 agent:
   hps:
     # WARNING these overwrite values from the combo configuration!

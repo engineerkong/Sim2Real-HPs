@@ -11,7 +11,7 @@ from autorl_landscape.custom_agents.dqn import CustomDQN
 from autorl_landscape.custom_agents.ppo import CustomPPO
 from autorl_landscape.custom_agents.sac import CustomSAC
 from autorl_landscape.run.callback import LandscapeEvalCallback
-from autorl_landscape.run.rl_context import make_env
+from autorl_landscape.run.rl_context import make_env, make_env_mygym
 
 
 def train_agent(
@@ -41,9 +41,11 @@ def train_agent(
             (conf.combo.eval.final_eval_episodes * conf.combo.final_eval_times,)
     """
     n_envs = conf.env.n_envs if hasattr(conf.env, "n_envs") else None
-    arg_dict = conf['task']
-
-    env = make_env(conf.env.name, seed, n_envs, arg_dict)
+    if conf.env.name == 'Gym-v0':
+        arg_dict = conf['task']
+        env = make_env_mygym(conf.env.name, seed, n_envs, arg_dict)
+    else:
+        env = make_env(conf.env.name, seed, n_envs)
 
     # Quick fix to accept both single tags and lists of tags (because of resume):
     experiment_tags: List[str] = []
@@ -100,7 +102,10 @@ def train_agent(
     if ancestor is None:
         agent = agent_class(**agent_kwargs, **conf.agent.hps)
     else:
-        agent = agent_class.custom_load(save_path=ancestor, seed=seed)
+        if conf.env.name == 'Gym-v0':
+            agent = agent_class.custom_load_mygym(save_path=ancestor, seed=seed)
+        else:
+            agent = agent_class.custom_load(save_path=ancestor, seed=seed)
     agent.set_ls_conf(ls_conf, phase_index)
 
     landscape_eval_callback = LandscapeEvalCallback(

@@ -13,7 +13,7 @@ from wandb.sdk.lib.disabled import RunDisabled
 from wandb.sdk.wandb_run import Run
 
 from autorl_landscape.run.eval_stage import EvalStage, FinalEval, FreqEval, LSEval
-from autorl_landscape.run.rl_context import make_env
+from autorl_landscape.run.rl_context import make_env, make_env_mygym
 
 
 class LandscapeEvalCallback(BaseCallback):
@@ -83,8 +83,7 @@ class LandscapeEvalCallback(BaseCallback):
         self.max_return = conf.viz.max_return
         self.max_ep_length = conf.viz.max_ep_length
         self.hist_bins = conf.viz.hist_bins + 1  # internally used for np.linspace, so one more is needed
-
-        self.task_info = conf["task"]
+        self.conf = conf
 
     def _on_training_start(self) -> None:
         logging.warning(f"{self.run.id=} {self.run.name=}")
@@ -154,8 +153,11 @@ class LandscapeEvalCallback(BaseCallback):
             return
 
         # Evaluate the agent:
-        
-        eval_env = make_env(self.model.env.envs[0].spec.id, self.eval_seed, arg_dict=self.task_info)
+        if self.conf.env.name == 'Gym-v0':
+            arg_dict = self.conf['task']
+            eval_env = make_env_mygym(self.model.env.envs[0].spec.id, self.eval_seed, arg_dict=arg_dict)
+        else:
+            eval_env = make_env(self.model.env.envs[0].spec.id, self.eval_seed)
         eval_env.seed(self.eval_seed)
 
         # Sync training and eval env if there is VecNormalize
@@ -190,7 +192,10 @@ class LandscapeEvalCallback(BaseCallback):
                 # Save ("checkpoint") the model at the end of the landscape stage:
                 if self.verbose > 0:
                     logging.warning(f"Saving model checkpoint to {self.ls_model_save_path}")
-                self.model.custom_save(self.ls_model_save_path, seed=self.agent_seed)
+                if self.conf.env.name == 'Gym-v0':
+                    self.model.custom_save_mygym(self.ls_model_save_path, seed=self.agent_seed)
+                else:
+                    self.model.custom_save(self.ls_model_save_path, seed=self.agent_seed)
         self.write_evaluation(eval_stages_data)
 
     def write_evaluation(self, eval_stages: List[Tuple[EvalStage, NDArray[Any], NDArray[Any]]]) -> None:
