@@ -369,6 +369,9 @@ class BaseEnv(gym.Env):
         """
         self.p.disconnect()
 
+    def close(self):
+        self.__del__()
+
 
 class CameraEnv(BaseEnv):
     """
