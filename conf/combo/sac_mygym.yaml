@@ -13,9 +13,9 @@ agent:
     replay_buffer_kwargs:
       handle_timeout_termination: false
 eval:
-  freq_eval_episodes: 10
-  ls_eval_episodes: 20
-  final_eval_episodes: 20
+  freq_eval_episodes: 1
+  ls_eval_episodes: 2
+  final_eval_episodes: 2
   final_eval_start: 0.95 # 95% progress (of total_timesteps) is first final eval
   final_eval_times: 3 # 3 final evals from final_eval_start until total_timesteps
 viz:

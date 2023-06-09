@@ -103,7 +103,7 @@ def train_agent(
         agent = agent_class(**agent_kwargs, **conf.agent.hps)
     else:
         if conf.env.name == 'Gym-v0':
-            agent = agent_class.custom_load_mygym(save_path=ancestor, seed=seed)
+            agent = agent_class.custom_load_mygym(save_path=ancestor, arg_dict=arg_dict, seed=seed)
         else:
             agent = agent_class.custom_load(save_path=ancestor, seed=seed)
     agent.set_ls_conf(ls_conf, phase_index)

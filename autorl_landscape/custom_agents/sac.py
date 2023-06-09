@@ -15,6 +15,8 @@ from autorl_landscape.run.rl_context import seed_rl_context
 import torch
 import os
 
+from autorl_landscape.run.rl_context import make_env_mygym
+
 class CustomSAC(SAC):
     """Slightly changed SAC Agent that can be saved and loaded at any point to reproduce learning exactly."""
 
@@ -33,16 +35,14 @@ class CustomSAC(SAC):
         )
 
     @classmethod
-    def custom_load_mygym(cls, save_path: Path, seed: int) -> CustomSAC:
+    def custom_load_mygym(cls, save_path: Path, arg_dict, seed: int) -> CustomSAC:
         """Load agent which will perform deterministically with further training, like the originally saved agent."""
         # load model stay the same
         # restore state in pybullet
         loaded_agent: CustomSAC = CustomSAC.load(save_path / Path("model.zip"))
         loaded_agent.load_replay_buffer(save_path / Path("replay_buffer.pkl"))
-        with open(save_path / Path("env.pkl"), "rb") as f:
-            env, env_state = pickle.load(f)
-            loaded_agent.set_env(env, force_reset=False)
-            loaded_agent.env.envs[0].p.restoreState(env_state)
+        env = make_env_mygym('Gym-v0', seed, n_envs=None, arg_dict=arg_dict)
+        loaded_agent.set_env(env, force_reset=True)
         seed_rl_context(loaded_agent, seed)
         return loaded_agent
     
