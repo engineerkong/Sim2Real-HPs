@@ -182,6 +182,7 @@ class LandscapeEvalCallback(BaseCallback):
         )
         returns = np.array(returns)
         ep_lengths = np.array(ep_lengths)
+        eval_env.close()
 
         eval_stages_data: List[Tuple[EvalStage, NDArray[Any], NDArray[Any]]] = []
         for eval_stage in eval_stages:
