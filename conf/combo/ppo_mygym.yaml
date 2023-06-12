@@ -2,22 +2,11 @@
 
 env:
   name: Gym-v0
-  n_envs: 32
 agent:
   name: PPO
   hps:
-    # from zoo:
-    # normalize: true # TODO PPO doesn't have this hyperparameter?
-    # n_envs: 32 # TODO
-    # n_timesteps: !!float 5e6
     policy: 'MlpPolicy'
     n_steps: 64 # default // n_envs
-    # batch_size: 64 # default
-    # gae_lambda: 0.95 # in search space
-    # gamma: 0.999 # in search space
-    # n_epochs: 10 # default
-    # ent_coef: 0.0 # default
-    # learning_rate: !!float 3e-4 # in search space
     clip_range: 0.18
 eval:
   freq_eval_episodes: 1

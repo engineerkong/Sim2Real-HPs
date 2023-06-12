@@ -4,9 +4,5 @@
 phases:
   - 100
   - 200
-agent:
-  hps:
-    # WARNING these overwrite values from the combo configuration!
-    learning_starts: 100 # would be 1000 for DQN, 10000 for SAC
 eval:
   freq_eval_interval: 100

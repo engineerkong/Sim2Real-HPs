@@ -10,12 +10,11 @@ from stable_baselines3.common.utils import constant_fn
 from stable_baselines3.sac.sac import SAC
 
 from autorl_landscape.custom_agents.off_policy_algorithm import custom_learn
-from autorl_landscape.run.rl_context import seed_rl_context
+from autorl_landscape.run.rl_context import make_env_mygym, seed_rl_context
 
 import torch
 import os
 
-from autorl_landscape.run.rl_context import make_env_mygym
 
 class CustomSAC(SAC):
     """Slightly changed SAC Agent that can be saved and loaded at any point to reproduce learning exactly."""

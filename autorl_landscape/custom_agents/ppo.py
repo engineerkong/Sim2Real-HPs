@@ -9,7 +9,7 @@ from stable_baselines3.common.utils import constant_fn
 from stable_baselines3.ppo.ppo import PPO
 
 from autorl_landscape.custom_agents.on_policy_algorithm import custom_learn
-from autorl_landscape.run.rl_context import make_env, seed_rl_context
+from autorl_landscape.run.rl_context import make_env, make_env_mygym, seed_rl_context
 
 
 class CustomPPO(PPO):
@@ -30,6 +30,15 @@ class CustomPPO(PPO):
         )
 
     @classmethod
+    def custom_load_mygym(cls, save_path: Path, arg_dict, seed: int) -> CustomPPO:
+        """Load agent which will perform deterministically with further training, like the originally saved agent."""
+        loaded_agent: CustomPPO = CustomPPO.load(save_path / Path("model.zip"))
+        env = make_env_mygym('Gym-v0', seed, n_envs=None, arg_dict=arg_dict)
+        loaded_agent.set_env(env, force_reset=True)
+        seed_rl_context(loaded_agent, seed, reset=True)
+        return loaded_agent
+    
+    @classmethod
     def custom_load(cls, save_path: Path, seed: int) -> CustomPPO:
         """Load agent which will perform deterministically with further training, like the originally saved agent."""
         loaded_agent: CustomPPO = CustomPPO.load(save_path / Path("model.zip"))
@@ -38,6 +47,18 @@ class CustomPPO(PPO):
         loaded_agent.env = make_env(env_name, seed, loaded_agent.n_envs)
         seed_rl_context(loaded_agent, seed, reset=True)
         return loaded_agent
+
+    def custom_save_mygym(self, save_path: Path, seed: int) -> None:
+        """Save the agent so that it will perform deterministically with further training.
+
+        Can be loaded afterwards with `custom_load`.
+        """
+        # env_name = self.env.envs[0].spec.id
+        # self.env = make_env_mygym(env_name, seed, self.n_envs)
+        # seed_rl_context(self, seed, reset=True)
+        self.save(f"{save_path}/model.zip")
+        # with (save_path / Path("env.txt")).open("w") as f:
+        #     f.write(env_name)
 
     def custom_save(self, save_path: Path, seed: int) -> None:
         """Save the agent so that it will perform deterministically with further training.
