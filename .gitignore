@@ -148,4 +148,6 @@ dmypy.json
 /submitit
 /test_submitit
 
-/data/**/*.pkl
+/data/*
+
+test.py

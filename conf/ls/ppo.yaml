@@ -11,7 +11,3 @@ ls:
         type: FlippedLog
         lower: 0.8
         upper: 0.9999
-    - gae_lambda:
-        type: FlippedLog
-        lower: 0.8
-        upper: 0.9999

@@ -1,7 +1,7 @@
 # @package _global_
 
 wandb:
-  mode: offline
+  mode: online
 slurm:
   cluster: local
   num_parallel: 4

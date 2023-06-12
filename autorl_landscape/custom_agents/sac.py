@@ -73,11 +73,11 @@ class CustomSAC(SAC):
         model_path = os.path.join(current_path, save_path, "model.pth.tar")
         torch.save(self.get_parameters(), f"{save_path}/model.pth.tar", _use_new_zipfile_serialization=False)
         self.save_replay_buffer(f"{save_path}/replay_buffer.pkl")
-        with open(f"{save_path}/env.pkl", "wb") as f:
-            env = self.get_env()
-            # https://github.com/openai/gym/issues/402#issuecomment-482573989
-            env_state = self.env.envs[0].p.saveState()
-            pickle.dump((env, env_state), f)
+        # with open(f"{save_path}/env.pkl", "wb") as f:
+        #     env = self.get_env()
+        #     # https://github.com/openai/gym/issues/402#issuecomment-482573989
+        #     env_state = self.env.envs[0].p.saveState()
+        #     pickle.dump((env, env_state), f)
 
     def custom_save(self, save_path: Path, seed: int) -> None:
         """Save the agent so that it will perform deterministically with further training.

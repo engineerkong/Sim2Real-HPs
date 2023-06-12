@@ -14,8 +14,8 @@ agent:
       handle_timeout_termination: false
 eval:
   freq_eval_episodes: 1
-  ls_eval_episodes: 2
-  final_eval_episodes: 2
+  ls_eval_episodes: 1
+  final_eval_episodes: 1
   final_eval_start: 0.95 # 95% progress (of total_timesteps) is first final eval
   final_eval_times: 3 # 3 final evals from final_eval_start until total_timesteps
 viz:

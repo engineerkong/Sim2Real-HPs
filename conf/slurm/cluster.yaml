@@ -7,6 +7,4 @@ slurm:
   num_parallel: 50
   update_parameters: # for executor.update_parameters()
     timeout_min: 10000
-    slurm_partition: gpu_normal
-    gpus_per_node: 1
-    mem_gb: 3
+    slurm_partition: 
