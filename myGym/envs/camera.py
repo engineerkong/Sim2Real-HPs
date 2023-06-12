@@ -26,7 +26,7 @@ class Camera():
                  up_vector=[0, 0, 1], up_axis_index=2,
                  yaw=180, pitch=-40, roll=0, quaternion = [0,0,0,0],
                  distance=1.3, field_of_view=60,
-                 near_plane_distance=0.01, far_plane_distance=100.0,
+                 near_plane_distance=0.03, far_plane_distance=2,
                  use_ee_camera=0):
 
         self.env = env

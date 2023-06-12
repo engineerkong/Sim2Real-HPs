@@ -23,6 +23,6 @@ def get_workspace_dict():
 
 def get_robot_dict():
     r_dict =   {'ned2_camera': {'path': '/envs/robots/urdf/niryo_ned2_camera.urdf', 'position': np.array([0.0, 0.0, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]},
-                             'ned2_gripper_camera': {'path': '/envs/robots/urdf/niryo_ned2_gripper1_n_camera.urdf', 'position': np.array([0.0, 0.0, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]}
+                             'ned2_gripper_camera': {'path': '/envs/robots/urdf/niryo_ned2_gripper_camera.urdf', 'position': np.array([0.0, 0.0, 0.003]), 'orientation': [0.0, 0.0, 0*np.pi]}
                             }
     return r_dict

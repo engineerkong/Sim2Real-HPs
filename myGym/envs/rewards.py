@@ -237,7 +237,6 @@ class PnPReward(DistanceReward):
             reward = reward_dist + reward_ctrl + reward_coll + 5
             # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
-            print("not grasped")
             reward_dist = (-1)*dist_1
             reward = reward_dist + reward_ctrl + reward_coll
             # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")

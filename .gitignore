@@ -2,4 +2,7 @@
 *.bak
 *.swp
 *.log
+.eggs/*
+myGym/trained_models/*
+myGym/wandb/*
 __pycache__*
