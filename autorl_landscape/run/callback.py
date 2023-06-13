@@ -55,11 +55,11 @@ class LandscapeEvalCallback(BaseCallback):
         # (LSEval(), FreqEval(), FinalEval(i)) that should be done at or after that time step (evaluations are only
         # ever done when a rollout is completed).
         t_start = 0 if phase_index < 2 else conf.phases[phase_index - 2]  # don't queue freq evals before phase start
-        t_freqs = [t for t in range(0, conf.phases[-1] + 1, conf.eval.freq_eval_interval) if t >= t_start]
+        t_freqs = [t for t in range(0, conf.phases[phase_index-1] + 1, conf.eval.freq_eval_interval) if t >= t_start]
         t_finals = (
             np.linspace(
-                float(conf.eval.final_eval_start) * int(conf.phases[-1]),
-                int(conf.phases[-1]),
+                float(conf.eval.final_eval_start) * int(conf.phases[phase_index-1]),
+                int(conf.phases[phase_index-1]),
                 int(conf.eval.final_eval_times),
             )
             .round()
@@ -72,7 +72,7 @@ class LandscapeEvalCallback(BaseCallback):
             [(t, FinalEval(conf.eval.final_eval_episodes, i)) for i, t in enumerate(t_finals, start=1)]
         )
         self.eval_schedule = sorted(self.eval_schedule, key=lambda tup: tup[0], reverse=True)
-        # print(self.eval_schedule)
+        print(self.eval_schedule)
 
         self.ls_model_save_path = ls_model_save_path
         self.run = run

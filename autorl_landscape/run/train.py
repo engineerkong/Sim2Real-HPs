@@ -119,7 +119,7 @@ def train_agent(
     # NOTE total_timesteps setting is too high here for all phases after the first. However, we simply stop learning
     # runs after all needed data has been colleted, through the callback's _on_step() method.
     try:
-        agent.learn(total_timesteps=conf.phases[-1], callback=landscape_eval_callback, reset_num_timesteps=False)
+        agent.learn(total_timesteps=conf.phases[phase_index-1], callback=landscape_eval_callback, reset_num_timesteps=False)
     except ValueError as e:
         landscape_eval_callback.on_rollout_error(e)
 
