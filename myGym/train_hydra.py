@@ -210,7 +210,7 @@ def get_csv_path(model_path):
     csv_path = os.path.join(parent_dir,"data.csv")
     return csv_path
     
-def main_train(cfg : DictConfig):
+def main_train():
         
     # handle configs
     hydra.initialize(config_path="./configs", version_base=None)
@@ -253,7 +253,7 @@ def main_train(cfg : DictConfig):
 
     # start train
     with wandb.init(
-        mode="offline",
+        mode="online",
         project="mygym_test_3tasks",
         tags="3tasks",
         dir=os.getcwd(),
@@ -320,5 +320,5 @@ def main_eval():
 
 if __name__ == "__main__":
 
-    # main_train()
-    main_eval()
+    main_train()
+    # main_eval()

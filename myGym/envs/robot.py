@@ -103,16 +103,12 @@ class Robot:
     def _set_collisions(self):
         # set the collision filter between forearm and hand link to be false (unusual collision)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
-        # set the collision filter between robot and object to be false when reach and pnp
-        if self.task_type in ["reach", "pnp"]:
+        # set the collision filter between robot and goal object to be false
+        if self.task_type == "reach":
             for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
                 for link_idx2 in range(-1, self.p.getNumJoints(3)):
                     self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
-        # set the collision filter of target to be false when pnp and push
         if self.task_type in ["pnp", "push"]:
-            for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-                for link_idx2 in range(-1, self.p.getNumJoints(4)):
-                    self.p.setCollisionFilterPair(self.robot_uid, 4, link_idx1, link_idx2, False)
             self.p.setCollisionFilterPair(3, 4, -1, -1, False)
 
     def _set_motors(self):

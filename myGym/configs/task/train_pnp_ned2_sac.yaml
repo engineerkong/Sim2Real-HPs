@@ -31,8 +31,8 @@ task_objects:
     - 0.15
     - 0.15
     - 0.35
-    - 0.011
-    - 0.011
+    - 0.012
+    - 0.012
   goal:
     obj_name: target
     fixed: 1
@@ -42,8 +42,8 @@ task_objects:
     - 0.15
     - 0.15
     - 0.35
-    - 0.011
-    - 0.011
+    - 0.012
+    - 0.012
 used_objects:
   num_range:
   - 0

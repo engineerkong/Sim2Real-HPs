@@ -86,7 +86,7 @@ class BaseEnv(gym.Env):
             self._set_gui_mode()
         else:
             self.p = bc.BulletClient(connection_mode=pybullet.DIRECT)
-        self.p.setPhysicsEngineParameter(fixedTimeStep=1/480.0, enableFileCaching=0)
+        self.p.setPhysicsEngineParameter(fixedTimeStep=1/240.0, enableFileCaching=0)
 
     def _set_gui_mode(self):
         """

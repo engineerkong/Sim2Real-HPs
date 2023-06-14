@@ -1,5 +1,5 @@
 defaults:
-  - task: train_reach_ned2_sac
+  - task: train_pnp_ned2_sac
 test:
   eval_episodes: 100
   eval_steps: 100

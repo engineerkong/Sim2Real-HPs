@@ -5,4 +5,10 @@
 .eggs/*
 myGym/trained_models/*
 myGym/wandb/*
+myGym/data/*
 __pycache__*
+build/*
+myGym.egg-info/*
+myGym/outputs/*
+test.py
+myGym/log.txt
