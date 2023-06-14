@@ -1,2 +1,6 @@
 defaults:
-  - db: train_push_ned2
+  - task: train_reach_ned2_sac
+test:
+  eval_episodes: 100
+  eval_steps: 100
+  folder_path: "./agents_reach_4-3_20k/"

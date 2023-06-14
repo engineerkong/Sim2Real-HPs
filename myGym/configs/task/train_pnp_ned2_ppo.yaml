@@ -1,0 +1,87 @@
+---
+env_name: Gym-v0
+workspace: workspace
+engine: pybullet
+render: opengl
+camera: 4
+ee_camera: 1
+gui: 0
+visualize: 0
+visgym: 0
+robot: ned2_camera
+robot_action: joints
+robot_init:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+- -1.57
+- 0.0
+max_velocity: 3
+max_force: 100
+action_repeat: 100
+task_type: pnp
+task_objects:
+- init:
+    obj_name: cube
+    fixed: 0
+    rand_rot: 1
+    sampling_area:
+    - -0.15
+    - 0.15
+    - 0.15
+    - 0.35
+    - 0.011
+    - 0.011
+  goal:
+    obj_name: target
+    fixed: 1
+    rand_rot: 1
+    sampling_area:
+    - -0.15
+    - 0.15
+    - 0.15
+    - 0.35
+    - 0.011
+    - 0.011
+used_objects:
+  num_range:
+  - 0
+  - 0
+  obj_list: []
+observation:
+  actual_state: yolact
+  goal_state: obj_xyz
+  additional_obs:
+  - endeff_6D
+distractors:
+  list:
+  moveable: 0
+  constant_speed: 0
+  movement_dims: 0
+  movement_endpoints:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+reward: pnpkong
+distance_type: euclidean
+reward_type: 3dvs
+vae_path:
+yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
+yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
+train_framework: pytorch
+algo: ppo
+num_networks: 1
+max_episode_steps: 100
+algo_steps: 100
+steps: 100000
+pretrained_model:
+multiprocessing: false
+eval_freq: 10000
+eval_episodes: 10
+train_test: 1
+logdir: trained_models/pnp3new
+record: 0

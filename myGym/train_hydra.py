@@ -1,3 +1,6 @@
+import pandas
+import json
+import argparse
 from omegaconf import DictConfig, OmegaConf, open_dict
 import hydra
 from hydra.core.hydra_config import HydraConfig
@@ -79,11 +82,8 @@ def configure_env(arg_dict, model_logdir=None, for_train=True):
                      "color_dict":arg_dict.get("color_dict", {}), "max_steps": arg_dict["max_episode_steps"], 
                      "visgym":arg_dict["visgym"], "reward": arg_dict["reward"], "logdir": arg_dict["logdir"], 
                      "vae_path": arg_dict["vae_path"], "yolact_path": arg_dict["yolact_path"], 
-                     "yolact_config": arg_dict["yolact_config"], "train_test": arg_dict["train_test"]}
-    if for_train:
-        env_arguments["gui_on"] = arg_dict["gui"]
-    else:
-        env_arguments["gui_on"] = arg_dict["gui"]
+                     "yolact_config": arg_dict["yolact_config"], "train_test": arg_dict["train_test"]}  
+    env_arguments["gui_on"] = arg_dict["gui"]
 
     env = gym.make(arg_dict["env_name"], **env_arguments)
     if for_train:
@@ -155,19 +155,13 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
         save_results(arg_dict, model_name, env, model_logdir)
     return model
 
-# TODO
-def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None, seed=None):
-    
-    import functools
-    def recursive_getattr(obj, attr, *args):
-        def _getattr(obj, attr):
-            return getattr(obj, attr, *args)
-        return functools.reduce(_getattr, [obj] + attr.split("."))
-
+def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None, seed=None, eval_episodes=0, eval_steps=0):
     model_args = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][1]
     model_kwargs = implemented_combos[arg_dict["algo"]][arg_dict["train_framework"]][2]
-    if not os.path.isabs(pretrained_model):
-        pretrained_model = pkg_resources.resource_filename("myGym", pretrained_model)
+
+    print(pretrained_model)
+    csv_file = get_csv_path(pretrained_model)
+    print(csv_file)
     env = model_args[1]
     vec_env = env
     model = SAC_P("MlpPolicy", vec_env)
@@ -177,36 +171,126 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
         attr = recursive_getattr(model, name)
         attr.load_state_dict(params[name])
     seed_rl_context(model, seed=seed)
-
-    for i in range(100):
+    iqm_list = []    
+    for i in range(eval_episodes):
         obs = env.reset()
-        for j in range(100):
+        for j in range(eval_steps):
             action = model.predict(obs)
             obs, reward, done, info = env.step(action[0])
             if done:
                 break
+        iqm_list.append(env.episode_iqm_reward)
+    iqm_dict_sim = {"iqm":iqm_list}
+    df = pandas.read_csv(csv_file)
+    iqm_str_sim = json.dumps(iqm_dict_sim)
+    df = pandas.read_csv(csv_file)
+    new_column_df = pandas.DataFrame({'iqm_sim': [iqm_str_sim]}, index=df.index)
+    new_df = pandas.concat([df, new_column_df], axis=1)
+    new_df.to_csv(csv_file, index=False)
+    del model
 
-@hydra.main(version_base=None, config_path="configs", config_name="config")
-def main(cfg : DictConfig):
+
+import functools
+def recursive_getattr(obj, attr, *args):
+    def _getattr(obj, attr):
+        return getattr(obj, attr, *args)
+    return functools.reduce(_getattr, [obj] + attr.split("."))
+
+def search_files(folder_path, target_file_extension):
+    target_files = []
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith(target_file_extension):
+                file_path = os.path.join(root, file)
+                target_files.append(file_path)
+    return target_files
+
+def get_csv_path(model_path):
+    parent_dir = os.path.dirname(model_path)
+    csv_path = os.path.join(parent_dir,"data.csv")
+    return csv_path
+    
+def main_train(cfg : DictConfig):
         
+    # handle configs
+    hydra.initialize(config_path="./configs", version_base=None)
+    cfg = hydra.compose("config")
+    dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
+    arg_dict = cfg["task"]
+    OmegaConf.set_struct(arg_dict, True)
+    arg_dict["train_test"] = 1
+
+    # handle seeds
     seed = np.random.randint(10000)
     print(f"seed:{seed}")
     seed_everything(seed=seed)
-
-    dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
-    arg_dict = cfg["db"]
-    OmegaConf.set_struct(arg_dict, True)
-    train_test = arg_dict["train_test"]
     
     # Check if we chose one of the existing engines
     if arg_dict["engine"] not in AVAILABLE_SIMULATION_ENGINES:
         print(f"Invalid simulation engine. Valid arguments: --engine {AVAILABLE_SIMULATION_ENGINES}.")
         return
+    
+    # handle model logdir
     if not os.path.isabs(arg_dict["logdir"]):
         with open_dict(arg_dict):
             arg_dict["logdir"] = os.path.join("./", arg_dict["logdir"])
     os.makedirs(arg_dict["logdir"], exist_ok=True)
-    ttname = "train" if train_test else "test"
+    ttname = "train"
+    model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((ttname,arg_dict["task_type"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"],str(seed))))
+    model_logdir = model_logdir_ori
+    add = 2
+    while True:
+        try:
+            os.makedirs(model_logdir, exist_ok=False)
+            break
+        except:
+            model_logdir = "_".join((model_logdir_ori, str(add)))
+            add += 1
+    
+    # build env
+    env = configure_env(arg_dict, model_logdir, 1) # train: Monitor
+    implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
+
+    # start train
+    with wandb.init(
+        mode="offline",
+        project="mygym_test_3tasks",
+        tags="3tasks",
+        dir=os.getcwd(),
+        config=dict_cfg,
+    ):
+        train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
+    print(model_logdir)
+
+def main_eval():
+    
+    # handle configs
+    hydra.initialize(config_path="./configs", version_base=None)
+    cfg = hydra.compose("config")
+    eval_episodes = cfg.test.eval_episodes
+    eval_steps = cfg.test.eval_steps
+    folder_path = cfg.test.folder_path
+    dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
+    arg_dict = cfg["task"]
+    OmegaConf.set_struct(arg_dict, True)
+    arg_dict["train_test"] = 0
+
+    # handle seeds
+    seed = np.random.randint(10000)
+    print(f"seed:{seed}")
+    seed_everything(seed=seed)
+
+    # Check if we chose one of the existing engines
+    if arg_dict["engine"] not in AVAILABLE_SIMULATION_ENGINES:
+        print(f"Invalid simulation engine. Valid arguments: --engine {AVAILABLE_SIMULATION_ENGINES}.")
+        return
+    
+    # handle model logdir
+    if not os.path.isabs(arg_dict["logdir"]):
+        with open_dict(arg_dict):
+            arg_dict["logdir"] = os.path.join("./", arg_dict["logdir"])
+    os.makedirs(arg_dict["logdir"], exist_ok=True)
+    ttname = "test"
     model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((ttname,arg_dict["task_type"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"],str(seed))))
     model_logdir = model_logdir_ori
     add = 2
@@ -218,20 +302,23 @@ def main(cfg : DictConfig):
             model_logdir = "_".join((model_logdir_ori, str(add)))
             add += 1
 
-    env = configure_env(arg_dict, model_logdir, train_test) # train: Monitor
-    implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
-
-    with wandb.init(
-        mode="offline",
-        project="mygym_train_pnp",
-        dir=os.getcwd(),
-        config=dict_cfg,
-    ):
-        if train_test:
-            train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
-        else:
-            eval(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
-    print(model_logdir)
+    # start evaluation
+    target_file_extension = '.pth.tar'
+    pretrained_models = search_files(folder_path, target_file_extension)
+    for pretrained_model in pretrained_models:
+        env = configure_env(arg_dict, model_logdir, 0) # train: Monitor
+        implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
+        with wandb.init(
+            mode="offline",
+            project="mygym_eval_reach",
+            tags="test1",
+            dir=os.getcwd(),
+            config=dict_cfg,
+        ):
+            eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model, seed, eval_episodes, eval_steps)
+        del env
 
 if __name__ == "__main__":
-    main()
+
+    # main_train()
+    main_eval()
