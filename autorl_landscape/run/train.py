@@ -13,6 +13,9 @@ from autorl_landscape.custom_agents.sac import CustomSAC
 from autorl_landscape.run.callback import LandscapeEvalCallback
 from autorl_landscape.run.rl_context import make_env, make_env_mygym
 
+import pandas as pd
+import wandb
+from autorl_landscape.util.download import _flatten_dict
 
 def train_agent(
     conf: DictConfig,
@@ -122,6 +125,13 @@ def train_agent(
         agent.learn(total_timesteps=conf.phases[phase_index-1], callback=landscape_eval_callback, reset_num_timesteps=False)
     except ValueError as e:
         landscape_eval_callback.on_rollout_error(e)
+
+    vals = []
+    vals.append({"name": run.name, **run.config, **run.summary})
+    vals = [_flatten_dict(v) for v in vals]
+    df = pd.DataFrame(vals)
+    with open(f"{phase_path}/agents/{run.id}/data.csv", "w") as file:
+        df.to_csv(file)
 
     run.finish()
     return conf_index, run.id, landscape_eval_callback.all_final_returns.reshape(-1)
