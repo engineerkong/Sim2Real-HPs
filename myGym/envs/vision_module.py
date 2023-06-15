@@ -189,7 +189,7 @@ class VisionModule:
                         self.centroid_transformed[obj.get_name()] = centroid_transformed
                         #print("{} was detected at {}".format(obj.get_name(),self.centroid_transformed[obj.get_name()]))
                     elif obj.get_name() not in self.centroid_transformed.keys():
-                        self.centroid_transformed[obj.get_name()] = [10, 10, 10]
+                        self.centroid_transformed[obj.get_name()] = [0, 0.25, 0.012] # average value
                         #print("{} was not detected, assign {}".format(obj.get_name(),self.centroid_transformed[obj.get_name()]))
                     else:
                         pass

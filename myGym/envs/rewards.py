@@ -230,16 +230,16 @@ class PnPReward(DistanceReward):
         reward_coll = (-1)*collision
         finished = self.env.robot.pnp_finish
         if finished:
-            reward = 10
-            # print(f"achieved!!! reward: sum {reward}")
+            reward = 50
+            print(f"achieved!!! reward: sum {reward}")
         elif self.env.robot.gripper_active:
-            reward_dist = (-1)*dist_2
+            reward_dist = (-1)*dist_2 + 10
             reward = reward_dist + reward_ctrl + reward_coll
-            # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
             reward_dist = (-1)*dist_1
             reward = reward_dist + reward_ctrl + reward_coll
-            # print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
