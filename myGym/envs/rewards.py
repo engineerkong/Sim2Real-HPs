@@ -187,7 +187,7 @@ class ReachReward(Reward):
         """
         self.prev_action = None
     
-class PnPReward(DistanceReward):
+class PnPReward(Reward):
     """
     Pick and place with simple Distance reward. The gripper is operated automatically.
     Applicable for 1 network.
@@ -230,16 +230,16 @@ class PnPReward(DistanceReward):
         reward_coll = (-1)*collision
         finished = self.env.robot.pnp_finish
         if finished:
-            reward = 50
+            reward = 100
             print(f"achieved!!! reward: sum {reward}")
         elif self.env.robot.gripper_active:
-            reward_dist = (-1)*dist_2 + 10
-            reward = reward_dist + reward_ctrl + reward_coll
+            reward_dist = (-1)*dist_2
+            reward = reward_dist + reward_ctrl + reward_coll + 2
             print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
             reward_dist = (-1)*dist_1
             reward = reward_dist + reward_ctrl + reward_coll
-            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+            print(f"not grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)

@@ -122,7 +122,7 @@ class GymEnv(CameraEnv):
             self.has_distractor = True
             self.distractor = ['bus'] if not self.distractors["list"] else self.distractors["list"]
 
-        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "pnpkong":PnPReward}}
+        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "pnp":PnPReward}}
         scheme = "{}-network".format(str(self.num_networks))
         assert reward in reward_classes[scheme].keys(), "Failed to find the right reward class. Check reward_classes in gym_env.py"
         self.reward = reward_classes[scheme][reward](env=self, task=self.task)
