@@ -262,6 +262,8 @@ class PushReward(Reward):
     def __init__(self, env, task):
         super(PushReward, self).__init__(env, task)
         self.prev_action = None
+        self.prev_o1 = None
+        self.init_distance = None
 
     def compute(self, observation, action):
         """
@@ -285,20 +287,29 @@ class PushReward(Reward):
                 o3 = observation["additional_obs"][key][:3]
         a = np.array(action) - self.prev_action
         vec = np.array(o1) - np.array(o2)
-        reward_dist = (-1)*np.linalg.norm(vec)
+        dist = np.linalg.norm(vec)
+        if self.init_distance is None:
+            self.init_distance = dist
+        reward_dist = (-1)*(dist/self.init_distance)
+        if self.prev_o1 != o1 and self.prev_o1 is not None:
+            reward_change = 1
+        else:
+            reward_change = 0
         reward_ctrl = (-0.1)*np.square(a).sum()
         collision = self.env.robot.collision
         reward_coll = (-1)*collision
         finished = self.task.check_distance_threshold(observation)
         if finished:
-            reward = 10
-            # print(f"achieved!!! reward: sum {reward}")
+            reward = 100
+            print(f"achieved!!! reward: sum {reward}")
         else:
-            reward = reward_dist + reward_ctrl + reward_coll
+            reward = reward_dist + reward_change
+            print(f"not achieved... reward: dist {reward_dist}, change {reward_change}, sum {reward}")
             # print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
+        self.prev_o1 = o1
         return reward
 
     def reset(self):
@@ -306,3 +317,5 @@ class PushReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
+        self.prev_o1 = None
+        self.init_distance = None

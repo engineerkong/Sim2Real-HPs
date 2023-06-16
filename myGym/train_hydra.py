@@ -253,7 +253,7 @@ def main_train():
 
     # start train
     with wandb.init(
-        mode="online",
+        mode="offline",
         project="mygym_test_3tasks",
         tags="3tasks",
         dir=os.getcwd(),
