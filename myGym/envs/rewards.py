@@ -234,7 +234,7 @@ class PnPReward(Reward):
             print(f"achieved!!! reward: sum {reward}")
         elif self.env.robot.gripper_active:
             reward_dist = (-1)*dist_2
-            reward = reward_dist + reward_ctrl + reward_coll + 2
+            reward = reward_dist + reward_ctrl + reward_coll + 1
             print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
             reward_dist = (-1)*dist_1
