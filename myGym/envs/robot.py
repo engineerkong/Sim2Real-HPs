@@ -77,7 +77,22 @@ class Robot:
         self.joints_limits, self.joints_ranges, self.joints_rest_poses, self.joints_max_force, self.joints_max_velo = self.get_joints_limits(self.motor_indices)       
         if self.gripper_names:
             self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo = self.get_joints_limits(self.gripper_indices)
-            print(self.gjoints_limits, self.gjoints_ranges, self.gjoints_rest_poses, self.gjoints_max_force, self.gjoints_max_velo)
+        # if self.task_type in ["reach","push"]:
+        #     # set the gripper not move when reach and push tasks
+        #     for i in self.gripper_indices:
+        #         joint_info = self.p.getJointInfo(self.robot_uid,i)
+        #         child_link = self.link_names.index(str(joint_info[12]))
+        #         parent_link = joint_info[16]
+        #         fixed_joint = self.p.createConstraint(
+        #         parentBodyUniqueId=self.robot_uid,
+        #         parentLinkIndex=parent_link,
+        #         childBodyUniqueId=self.robot_uid,
+        #         childLinkIndex=child_link,
+        #         jointType=self.p.JOINT_FIXED,
+        #         jointAxis=[0, 0, 0],  # 忽略关节轴向
+        #         parentFramePosition=[0, 0, 0],  # 忽略关节父链接位置
+        #         childFramePosition=[0, 0, 0],  # 忽略关节子链接位置
+        #     )
         # joint_poses = list(self._calculate_accurate_IK(init_joint_poses[:3]))
         self.collision = 0
         self.init_joint_poses = init_joint_poses
@@ -318,7 +333,8 @@ class Robot:
         """
         #return self.get_accurate_gripper_position()
         #print(self.p.getLinkState(self.robot_uid, self.end_effector_index)[0])
-        return self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
+        return tuple(float(x) for x in self.gripper_pos)
+        # return self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         
     def get_orientation(self):
         """
@@ -358,9 +374,8 @@ class Robot:
             self.joints_state.append(joint_state[0])
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
-        # self.gripper_pos = self.p.getLinkState(self.robot_uid, self.gripper_index)[0]  
-        # self.gripper_ori = self.p.getLinkState(self.robot_uid, self.gripper_index)[1]  
-    
+        self.gripper_pos = (np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[0])[0],dtype=float) + np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[1])[0],dtype=float))/2
+
     def _move_gripper(self, action):
         """
         Move gripper motors towards desired joint poses respecting robot's dynamics
@@ -600,9 +615,9 @@ class Robot:
             #     self._move_gripper(self.gjoints_limits[1])
             if "pnp" in self.task_type: 
                 # gripper
-                # self.grasp_object(env_objects['actual_state'], env_objects['goal_state'])
-                # electromagnet
-                self.magnetize_object(env_objects['actual_state'], env_objects['goal_state'])
+                self.grasp_object(env_objects['actual_state'], env_objects['goal_state'])
+                # # electromagnet
+                # self.magnetize_object(env_objects['actual_state'], env_objects['goal_state'])
         # detect collision and peneration of objects
         contacts = self.p.getContactPoints()
         if len(contacts) != 0:
@@ -645,24 +660,24 @@ class Robot:
         self.p.changeVisualShape(object.uid, -1, rgbaColor=[.8, 1 , 0.1, 0.5])
         self.p.removeConstraint(self.constraint_id)
 
-    # def grasp_object(self, object, target):
-    #     gripper_pos, gripper_ori = self.get_ned2_gripper()
-    #     object_pos = object.get_position()[:3]
-    #     target_pos = target.get_position()[:3]
-    #     close_to_object = True if np.linalg.norm(np.asarray(gripper_pos) - np.asarray(object_pos)) <= 0.05 else False
-    #     close_to_target = True if np.linalg.norm(np.asarray(gripper_pos) - np.asarray(target_pos)) <= 0.05 else False
-    #     if self.gripper_active is False:
-    #         if close_to_object:
-    #             self._move_gripper(self.gjoints_limits[0]) # close gripper
-    #             self.gripper_active = True
-    #         else:
-    #             self._move_gripper(self.gjoints_limits[1]) # open gripper
-    #     else:
-    #         if close_to_target:
-    #             self._move_gripper(self.gjoints_limits[1]) # open gripper
-    #             self.gripper_active = False
-    #         else:
-    #             self._move_gripper(self.gjoints_limits[0]) # close gripper
+    def grasp_object(self, object, target):
+        object_pos = object.get_position()[:3]
+        target_pos = target.get_position()[:3]
+        close_to_object = True if np.linalg.norm(self.gripper_pos - np.asarray(object_pos)) <= 0.02 else False
+        close_to_target = True if np.linalg.norm(self.gripper_pos - np.asarray(target_pos)) <= 0.02 else False
+        if self.gripper_active is False:
+            if close_to_object:
+                self._move_gripper(self.gjoints_limits[0]) # close gripper
+                self.gripper_active = True
+            else:
+                self._move_gripper(self.gjoints_limits[1]) # open gripper
+        else:
+            if close_to_target:
+                self._move_gripper(self.gjoints_limits[1]) # open gripper
+                self.gripper_active = False
+                self.pnp_finish = True
+            else:
+                self._move_gripper(self.gjoints_limits[0]) # close gripper
 
     def release_object(self, object):
         if object in self.magnetized_objects.keys():

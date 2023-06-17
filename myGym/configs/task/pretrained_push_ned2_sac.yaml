@@ -50,7 +50,7 @@ used_objects:
   - 0
   obj_list: []
 observation:
-  actual_state: yolact
+  actual_state: obj_xyz
   goal_state: obj_xyz
   additional_obs:
   - endeff_6D
@@ -76,7 +76,7 @@ algo: sac
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 200000
+steps: 500000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000

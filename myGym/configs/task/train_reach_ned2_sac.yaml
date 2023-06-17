@@ -8,7 +8,7 @@ ee_camera: 0
 gui: 0
 visualize: 0
 visgym: 0
-robot: ned2_camera
+robot: ned2_gripper_camera
 robot_action: joints
 robot_init:
 - 0.0

@@ -210,11 +210,10 @@ def get_csv_path(model_path):
     csv_path = os.path.join(parent_dir,"data.csv")
     return csv_path
     
-def main_train():
+@hydra.main(version_base=None, config_path="configs", config_name="config")
+def main_train(cfg: DictConfig):
         
     # handle configs
-    hydra.initialize(config_path="./configs", version_base=None)
-    cfg = hydra.compose("config")
     dict_cfg = OmegaConf.to_container(cfg, resolve=True, enum_to_str=True)
     arg_dict = cfg["task"]
     OmegaConf.set_struct(arg_dict, True)
@@ -262,11 +261,10 @@ def main_train():
         train(env, implemented_combos, model_logdir, arg_dict, arg_dict["pretrained_model"], seed)
     print(model_logdir)
 
-def main_eval():
+@hydra.main(version_base=None, config_path="configs", config_name="config")
+def main_eval(cfg: DictConfig):
     
     # handle configs
-    hydra.initialize(config_path="./configs", version_base=None)
-    cfg = hydra.compose("config")
     eval_episodes = cfg.test.eval_episodes
     eval_steps = cfg.test.eval_steps
     folder_path = cfg.test.folder_path

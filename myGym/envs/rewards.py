@@ -144,6 +144,7 @@ class ReachReward(Reward):
     def __init__(self, env, task):
         super(ReachReward, self).__init__(env, task)
         self.prev_action = None
+        self.init_distance = None
 
     def compute(self, observation, action):
         """
@@ -165,7 +166,10 @@ class ReachReward(Reward):
                 o3 = observation["additional_obs"][key][:3]
         a = np.array(action) - self.prev_action
         vec = np.array(o2) - np.array(o3)
-        reward_dist = (-1)*np.linalg.norm(vec)
+        dist = np.linalg.norm(vec)
+        if self.init_distance is None:
+            self.init_distance = dist
+        reward_dist = (-1)*(dist/self.init_distance)
         reward_ctrl = (-0.1)*np.square(a).sum()
         collision = self.env.robot.collision
         reward_coll = (-1)*collision
@@ -186,6 +190,7 @@ class ReachReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
+        self.init_distance = None
     
 class PnPReward(Reward):
     """
@@ -199,6 +204,8 @@ class PnPReward(Reward):
     def __init__(self, env, task):
         super(PnPReward, self).__init__(env, task)
         self.prev_action = None
+        self.init_distance_1 = None
+        self.init_distance_2 = None
     
     def compute(self, observation, action):
         """
@@ -233,11 +240,15 @@ class PnPReward(Reward):
             reward = 100
             print(f"achieved!!! reward: sum {reward}")
         elif self.env.robot.gripper_active:
-            reward_dist = (-1)*dist_2
+            if self.init_distance_2 is None:
+                self.init_distance_2 = dist_2
+            reward_dist = (-1)*(dist_2/self.init_distance_2)
             reward = reward_dist + reward_ctrl + reward_coll + 1
             print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
-            reward_dist = (-1)*dist_1
+            if self.init_distance_1 is None:
+                self.init_distance_1 = dist_1
+            reward_dist = (-1)*(dist_1/self.init_distance_1)
             reward = reward_dist + reward_ctrl + reward_coll
             print(f"not grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         self.task.check_goal()
@@ -250,6 +261,8 @@ class PnPReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
+        self.init_distance_1 = None
+        self.init_distance_2 = None
 
 class PushReward(Reward):
     """
@@ -262,8 +275,9 @@ class PushReward(Reward):
     def __init__(self, env, task):
         super(PushReward, self).__init__(env, task)
         self.prev_action = None
-        self.prev_o1 = None
+        # self.prev_o1 = None
         self.init_distance = None
+        self.init_near = None
 
     def compute(self, observation, action):
         """
@@ -288,13 +302,18 @@ class PushReward(Reward):
         a = np.array(action) - self.prev_action
         vec = np.array(o1) - np.array(o2)
         dist = np.linalg.norm(vec)
+        vecn = np.array(o1) - np.array(o3)
+        near = np.linalg.norm(vecn)
         if self.init_distance is None:
             self.init_distance = dist
         reward_dist = (-1)*(dist/self.init_distance)
-        if self.prev_o1 != o1 and self.prev_o1 is not None:
-            reward_change = 1
-        else:
-            reward_change = 0
+        if self.init_near is None:
+            self.init_near = near
+        reward_near = (-1)*(near/self.init_near)
+        # if self.prev_o1 != o1 and self.prev_o1 is not None:
+        #     reward_change = 1
+        # else:
+        #     reward_change = 0
         reward_ctrl = (-0.1)*np.square(a).sum()
         collision = self.env.robot.collision
         reward_coll = (-1)*collision
@@ -303,13 +322,13 @@ class PushReward(Reward):
             reward = 100
             print(f"achieved!!! reward: sum {reward}")
         else:
-            reward = reward_dist + reward_change
-            print(f"not achieved... reward: dist {reward_dist}, change {reward_change}, sum {reward}")
-            # print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
+            reward = reward_dist + reward_ctrl + reward_coll + reward_near
+            # reward = reward_dist + reward_ctrl + reward_coll + reward_change
+            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, near {reward_near}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
-        self.prev_o1 = o1
+        # self.prev_o1 = o1
         return reward
 
     def reset(self):
@@ -317,5 +336,6 @@ class PushReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         self.prev_action = None
-        self.prev_o1 = None
+        # self.prev_o1 = None
         self.init_distance = None
+        self.init_near = None

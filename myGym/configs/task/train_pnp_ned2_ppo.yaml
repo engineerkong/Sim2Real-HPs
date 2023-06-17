@@ -8,7 +8,7 @@ ee_camera: 1
 gui: 0
 visualize: 0
 visgym: 0
-robot: ned2_camera
+robot: ned2_gripper_camera
 robot_action: joints
 robot_init:
 - 0.0
@@ -50,7 +50,7 @@ used_objects:
   - 0
   obj_list: []
 observation:
-  actual_state: yolact
+  actual_state: obj_xyz
   goal_state: obj_xyz
   additional_obs:
   - endeff_6D
@@ -77,7 +77,7 @@ algo: ppo
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 100000
+steps: 200000
 pretrained_model:
 multiprocessing: false
 eval_freq: 10000
