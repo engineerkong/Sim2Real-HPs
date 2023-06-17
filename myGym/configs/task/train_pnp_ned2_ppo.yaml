@@ -50,7 +50,7 @@ used_objects:
   - 0
   obj_list: []
 observation:
-  actual_state: obj_xyz
+  actual_state: yolact
   goal_state: obj_xyz
   additional_obs:
   - endeff_6D
