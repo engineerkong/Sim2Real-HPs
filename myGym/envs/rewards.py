@@ -176,10 +176,10 @@ class ReachReward(Reward):
         finished = self.task.check_distance_threshold(observation)
         if finished:
             reward = 10
-            # print(f"achieved!!! reward: sum {reward}")
+            print(f"achieved!!! reward: sum {reward}")
         else:
             reward = reward_dist + reward_ctrl + reward_coll
-            # print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
+            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.prev_action = np.array(action)
@@ -242,9 +242,12 @@ class PnPReward(Reward):
         elif self.env.robot.gripper_active:
             if self.init_distance_2 is None:
                 self.init_distance_2 = dist_2
-            reward_dist = (-1)*(dist_2/self.init_distance_2)
-            reward = reward_dist + reward_ctrl + reward_coll + 1
-            print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+                reward = 10
+                print(f"grasped!!! reward: sum {reward}")
+            else:
+                reward_dist = (-1)*(dist_2/self.init_distance_2)
+                reward = reward_dist + reward_ctrl + reward_coll + 2
+                print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
         else:
             if self.init_distance_1 is None:
                 self.init_distance_1 = dist_1
@@ -321,6 +324,9 @@ class PushReward(Reward):
         if finished:
             reward = 100
             print(f"achieved!!! reward: sum {reward}")
+        elif near <= 0.05:
+            reward = reward_dist + reward_ctrl + reward_coll + reward_near + 2
+            print(f"near... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, near {reward_near}, finished {finished}, sum {reward}")
         else:
             reward = reward_dist + reward_ctrl + reward_coll + reward_near
             # reward = reward_dist + reward_ctrl + reward_coll + reward_change

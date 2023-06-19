@@ -1,6 +1,6 @@
 defaults:
   - task: train_reach_ned2_sac
 test:
-  eval_episodes: 100
+  eval_episodes: 3
   eval_steps: 100
-  folder_path: "./agents_reach_4-3_20k/"
+  folder_path: "./data/agents_reach_4-3_20k/"
