@@ -143,54 +143,26 @@ class ReachReward(Reward):
     """
     def __init__(self, env, task):
         super(ReachReward, self).__init__(env, task)
-        self.prev_action = None
-        self.init_distance = None
 
     def compute(self, observation, action):
-        """
-        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
-
-        Params:
-            :param observation: (list) Observation of the environment
-        Returns:
-            :return reward: (float) Reward signal for the environment
-        """
-        if self.prev_action is None:
-            self.prev_action = np.array(action)
+        # o2-o3
         o1 = observation["actual_state"]
         o2 = observation["goal_state"]
-        for key in observation["additional_obs"]:
-            if key == "endeff_xyz":
-                o3 = observation["additional_obs"][key]
-            elif key == "endeff_6D":
-                o3 = observation["additional_obs"][key][:3]
-        a = np.array(action) - self.prev_action
-        vec = np.array(o2) - np.array(o3)
-        dist = np.linalg.norm(vec)
-        if self.init_distance is None:
-            self.init_distance = dist
-        reward_dist = (-1)*(dist/self.init_distance)
-        reward_ctrl = (-0.1)*np.square(a).sum()
-        collision = self.env.robot.collision
-        reward_coll = (-1)*collision
-        finished = self.task.check_distance_threshold(observation)
-        if finished:
-            reward = 10
-            print(f"achieved!!! reward: sum {reward}")
-        else:
-            reward = reward_dist + reward_ctrl + reward_coll
-            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, finished {finished}, sum {reward}")
+        o3 = observation["additional_obs"]["endeff_6D"][:3]
+        goal_dist = np.linalg.norm(np.array(o2)-np.array(o3))
+        reward_reach = 0.2*(1-np.tanh(10*goal_dist))
+        reward_success = 1 if goal_dist < 0.02 else 0
+        reward = max(reward_reach, reward_success)
+        print(f"reward:{reward_reach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
-        self.prev_action = np.array(action)
         return reward
 
     def reset(self):
         """
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
-        self.prev_action = None
-        self.init_distance = None
+        pass
     
 class PnPReward(Reward):
     """
@@ -203,69 +175,28 @@ class PnPReward(Reward):
     """
     def __init__(self, env, task):
         super(PnPReward, self).__init__(env, task)
-        self.prev_action = None
-        self.init_distance_1 = None
-        self.init_distance_2 = None
-    
-    def compute(self, observation, action):
-        """
-        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
 
-        Params:
-            :param observation: (list) Observation of the environment
-        Returns:
-            :return reward: (float) Reward signal for the environment
-        """
-        if self.prev_action is None:
-            self.prev_action = np.array(action)
-        o1 = observation["actual_state"][:3]
-        if o1[2] < 0.0: # remove error in physics engine
-            o1[2] = 0.0
-        o2 = observation["goal_state"][:3]
-        for key in observation["additional_obs"]:
-            if key == "endeff_xyz":
-                o3 = observation["additional_obs"][key]
-            elif key == "endeff_6D":
-                o3 = observation["additional_obs"][key][:3]
-        a = np.array(action) - self.prev_action
-        vec_1 = np.array(o1) - np.array(o3)
-        vec_2 = np.array(o2) - np.array(o3)
-        dist_1 = np.linalg.norm(vec_1)
-        dist_2 = np.linalg.norm(vec_2)
-        reward_ctrl = (-0.1)*np.square(a).sum()
-        collision = self.env.robot.collision
-        reward_coll = (-1)*collision
-        finished = self.env.robot.pnp_finish
-        if finished:
-            reward = 100
-            print(f"achieved!!! reward: sum {reward}")
-        elif self.env.robot.gripper_active:
-            if self.init_distance_2 is None:
-                self.init_distance_2 = dist_2
-                reward = 10
-                print(f"grasped!!! reward: sum {reward}")
-            else:
-                reward_dist = (-1)*(dist_2/self.init_distance_2)
-                reward = reward_dist + reward_ctrl + reward_coll + 2
-                print(f"grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
-        else:
-            if self.init_distance_1 is None:
-                self.init_distance_1 = dist_1
-            reward_dist = (-1)*(dist_1/self.init_distance_1)
-            reward = reward_dist + reward_ctrl + reward_coll
-            print(f"not grasped... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, grip {self.env.robot.gripper_active}, finished {finished}, sum {reward}")
+    def compute(self, observation, action):
+        # o1-o3 -> o2-o3
+        o1 = observation["actual_state"]
+        o2 = observation["goal_state"]
+        o3 = observation["additional_obs"]["endeff_6D"][:3]
+        target_dist = np.linalg.norm(np.array(o1)-np.array(o3))
+        goal_dist = np.linalg.norm(np.array(o2)-np.array(o3))
+        reward_reach = 0.2*(1-np.tanh(10*target_dist))
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if self.env.robot.gripper_active else 0
+        reward_success = 1 if self.env.robot.pnp_finish else 0
+        reward = max(reward_reach, reward_approach, reward_success)
+        print(f"reward:{reward_reach, reward_approach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
-        self.prev_action = np.array(action)
         return reward
     
     def reset(self):
         """
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
-        self.prev_action = None
-        self.init_distance_1 = None
-        self.init_distance_2 = None
+        pass
 
 class PushReward(Reward):
     """
@@ -277,71 +208,25 @@ class PushReward(Reward):
     """
     def __init__(self, env, task):
         super(PushReward, self).__init__(env, task)
-        self.prev_action = None
-        # self.prev_o1 = None
-        self.init_distance = None
-        self.init_near = None
 
     def compute(self, observation, action):
-        """
-        Compute reward signal based on distance between 2 objects. The position of the objects must be present in observation.
-
-        Params:
-            :param observation: (list) Observation of the environment
-        Returns:
-            :return reward: (float) Reward signal for the environment
-        """
-        if self.prev_action is None:
-            self.prev_action = np.array(action)
+        # o1-o3 -> o1-o2
         o1 = observation["actual_state"]
-        if o1[2] < 0.0: # remove error in physics engine
-            o1[2] = 0.0
         o2 = observation["goal_state"]
-        for key in observation["additional_obs"]:
-            if key == "endeff_xyz":
-                o3 = observation["additional_obs"][key]
-            elif key == "endeff_6D":
-                o3 = observation["additional_obs"][key][:3]
-        a = np.array(action) - self.prev_action
-        vec = np.array(o1) - np.array(o2)
-        dist = np.linalg.norm(vec)
-        vecn = np.array(o1) - np.array(o3)
-        near = np.linalg.norm(vecn)
-        if self.init_distance is None:
-            self.init_distance = dist
-        reward_dist = (-1)*(dist/self.init_distance)
-        if self.init_near is None:
-            self.init_near = near
-        reward_near = (-1)*(near/self.init_near)
-        # if self.prev_o1 != o1 and self.prev_o1 is not None:
-        #     reward_change = 1
-        # else:
-        #     reward_change = 0
-        reward_ctrl = (-0.1)*np.square(a).sum()
-        collision = self.env.robot.collision
-        reward_coll = (-1)*collision
-        finished = self.task.check_distance_threshold(observation)
-        if finished:
-            reward = 100
-            print(f"achieved!!! reward: sum {reward}")
-        elif near <= 0.05:
-            reward = reward_dist + reward_ctrl + reward_coll + reward_near + 2
-            print(f"near... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, near {reward_near}, finished {finished}, sum {reward}")
-        else:
-            reward = reward_dist + reward_ctrl + reward_coll + reward_near
-            # reward = reward_dist + reward_ctrl + reward_coll + reward_change
-            print(f"not achieved... reward: dist {reward_dist}, ctrl {reward_ctrl}, coll {reward_coll}, near {reward_near}, finished {finished}, sum {reward}")
+        o3 = observation["additional_obs"]["endeff_6D"][:3]
+        target_dist = np.linalg.norm(np.array(o1)-np.array(o3))
+        goal_dist = np.linalg.norm(np.array(o1)-np.array(o2))
+        reward_reach = 0.2*(1-np.tanh(10*target_dist))
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
+        reward_success = 1 if goal_dist < 0.02 else 0
+        reward = max(reward_reach, reward_approach, reward_success)
+        print(f"reward:{reward_reach, reward_approach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
-        self.prev_action = np.array(action)
-        # self.prev_o1 = o1
         return reward
-
+    
     def reset(self):
         """
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
-        self.prev_action = None
-        # self.prev_o1 = None
-        self.init_distance = None
-        self.init_near = None
+        pass

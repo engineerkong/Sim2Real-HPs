@@ -181,7 +181,6 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
                 break
         iqm_list.append(env.episode_iqm_reward)
     iqm_dict_sim = {"iqm":iqm_list}
-    df = pandas.read_csv(csv_file)
     iqm_str_sim = json.dumps(iqm_dict_sim)
     df = pandas.read_csv(csv_file)
     new_column_df = pandas.DataFrame({'iqm_sim': [iqm_str_sim]}, index=df.index)

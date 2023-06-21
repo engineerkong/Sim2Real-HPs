@@ -622,16 +622,10 @@ class Robot:
         contacts = self.p.getContactPoints()
         if len(contacts) != 0:
             for contact in contacts:
-                if self.train_test:
-                    if (contact[1] == self.robot_uid and contact[2] != 3) or (contact[1] != 3 and contact[2] == self.robot_uid):
-                        # print(f"collision:{contact}")
-                        line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
-                        self.collision = 1
-                else:
-                    if contact[1] == self.robot_uid and contact[2] == self.robot_uid:
-                        # print(f"collision:{contact}")
-                        line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
-                        self.collision = 1
+                if contact[1] == self.robot_uid and contact[2] == self.robot_uid:
+                    # print(f"collision:{contact}")
+                    line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
+                    self.collision = 1
                 # if contact[8] < -0.01:
                 #     print(f"peneration:{contact[1], contact[2], contact[8]}")
         # print(f"collision:{self.collision}")
