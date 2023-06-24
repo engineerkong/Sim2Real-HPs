@@ -240,14 +240,14 @@ class TaskModule():
         
         finished = None
         if self.task_type =='reach': # reach
-            finished = self.check_distance_threshold(self._observation, threshold=0.02)  
+            finished = self.check_distance_threshold(self._observation, threshold=0.05)  
         if self.task_type == "pnp": # pnp
-            self.check_distance_threshold(self._observation, threshold=0.02)
+            self.check_distance_threshold(self._observation, threshold=0.05)
             finished = self.env.robot.pnp_finish
             if finished is True:
                 self.env.robot.pnp_finish = False
         if self.task_type == 'push': # push
-            finished = self.check_distance_threshold(self._observation, threshold=0.02)
+            finished = self.check_distance_threshold(self._observation, threshold=0.05)
         if self.task_type in ['poke', 'pnpbgrip']:
             finished = self.check_distance_threshold(self._observation)  
         if self.task_type in ['pnprot','pnpswipe']:

@@ -117,7 +117,9 @@ class Robot:
             
     def _set_collisions(self):
         # set the collision filter between forearm and hand link to be false (unusual collision)
+        self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 2, 4, False)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
+        self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
         # set the collision filter between robot and goal object to be false
         if self.task_type == "reach":
             for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
@@ -374,7 +376,7 @@ class Robot:
             self.joints_state.append(joint_state[0])
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
-        self.gripper_pos = (np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[0])[0],dtype=float) + np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[1])[0],dtype=float))/2
+        self.gripper_pos, self.gripper_ori = self.get_ned2_gripper()
 
     def _move_gripper(self, action):
         """
@@ -622,8 +624,8 @@ class Robot:
         contacts = self.p.getContactPoints()
         if len(contacts) != 0:
             for contact in contacts:
-                if contact[1] == self.robot_uid and contact[2] == self.robot_uid:
-                    # print(f"collision:{contact}")
+                if (contact[1] == self.robot_uid and contact[2] not in [3,4]) or (contact[2] not in [3,4] and contact[2] == self.robot_uid):
+                    print(f"collision:{contact}")
                     line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
                     self.collision = 1
                 # if contact[8] < -0.01:
@@ -657,8 +659,8 @@ class Robot:
     def grasp_object(self, object, target):
         object_pos = object.get_position()[:3]
         target_pos = target.get_position()[:3]
-        close_to_object = True if np.linalg.norm(self.gripper_pos - np.asarray(object_pos)) <= 0.02 else False
-        close_to_target = True if np.linalg.norm(self.gripper_pos - np.asarray(target_pos)) <= 0.02 else False
+        close_to_object = True if np.linalg.norm(self.gripper_pos - np.asarray(object_pos)) <= 0.05 else False
+        close_to_target = True if np.linalg.norm(self.gripper_pos - np.asarray(target_pos)) <= 0.05 else False
         if self.gripper_active is False:
             if close_to_object:
                 self._move_gripper(self.gjoints_limits[0]) # close gripper
@@ -706,15 +708,15 @@ class Robot:
         """
         Returns the position of the tip of the pointy gripper. Tested on Ned2 only
         """
-        gripper_position = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
-        gripper_orientation = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
+        gripper_position = (np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[0])[0],dtype=float) + np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[1])[0],dtype=float))/2
+        gripper_orientation = (np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[0])[1],dtype=float) + np.array(self.p.getLinkState(self.robot_uid, self.gripper_indices[1])[1],dtype=float))/2
         gripper_matrix      = self.p.getMatrixFromQuaternion(gripper_orientation)
-        direction_vector    = Vector([0,0,0], [0.0, 0.0, 0.0])
+        direction_vector    = Vector([0,0,0], [0.0, 0.0, 0.02])
         m = np.array([[gripper_matrix[0], gripper_matrix[1], gripper_matrix[2]], [gripper_matrix[3], gripper_matrix[4], gripper_matrix[5]], [gripper_matrix[6], gripper_matrix[7], gripper_matrix[8]]])
         direction_vector.rotate_with_matrix(m)
         gripper = Vector([0,0,0], gripper_position)
-        final = direction_vector.add_vector(gripper)
-        return final, gripper_orientation
+        gripper_final = direction_vector.add_vector(gripper)
+        return gripper_final, gripper_orientation
     
     def get_name(self):
         """

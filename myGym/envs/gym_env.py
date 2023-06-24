@@ -354,7 +354,7 @@ class GymEnv(CameraEnv):
         # print(f"act:{action}")
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
-        print(f"obs:{self._observation}")
+        # print(f"obs:{self._observation}")
         if self.dataset: reward, done, info = 0, False, {}
         else:
             reward = self.reward.compute(observation=self._observation, action=action)

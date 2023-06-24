@@ -151,9 +151,10 @@ class ReachReward(Reward):
         o3 = observation["additional_obs"]["endeff_6D"][:3]
         goal_dist = np.linalg.norm(np.array(o2)-np.array(o3))
         reward_reach = 0.2*(1-np.tanh(10*goal_dist))
-        reward_success = 1 if goal_dist < 0.02 else 0
-        reward = max(reward_reach, reward_success)
-        print(f"reward:{reward_reach, reward_success}")
+        reward_success = 13 if goal_dist < 0.05 else 0
+        collision = self.env.robot.collision
+        reward = max(reward_reach, reward_success) + (-0.001*collision)
+        # print(f"reward:{reward_reach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         return reward
@@ -185,9 +186,9 @@ class PnPReward(Reward):
         goal_dist = np.linalg.norm(np.array(o2)-np.array(o3))
         reward_reach = 0.2*(1-np.tanh(10*target_dist))
         reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if self.env.robot.gripper_active else 0
-        reward_success = 1 if self.env.robot.pnp_finish else 0
+        reward_success = 45 if self.env.robot.pnp_finish else 0
         reward = max(reward_reach, reward_approach, reward_success)
-        print(f"reward:{reward_reach, reward_approach, reward_success}")
+        # print(f"reward:{reward_reach, reward_approach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         return reward
@@ -218,9 +219,9 @@ class PushReward(Reward):
         goal_dist = np.linalg.norm(np.array(o1)-np.array(o2))
         reward_reach = 0.2*(1-np.tanh(10*target_dist))
         reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
-        reward_success = 1 if goal_dist < 0.02 else 0
+        reward_success = 45 if goal_dist < 0.05 else 0
         reward = max(reward_reach, reward_approach, reward_success)
-        print(f"reward:{reward_reach, reward_approach, reward_success}")
+        # print(f"reward:{reward_reach, reward_approach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         return reward
