@@ -361,6 +361,7 @@ class Robot:
             :param joint_poses: (list) Desired poses of individual joints
         """
         joint_poses = np.clip(joint_poses, self.joints_limits[0], self.joints_limits[1])
+        # joint_poses = np.array([0,0,0,0,0,0])
         self.joints_state = []
         # pdi control
         for i in range(len(self.motor_indices)):
@@ -377,6 +378,8 @@ class Robot:
         self.end_effector_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         self.end_effector_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]
         self.gripper_pos, self.gripper_ori = self.get_ned2_gripper()
+        # line_id = self.p.addUserDebugLine(self.gripper_pos, self.gripper_pos+np.array([0,0,100]), [1, 1, 1], 3000, 0)
+
 
     def _move_gripper(self, action):
         """
@@ -610,16 +613,6 @@ class Robot:
             self.apply_action_absolute(action)
         elif "joints" in self.robot_action:
             self.apply_action_joints(action)
-        if "gripper" in self.robot_action:
-            self._move_gripper(action[-(self.gjoints_num):])
-        else:
-            # if self.gjoints_num:
-            #     self._move_gripper(self.gjoints_limits[1])
-            if "pnp" in self.task_type: 
-                # gripper
-                self.grasp_object(env_objects['actual_state'], env_objects['goal_state'])
-                # # electromagnet
-                # self.magnetize_object(env_objects['actual_state'], env_objects['goal_state'])
         # detect collision and peneration of objects
         contacts = self.p.getContactPoints()
         if len(contacts) != 0:
@@ -632,6 +625,20 @@ class Robot:
                 #     print(f"peneration:{contact[1], contact[2], contact[8]}")
         # print(f"collision:{self.collision}")
         
+    def apply_grasp(self, action, env_objects=None):
+        if "gripper" in self.robot_action:
+            self._move_gripper(action[-(self.gjoints_num):])
+        else:
+            # if self.gjoints_num:
+            #     self._move_gripper(self.gjoints_limits[1])
+            if "pnp" in self.task_type: 
+                # gripper
+                self.grasp_object(env_objects['actual_state'], env_objects['goal_state'])
+                # # electromagnet
+                # self.magnetize_object(env_objects['actual_state'], env_objects['goal_state'])
+            else:
+                self._move_gripper(self.gjoints_limits[0]) # close gripper
+
     def magnetize_object(self, object, target):
         ee_pos = self.p.getLinkState(self.robot_uid, self.end_effector_index)[0]
         ee_ori = self.p.getLinkState(self.robot_uid, self.end_effector_index)[1]

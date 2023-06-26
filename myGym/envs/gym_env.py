@@ -403,6 +403,8 @@ class GymEnv(CameraEnv):
             self.robot.apply_action(action, env_objects=objects)
             if hasattr(self, 'human'):
                 self.human.apply_action(np.random.uniform(self.human.joints_limits[0], self.human.joints_limits[1]))
+            if i == self.action_repeat-1:
+                self.robot.apply_grasp(action, env_objects=objects)
             self.p.stepSimulation()
         #print(f"Substeps:{i}")
         self.episode_steps += 1
