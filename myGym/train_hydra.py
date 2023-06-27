@@ -145,6 +145,8 @@ def train(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None
         callbacks_list.append(progress_callback)
         model.learn(total_timesteps=arg_dict["steps"], callback=callbacks_list)
     model.save(os.path.join(model_logdir, model_name))
+    if arg_dict["algo"] == "sac":
+        model.save_replay_buffer(os.path.join(model_logdir,"replay_buffer.pkl"))
     print(os.path.join(model_logdir, 'model_torch.pth.tar'))
     torch.save(model.get_parameters(), os.path.join(model_logdir, 'model_torch.pth.tar'), _use_new_zipfile_serialization=False)
     print("Training time: {:.2f} s".format(time.time() - start_time))
