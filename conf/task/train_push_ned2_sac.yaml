@@ -8,7 +8,7 @@ ee_camera: 1
 gui: 0
 visualize: 0
 visgym: 0
-robot: ned2_camera
+robot: ned2_gripper_camera
 robot_action: joints
 robot_init:
 - 0.0
@@ -31,8 +31,8 @@ task_objects:
     - 0.15
     - 0.15
     - 0.35
-    - 0.011
-    - 0.011
+    - 0.012
+    - 0.012
   goal:
     obj_name: target
     fixed: 1
@@ -42,8 +42,8 @@ task_objects:
     - 0.15
     - 0.15
     - 0.35
-    - 0.011
-    - 0.011
+    - 0.012
+    - 0.012
 used_objects:
   num_range:
   - 0
@@ -76,7 +76,7 @@ algo: sac
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 500000
+steps: 200000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
