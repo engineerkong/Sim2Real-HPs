@@ -13,6 +13,7 @@ from autorl_landscape.custom_agents.sac import CustomSAC
 from autorl_landscape.run.callback import LandscapeEvalCallback
 from autorl_landscape.run.rl_context import make_env, make_env_mygym
 
+import os
 import pandas as pd
 import wandb
 from autorl_landscape.util.download import _flatten_dict
@@ -130,6 +131,7 @@ def train_agent(
     vals.append({"name": run.name, **run.config, **run.summary})
     vals = [_flatten_dict(v) for v in vals]
     df = pd.DataFrame(vals)
+    os.makedirs(f"{phase_path}/agents/{run.id}", exist_ok=True)
     with open(f"{phase_path}/agents/{run.id}/data.csv", "w") as file:
         df.to_csv(file)
 
