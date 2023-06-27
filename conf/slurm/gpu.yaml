@@ -6,6 +6,6 @@ slurm:
   cluster: Null # becomes None in python
   num_parallel: 50
   update_parameters: # for executor.update_parameters()
-    timeout_min: 6000
+    timeout_min: 1440
     slurm_partition: gpu
     gpus_per_node: 1
