@@ -18,6 +18,7 @@ def read_wandb_csv(file: Path) -> pd.DataFrame:
             "ls_eval/ep_lengths": ast.literal_eval,
             "final_eval_3/returns": ast.literal_eval,
             "final_eval_3/ep_lengths": ast.literal_eval,
+            "sim2real_gap": ast.literal_eval,
         },
     )
 

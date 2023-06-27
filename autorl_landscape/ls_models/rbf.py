@@ -56,7 +56,7 @@ class RBFInterpolatorLSModel(LSModel):
     def estimate_iqm_fit(self):
         print("-"*50)
         print("Estimate IQM surface fit")
-        data = estimate_model_fit(X=self.x, y=self.y_iqm, k=5)
+        data = estimate_model_fit(X=self.x, y=self.y_iqm, k=4)
         for c in data.columns:
             if c is not "fold":
                 print(c, data[c].mean(), data[c].std())

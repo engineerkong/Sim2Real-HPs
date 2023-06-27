@@ -109,7 +109,7 @@ class LSModel(BaseEstimator):
                 "Raw Return Samples",
                 "scatter",
                 "graphs",
-                self.build_df(self.x_samples, self.y_samples, "ls_eval/returns"),
+                self.build_df(self.x_samples, self.y_samples, self.y_info.name),
                 {},
                 # {"color": "red"},
             )

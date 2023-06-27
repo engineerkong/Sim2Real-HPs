@@ -64,6 +64,12 @@ CMAP_DISCRETIZED = {
 }
 
 FIGSIZES = {
+    1: {
+        "maps": (70, 18),
+        "modalities": (70, 7),
+        "graphs": (70, 18),
+        "crashes": (70, 4),
+    },
     2: {
         "maps": (70, 18),
         "modalities": (70, 7),
@@ -580,7 +586,7 @@ def add_model_visualization(model: LSModel, grid_length: int) -> None:
                 title,
                 "contour",
                 "maps",
-                model.build_df(grid, func(grid), "ls_eval/returns"),
+                model.build_df(grid, func(grid), "sim2real_gap"),
                 kwargs,
             )
         )
@@ -616,7 +622,7 @@ def add_model_visualization(model: LSModel, grid_length: int) -> None:
                     "Middle Surface",
                     "scatter",
                     "maps",
-                    model.build_df(ancestor_x, ancestor_y, "ls_eval/returns"),
+                    model.build_df(ancestor_x, ancestor_y, "sim2real_gap"),
                     {
                         "color": "white",
                         "marker": "*",

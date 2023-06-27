@@ -160,7 +160,6 @@ def main() -> None:
         file = Path(args.data)
         df = read_wandb_csv(file)
         phase_indices = sorted(df["meta.phase"].unique())
-
         fig = plt.figure(figsize=FIGSIZES[len(phase_indices)][args.func])
         global_gs = fig.add_gridspec(1, 1 + len(phase_indices))
         if args.cherry_picks is not None:
@@ -180,7 +179,7 @@ def main() -> None:
         for phase_index, sub_gs in zip(phase_indices, [gs for gs in global_gs][1:]):
             phase_data, best_conf = split_phases(df, phase_index)
             if args.model == "ilm":
-                model = RBFInterpolatorLSModel(phase_data, np.float64, "ls_eval/returns", Y_BOUNDS, best_conf)
+                model = RBFInterpolatorLSModel(phase_data, np.float64, "sim2real_gap", Y_BOUNDS, best_conf)
                 _fitdata = model.estimate_iqm_fit()
                 _fitdata["phase_index"] = phase_index
                 _fitdata["mode"] = args.func
@@ -188,7 +187,7 @@ def main() -> None:
             elif args.model == "igpr":
                 from autorl_landscape.ls_models.triple_gp import TripleGPModel
 
-                model = TripleGPModel(phase_data, np.float64, "ls_eval/returns", Y_BOUNDS, best_conf)
+                model = TripleGPModel(phase_data, np.float64, "sim2real_gap", Y_BOUNDS, best_conf)
                 model.fit()
                 print("\n\n>>>>>>>>>>>>>  Mode:", args.func, "\tphase_index:", phase_index)
                 _fitdata = model.estimate_iqm_fit()
