@@ -8,3 +8,4 @@ slurm:
   update_parameters: # for executor.update_parameters()
     timeout_min: 6000
     slurm_partition: gpu
+    gpus_per_node: 1
