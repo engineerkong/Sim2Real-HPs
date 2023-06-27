@@ -77,8 +77,8 @@ algo: sac
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 120000
-pretrained_model: "./trained_models/pnp3new/train_pnp_ned2_gripper_camera_joints_sac_4617/best_model.zip"
+steps: 500000
+pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 10

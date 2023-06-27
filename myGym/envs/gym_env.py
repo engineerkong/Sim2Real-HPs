@@ -251,7 +251,7 @@ class GymEnv(CameraEnv):
                 self.reset_(random_pos=True, hard=False, random_robot=False, only_subtask=False)
                 print(self._observation)
                 dist = np.linalg.norm(np.asarray(self._observation["actual_state"][:3]) - np.asarray(self._observation["goal_state"][:3]))
-                if dist >= 0.1:
+                if dist >= 0.05:
                     close = False
         return self.flatten_obs(self._observation.copy())
 

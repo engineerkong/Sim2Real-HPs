@@ -25,7 +25,7 @@ task_objects:
 - init:
     obj_name: 'null'
   goal:
-    obj_name: cube
+    obj_name: target
     fixed: 1
     rand_rot: 0
     sampling_area:

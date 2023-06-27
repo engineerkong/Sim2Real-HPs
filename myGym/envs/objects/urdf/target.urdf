@@ -12,11 +12,5 @@
         <mesh filename="../obj/target.obj" scale="0.0002 0.0002 0.0002"/>
       </geometry>
     </visual>
-    <collision concave="yes">
-      <origin rpy="0 0 0" xyz="0.000 0.000 0.000"/>
-      <geometry>
-	 	    <mesh filename="../obj/target.obj" scale="0.0002 0.0002 0.0002"/>
-      </geometry>
-    </collision>
   </link>
 </robot>

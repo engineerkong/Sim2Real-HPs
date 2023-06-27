@@ -116,17 +116,10 @@ class Robot:
                 self.position, self.orientation, useFixedBase=True, flags=(self.p.URDF_USE_SELF_COLLISION))
             
     def _set_collisions(self):
-        # set the collision filter between forearm and hand link to be false (unusual collision)
+        # filter out unusual collision
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 2, 4, False)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 4, 6, False)
         self.p.setCollisionFilterPair(self.robot_uid, self.robot_uid, 9, 10, False)
-        # set the collision filter between robot and goal object to be false
-        if self.task_type == "reach":
-            for link_idx1 in range(-1, self.p.getNumJoints(self.robot_uid)):
-                for link_idx2 in range(-1, self.p.getNumJoints(3)):
-                    self.p.setCollisionFilterPair(self.robot_uid, 3, link_idx1, link_idx2, False)
-        if self.task_type in ["pnp", "push"]:
-            self.p.setCollisionFilterPair(3, 4, -1, -1, False)
 
     def _set_motors(self):
         """
@@ -618,7 +611,7 @@ class Robot:
         if len(contacts) != 0:
             for contact in contacts:
                 if (contact[1] == self.robot_uid and contact[2] not in [3,4]) or (contact[2] not in [3,4] and contact[2] == self.robot_uid):
-                    print(f"collision:{contact}")
+                    # print(f"collision:{contact}")
                     line_id = self.p.addUserDebugLine(contact[5], contact[6], [1, 1, 1], 3000, 0)
                     self.collision = 1
                 # if contact[8] < -0.01:
