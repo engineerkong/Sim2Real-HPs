@@ -2,8 +2,8 @@
 
 # Good setting for reach_ned2
 phases:
-  - 20000
-  - 40000
-  - 60000
+  - 33333
+  - 66667
+  - 100000
 eval:
-  freq_eval_interval: 20000
+  freq_eval_interval: 33333

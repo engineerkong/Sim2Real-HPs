@@ -15,6 +15,6 @@ eval:
   final_eval_start: 0.95 # 95% progress (of total_timesteps) is first final eval
   final_eval_times: 3 # 3 final evals from final_eval_start until total_timesteps
 viz:
-  max_return: 500 # TODO
-  max_ep_length: 500 # TODO
+  max_return: 50
+  max_ep_length: 100
   hist_bins: 100
