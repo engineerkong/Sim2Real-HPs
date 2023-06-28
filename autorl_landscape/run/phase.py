@@ -191,14 +191,14 @@ def phase(conf: DictConfig, phase_index: int, timestamp: str, ancestor = None) -
     # conf_indices, run_ids, final_scores = zip(*results)
     # run_ids = np.array(run_ids)
     # final_scores = np.array(final_scores)
-    run_ids, final_returns = construct_2d(*zip(*results))
+    # run_ids, final_returns = construct_2d(*zip(*results))
 
-    best = choose_best_policy(run_ids, final_returns, save=phase_path)
+    # best = choose_best_policy(run_ids, final_returns, save=phase_path)
 
-    print(f"-- PHASE {phase_index} REPORT --")
-    print(f"{run_ids=}")
-    print(f"{final_returns=}")
-    print(f"Best run: {best}\n")
+    # print(f"-- PHASE {phase_index} REPORT --")
+    # print(f"{run_ids=}")
+    # print(f"{final_returns=}")
+    # print(f"Best run: {best}\n")
 
 
 T = TypeVar("T")
