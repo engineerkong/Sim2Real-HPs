@@ -66,7 +66,7 @@ distractors:
   - 0.0
   - 0.0
   - 0.0
-reward: push
+reward: prepush
 distance_type: euclidean
 vae_path:
 yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"

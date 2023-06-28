@@ -200,7 +200,7 @@ class PnPReward(Reward):
         """
         pass
 
-class PushReward(Reward):
+class PrePushReward(Reward):
     """
     Reward class for push task
 
@@ -233,3 +233,42 @@ class PushReward(Reward):
         Reset stored value of distance between 2 objects. Call this after the end of an episode.
         """
         pass
+
+class PushReward(Reward):
+    """
+    Reward class for push task
+
+    Parameters:
+        :param env: (object) Environment, where the training takes place
+        :param task: (object) Task that is being trained, instance of a class TaskModule
+    """
+    def __init__(self, env, task):
+        super(PushReward, self).__init__(env, task)
+        self.pre_o1 = None
+
+    def compute(self, observation, action):
+        # o1-o3 -> o1-o2
+        o1 = observation["actual_state"]
+        if self.pre_o1 == None:
+            self.pre_o1 = o1
+        o2 = observation["goal_state"]
+        o3 = observation["additional_obs"]["endeff_6D"][:3]
+        target_dist = np.linalg.norm(np.array(o1)-np.array(o3)) # o1-o2
+        goal_dist = np.linalg.norm(np.array(o1)-np.array(o2)) # o1-o3
+        change = 1 if np.linalg.norm(np.array(self.pre_o1) - np.array(o1)) > 0.01 else 0
+        reward_reach = 0.2*(1-np.tanh(10*target_dist))
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
+        reward_success = 45 if goal_dist < 0.05 else 0
+        collision = self.env.robot.collision
+        reward = max(reward_reach, reward_approach, reward_success) + (-0.3*collision + 1*change)
+        print(f"reward:{reward_reach, reward_approach, reward_success},collision:{collision},change:{change}")
+        self.task.check_goal()
+        self.rewards_history.append(reward)
+        self.pre_o1 = o1
+        return reward
+    
+    def reset(self):
+        """
+        Reset stored value of distance between 2 objects. Call this after the end of an episode.
+        """
+        self.pre_o1  = None

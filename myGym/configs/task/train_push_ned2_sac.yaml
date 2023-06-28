@@ -77,7 +77,7 @@ num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
 steps: 200000
-pretrained_model: 
+pretrained_model: "./trained_models/pre_push/train_push_ned2_gripper_camera_joints_sac_8466/best_model.zip"
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 10
