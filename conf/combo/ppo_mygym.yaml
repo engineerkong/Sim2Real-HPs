@@ -9,9 +9,9 @@ agent:
     n_steps: 64 # default // n_envs
     clip_range: 0.18
 eval:
-  freq_eval_episodes: 1
-  ls_eval_episodes: 1
-  final_eval_episodes: 1
+  freq_eval_episodes: 0
+  ls_eval_episodes: 0
+  final_eval_episodes: 10
   final_eval_start: 0.95 # 95% progress (of total_timesteps) is first final eval
   final_eval_times: 3 # 3 final evals from final_eval_start until total_timesteps
 viz:
