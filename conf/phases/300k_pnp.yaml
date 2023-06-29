@@ -2,8 +2,8 @@
 
 # Good setting for pnp_ned2
 phases:
-  - 40000
-  - 80000
-  - 120000
+  - 100000
+  - 200000
+  - 300000
 eval:
-  freq_eval_interval: 20000
+  freq_eval_interval: 100000

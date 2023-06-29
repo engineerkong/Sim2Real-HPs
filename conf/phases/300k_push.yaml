@@ -2,8 +2,8 @@
 
 # Good setting for push_ned2
 phases:
+  - 100000
   - 200000
-  - 400000
-  - 600000
+  - 300000
 eval:
-  freq_eval_interval: 20000
+  freq_eval_interval: 100000
