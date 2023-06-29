@@ -209,7 +209,7 @@ class PrePushReward(Reward):
         :param task: (object) Task that is being trained, instance of a class TaskModule
     """
     def __init__(self, env, task):
-        super(PushReward, self).__init__(env, task)
+        super(PrePushReward, self).__init__(env, task)
 
     def compute(self, observation, action):
         # o1-o3 -> o1-o2
