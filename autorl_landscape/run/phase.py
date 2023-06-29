@@ -188,10 +188,11 @@ def phase(conf: DictConfig, phase_index: int, timestamp: str, ancestor = None) -
 
     results = schedule_runs(executor, train_agent, tasks, num_parallel=conf.slurm.num_parallel, polling_rate=10)
 
-    # conf_indices, run_ids, final_scores = zip(*results)
-    # run_ids = np.array(run_ids)
-    # final_scores = np.array(final_scores)
-    run_ids, final_returns = construct_2d(*zip(*results))
+    conf_indices, run_ids, final_scores = zip(*results)
+    run_ids = np.array(run_ids)
+    final_scores = np.array(final_scores)
+    print(conf_indices,run_ids,final_scores)
+    run_ids, final_returns = construct_2d(conf_indices,run_ids,final_scores)
 
     best = choose_best_policy(run_ids, final_returns, save=phase_path)
 
