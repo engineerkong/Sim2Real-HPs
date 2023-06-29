@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Imports
-from niryo_robot_python_ros_wrapper.ros_wrapper_mygym_reach import *
+from niryo_robot_python_ros_wrapper.ros_wrapper_mygym import *
 # from detection_improve import detection_improve
 import torch
 import functools
@@ -18,6 +18,8 @@ import pandas
 import wandb
 import os
 import json
+from gazebo_msgs.msg import ModelState 
+from gazebo_msgs.srv import SetModelState
 
 def seed_everything(seed):
     random.seed(seed)
@@ -54,6 +56,23 @@ def get_csv_path(model_path):
     csv_path = os.path.join(parent_dir,"data.csv")
     return csv_path
     
+def get_random_object_position(boarders):
+    """
+    Generate random position in defined volume
+
+    Parameters:
+        :param boarders: (list) Volume, where position may be generated ([x,x,y,y,z,z])
+    Returns:
+        :return pos: (list) Position in specified volume ([x,y,z])
+    """
+    if any(isinstance(i, list) for i in boarders):
+        boarders = boarders[random.randint(0,len(boarders)-1)]
+    pos = []
+    pos.append(random.uniform(boarders[0], boarders[1])) #x
+    pos.append(random.uniform(boarders[2], boarders[3])) #y
+    pos.append(random.uniform(boarders[4], boarders[5])) #z
+    return pos
+    
 def reset_world():
     reset_proxy = rospy.ServiceProxy("/gazebo/reset_world", Empty)
     try:
@@ -61,6 +80,28 @@ def reset_world():
 
     except rospy.ServiceException as e:
         print("/gazebo/reset_simulation service call failed")
+
+def reset_object():
+    rospy.wait_for_service('/gazebo/set_model_state')
+    try:
+        set_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+    
+    except rospy.ServiceException :
+        print("Service call failed")
+
+    state_msg = ModelState()
+    state_msg.model_name = 'cube_blue'
+
+    pos=get_random_object_position([0.15,0.35,-0.15,0.15,0.012,0.012])
+    state_msg.pose.position.x =  pos[0]
+    state_msg.pose.position.y = pos[1]
+    state_msg.pose.position.z =  pos[2]
+    state_msg.pose.orientation.w = 1
+    state_msg.pose.orientation.x = 0
+    state_msg.pose.orientation.y = 0
+    state_msg.pose.orientation.z = 0
+
+    resp = set_state(state_msg)
 
 class MygymEnv:
 
@@ -87,6 +128,7 @@ def eval(dummy_env=None, ros_env=None, pretrained_model=None, seed=None, eval_ep
     iqm_list = []
     for i in range(eval_episodes):
         reset_world()
+        reset_object()
         obs = ros_env.reset()
         for j in range(eval_steps):
             action = model.predict(obs)
@@ -108,8 +150,8 @@ def main():
     rospy.init_node('niryo_robot_example_python_ros_wrapper')
     # handle configs
     folder_path = "./data/agents_reach_4-3_20k/"
-    eval_episodes= 3
-    eval_steps = 10
+    eval_episodes= 100
+    eval_steps = 100
     task = "reach"
     sampling_area = [0.15,0.35,-0.15,0.15,0.012,0.012]
     # handle seeds

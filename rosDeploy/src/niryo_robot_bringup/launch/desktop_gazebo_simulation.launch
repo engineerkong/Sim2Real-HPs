@@ -16,7 +16,7 @@ This will reduce the amount of time spent waiting during program shutdown
     <arg name="debug" default="false"/>
     <arg name="gripper_n_camera" default="true"/>
     <arg name="simu_conveyor" default="true"/>
-    <arg name="gui" default="true"/>
+    <arg name="gui" default="false"/>
     <arg name="conf_location" default="version.txt"/>
 
     <!-- Define most of ROS parameters -->
@@ -29,7 +29,7 @@ This will reduce the amount of time spent waiting during program shutdown
     </include>
 
     <!-- Launching Gazebo World -->
-    <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world_reach.launch.xml">
+    <include file="$(find niryo_robot_gazebo)/launch/niryo_robot_gazebo_world_mygym.launch.xml">
         <arg name="gui" value="$(arg gui)"/>
     </include>
 

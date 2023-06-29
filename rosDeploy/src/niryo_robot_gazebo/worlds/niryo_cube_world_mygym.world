@@ -19,21 +19,13 @@
         </model>
 
         <!--CUBES-->
-        <population name="cube_population">
-        <model name="cube_blue">
+        <model name='cube_blue'>
             <include>
                 <uri>model://cube_blue</uri>
             </include>
+            <pose frame=''>0.25 0.0357 0.012 0.0 0.0 0.5</pose>
         </model>
-        <pose>0.25 0 0.0125 0 0 0</pose>
-        <box>
-            <size>0.2 0.3 0.001</size>
-        </box>
-        <model_count>1</model_count>
-        <distribution>
-            <type>random</type>
-        </distribution>
-        </population>
+        
         <physics name='default_physics' default='0' type='ode'>
             <max_step_size>0.001</max_step_size>
             <real_time_factor>1</real_time_factor>
