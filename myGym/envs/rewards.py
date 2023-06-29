@@ -222,7 +222,7 @@ class PrePushReward(Reward):
         reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
         reward_success = 45 if goal_dist < 0.05 else 0
         collision = self.env.robot.collision
-        reward = max(reward_reach, reward_approach, reward_success) + (-0.3*collision)
+        reward = max(reward_reach, reward_approach, reward_success) # + (-0.3*collision)
         # print(f"reward:{reward_reach, reward_approach, reward_success}")
         self.task.check_goal()
         self.rewards_history.append(reward)
