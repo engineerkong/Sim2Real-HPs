@@ -18,8 +18,6 @@ def construct_2d(indices: NDArray[Any], *arrays: NDArray[Any]) -> Tuple[NDArray[
     Return: The reshaped numpy arrays
     """
     rets: List[NDArray[Any]] = []
-    print(indices)
-    print(*arrays)
     bins = np.bincount(indices)
     num_rows = np.max(indices) + 1
     assert np.all(bins == bins[0]), "Each index must occur the same number of times!"
