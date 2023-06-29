@@ -261,7 +261,7 @@ class PushReward(Reward):
         reward_success = 45 if goal_dist < 0.05 else 0
         collision = self.env.robot.collision
         reward = max(reward_reach, reward_approach, reward_success) + (-0.3*collision + 1*change)
-        print(f"reward:{reward_reach, reward_approach, reward_success},collision:{collision},change:{change}")
+        # print(f"reward:{reward_reach, reward_approach, reward_success},collision:{collision},change:{change}")
         self.task.check_goal()
         self.rewards_history.append(reward)
         self.pre_o1 = o1
