@@ -3,6 +3,7 @@ from typing import Any, List, Dict, Tuple, Set
 from collections.abc import Iterable
 from pathlib import Path
 
+import retrying
 import wandb
 from numpy.typing import NDArray
 from omegaconf import DictConfig, OmegaConf
@@ -17,6 +18,29 @@ import os
 import pandas as pd
 import wandb
 from autorl_landscape.util.download import _flatten_dict
+
+@retrying.retry(wait_fixed=2000, stop_max_attempt_number=5)
+def init_wandb(conf, experiment_tags, ls_conf, timestamp, phase_index, seed, ancestor, conf_index, project_root):
+     return wandb.init(
+        project=conf.wandb.project,
+        tags=experiment_tags,
+        config={
+            "ls": ls_conf,
+            "conf": OmegaConf.to_object(conf),
+            "meta": {
+                "timestamp": timestamp,
+                "phase": phase_index,
+                "seed": seed,
+                "ancestor": str(ancestor),
+                "conf_index": conf_index,
+            },
+        },
+        sync_tensorboard=True,
+        monitor_gym=False,
+        save_code=False,
+        dir=project_root,
+        mode=conf.wandb.mode,
+    )
 
 def train_agent(
     conf: DictConfig,
@@ -60,26 +84,7 @@ def train_agent(
 
     # Setup wandb:
     project_root = Path(__file__).parent.parent.parent
-    run = wandb.init(
-        project=conf.wandb.project,
-        tags=experiment_tags,
-        config={
-            "ls": ls_conf,
-            "conf": OmegaConf.to_object(conf),
-            "meta": {
-                "timestamp": timestamp,
-                "phase": phase_index,
-                "seed": seed,
-                "ancestor": str(ancestor),
-                "conf_index": conf_index,
-            },
-        },
-        sync_tensorboard=True,
-        monitor_gym=False,
-        save_code=False,
-        dir=project_root,
-        mode=conf.wandb.mode,
-    )
+    run = init_wandb(conf, experiment_tags, ls_conf, timestamp, phase_index, seed, ancestor, conf_index, project_root)
     if run is None:
         error_msg = "Wandb run not initialized correctly!"
         raise Exception(error_msg)
