@@ -1,5 +1,5 @@
 from omegaconf import DictConfig, OmegaConf, open_dict
-import wandb
+# import wandb
 import scipy.stats
 from myGym.envs import robot, env_object
 from myGym.envs import task as t
@@ -354,7 +354,7 @@ class GymEnv(CameraEnv):
         # print(f"act:{action}")
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
-        # print(f"obs:{self._observation}")
+        print(f"obs:{self._observation}")
         if self.dataset: reward, done, info = 0, False, {}
         else:
             reward = self.reward.compute(observation=self._observation, action=action)
@@ -363,12 +363,12 @@ class GymEnv(CameraEnv):
             self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
-            wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
+            # wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
         if done: 
             self.successful_finish(info)
             self.episode_iqm_reward = scipy.stats.trim_mean(np.array(self.episode_reward_list), proportiontocut=0.25, axis=None)
             print(self.episode_reward, self.episode_iqm_reward, len(self.episode_reward_list))
-            wandb.log({"episode sum reward":self.episode_reward, "episode iqm reward":self.episode_iqm_reward, "episode length":len(self.episode_reward_list)})
+            # wandb.log({"episode sum reward":self.episode_reward, "episode iqm reward":self.episode_iqm_reward, "episode length":len(self.episode_reward_list)})
         if self.task.subtask_over:
             self.reset(only_subtask=True)
         #return self._observation, reward, done, info
