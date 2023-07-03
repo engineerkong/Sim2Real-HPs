@@ -16,7 +16,7 @@ This will reduce the amount of time spent waiting during program shutdown
     <arg name="debug" default="false"/>
     <arg name="gripper_n_camera" default="true"/>
     <arg name="simu_conveyor" default="true"/>
-    <arg name="gui" default="false"/>
+    <arg name="gui" default="true"/>
     <arg name="conf_location" default="version.txt"/>
 
     <!-- Define most of ROS parameters -->

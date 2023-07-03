@@ -18,6 +18,7 @@ import pandas
 import wandb
 import os
 import json
+import time
 from gazebo_msgs.msg import ModelState 
 from gazebo_msgs.srv import SetModelState
 
@@ -127,8 +128,10 @@ def eval(dummy_env=None, ros_env=None, pretrained_model=None, seed=None, eval_ep
     # seed_rl_context(model, seed=seed) # TODO
     iqm_list = []
     for i in range(eval_episodes):
+        time.sleep(1)
         reset_world()
         reset_object()
+        time.sleep(5)
         obs = ros_env.reset()
         for j in range(eval_steps):
             action = model.predict(obs)
@@ -149,9 +152,9 @@ def main():
     # Initializing ROS node
     rospy.init_node('niryo_robot_example_python_ros_wrapper')
     # handle configs
-    folder_path = "./data/agents_reach_4-3_20k/"
-    eval_episodes= 100
-    eval_steps = 100
+    folder_path = "/home/lingxiao/master/1/"
+    eval_episodes= 10
+    eval_steps = 10
     task = "reach"
     sampling_area = [0.15,0.35,-0.15,0.15,0.012,0.012]
     # handle seeds
@@ -166,7 +169,7 @@ def main():
     ros_env = NiryoRosWrapperMygym(dummy_env, task, sampling_area, eval_steps)
     for pretrained_model in pretrained_models:
         with wandb.init(
-            mode="offline",
+            mode="disabled",
             project="ros_eval_reach",
             tags="test1",
             dir=os.getcwd(),
