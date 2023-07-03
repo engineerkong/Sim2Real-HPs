@@ -308,7 +308,7 @@ def main_eval(cfg: DictConfig):
         env = configure_env(arg_dict, model_logdir, 0) # train: Monitor
         implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
         with wandb.init(
-            mode="offline",
+            mode="disabled",
             project="mygym_eval_reach",
             tags="test1",
             dir=os.getcwd(),
@@ -319,5 +319,5 @@ def main_eval(cfg: DictConfig):
 
 if __name__ == "__main__":
 
-    main_train()
-    # main_eval()
+    # main_train()
+    main_eval()

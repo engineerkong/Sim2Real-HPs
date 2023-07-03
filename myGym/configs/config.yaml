@@ -1,6 +1,6 @@
 defaults:
   - task: train_reach_ned2_sac
 test:
-  eval_episodes: 3
-  eval_steps: 100
-  folder_path: "./data/agents_reach_4-3_20k/"
+  eval_episodes: 10
+  eval_steps: 10
+  folder_path: "/home/lingxiao/master/1/agents_2/qirowypl/"
