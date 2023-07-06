@@ -152,7 +152,7 @@ def main():
     # Initializing ROS node
     rospy.init_node('niryo_robot_example_python_ros_wrapper')
     # handle configs
-    folder_path = "/home/lingxiao/master/1/"
+    folder_path = "/home/lingxiao/master/agents/"
     eval_episodes= 10
     eval_steps = 10
     task = "reach"

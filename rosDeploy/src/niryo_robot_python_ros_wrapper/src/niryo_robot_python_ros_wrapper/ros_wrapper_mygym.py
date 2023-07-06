@@ -92,8 +92,8 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         object_pos = observation[:3]
         target_pos = observation[3:6]
         gripper_pos = observation[6:9]
-        close_to_object = True if np.linalg.norm(gripper_pos - np.asarray(object_pos)) <= 0.1 else False
-        close_to_target = True if np.linalg.norm(gripper_pos - np.asarray(target_pos)) <= 0.1 else False
+        close_to_object = True if np.linalg.norm(gripper_pos - np.asarray(object_pos)) <= 0.05 else False
+        close_to_target = True if np.linalg.norm(gripper_pos - np.asarray(target_pos)) <= 0.05 else False
         if self.gripper_active is False:
             if close_to_object:
                 self.close_gripper() # close gripper
@@ -136,7 +136,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         gripper_pos = direction_vector.add_vector(gripper)
         return gripper_pos, endeff_ori
     
-    def get_finish(self, observation, threshold=0.1):
+    def get_finish(self, observation, threshold=0.05):
         if self.task == "reach":
             distance = calc_distance(observation[6:9], observation[3:6])
             finish = (distance <= threshold)
@@ -245,9 +245,9 @@ class ReachReward:
         o3 = observation[6:9]
         goal_dist = np.linalg.norm(np.array(o2)-np.array(o3)) # o2-o3
         reward_reach = 0.2*(1-np.tanh(10*goal_dist))
-        reward_success = 13 if goal_dist < 0.1 else 0
+        reward_success = 13 if goal_dist < 0.05 else 0
         collision = self.env.get_collision()
-        reward = max(reward_reach, reward_success) + (-0.3*collision)
+        reward = max(reward_reach, reward_success) + (-0.1*collision)
         # print(f"reward:{reward_reach, reward_success}")
         return reward
     
@@ -270,7 +270,7 @@ class PnPReward:
         reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if self.gripper_active else 0
         reward_success = 45 if finish else 0
         collision = self.env.get_collision()
-        reward = max(reward_reach, reward_approach, reward_success) + (-0.3*collision)
+        reward = max(reward_reach, reward_approach, reward_success) + (-0.1*collision)
         # print(f"reward:{reward_reach, reward_approach, reward_success}")
         return reward
     
@@ -293,10 +293,10 @@ class PushReward:
         goal_dist = np.linalg.norm(np.array(o1)-np.array(o2)) # o1-o3
         change = 1 if np.linalg.norm(np.array(self.pre_o1) - np.array(o1)) > 0.01 else 0
         reward_reach = 0.2*(1-np.tanh(10*target_dist))
-        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.1 else 0
-        reward_success = 45 if goal_dist < 0.1 else 0
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
+        reward_success = 45 if goal_dist < 0.05 else 0
         collision = self.env.get_collision()
-        reward = max(reward_reach, reward_approach, reward_success) + (-0.3*collision + 1*change)
+        reward = max(reward_reach, reward_approach, reward_success) + (-0.1*collision + 1*change)
         # print(f"reward:{reward_reach, reward_approach, reward_success},collision:{collision},change:{change}")
         self.prev_o1 = o1
         return reward
