@@ -3,4 +3,4 @@ defaults:
 test:
   eval_episodes: 10
   eval_steps: 10
-  folder_path: "/home/lingxiao/master/1/agents_2/qirowypl/"
+  folder_path: "/home/lingxiao/master/reach_ppo_128/"

@@ -284,6 +284,7 @@ class GymEnv(CameraEnv):
         self.reward.reset()
         self.p.stepSimulation()
         self._observation = self.get_observation()
+        # print(self._observation)
         
     def shift_next_subtask(self):
         # put current init and goal back in env_objects

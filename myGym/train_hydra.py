@@ -166,7 +166,11 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
     print(csv_file)
     env = model_args[1]
     vec_env = env
-    model = SAC_P("MlpPolicy", vec_env)
+    print(arg_dict["algo"])
+    if arg_dict["algo"] == "sac":
+        model = SAC_P("MlpPolicy", vec_env)
+    elif arg_dict["algo"] == "ppo":
+        model = PPO_P("MlpPolicy", vec_env)
     params = torch.load(pretrained_model)
     for name in params:
         attr = None

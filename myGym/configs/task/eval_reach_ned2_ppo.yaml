@@ -63,7 +63,7 @@ vae_path:
 yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
 yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
 train_framework: pytorch
-algo: sac
+algo: ppo
 num_networks: 1
 max_episode_steps: 10
 algo_steps: 100
