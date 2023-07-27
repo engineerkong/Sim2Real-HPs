@@ -1,6 +1,6 @@
 defaults:
-  - task: train_reach_ned2_sac
+  - task: eval_reach_ned2_ppo
 test:
   eval_episodes: 10
   eval_steps: 10
-  folder_path: "/home/lingxiao/master/reach_ppo_128/"
+  folder_path: "/home/lingxiao/master/ppo_nocollision/"

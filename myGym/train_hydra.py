@@ -177,7 +177,9 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
         attr = recursive_getattr(model, name)
         attr.load_state_dict(params[name])
     seed_rl_context(model, seed=seed)
-    iqm_list = []    
+    sum_list = []
+    iqm_list = []
+    len_list = []
     for i in range(eval_episodes):
         obs = env.reset()
         for j in range(eval_steps):
@@ -185,13 +187,17 @@ def eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
             obs, reward, done, info = env.step(action[0])
             if done:
                 break
+        sum_list.append(env.episode_reward)
         iqm_list.append(env.episode_iqm_reward)
-    iqm_dict_sim = {"iqm":iqm_list}
-    iqm_str_sim = json.dumps(iqm_dict_sim)
+        len_list.append(len(env.episode_reward_list))
+    dict_sim = {"sum":sum_list, "iqm":iqm_list, "len":len_list}
+    str_sim = json.dumps(dict_sim)
     df = pandas.read_csv(csv_file)
-    new_column_df = pandas.DataFrame({'iqm_sim': [iqm_str_sim]}, index=df.index)
+    new_column_df = pandas.DataFrame({'eval_seed': seed}, index=df.index)
     new_df = pandas.concat([df, new_column_df], axis=1)
-    new_df.to_csv(csv_file, index=False)
+    newnew_column_df = pandas.DataFrame({'sim': [str_sim]}, index=new_df.index)
+    newnew_df = pandas.concat([new_df, newnew_column_df], axis=1)
+    newnew_df.to_csv(csv_file, index=False)
     del model
 
 
@@ -278,11 +284,6 @@ def main_eval(cfg: DictConfig):
     OmegaConf.set_struct(arg_dict, True)
     arg_dict["train_test"] = 0
 
-    # handle seeds
-    seed = np.random.randint(10000)
-    print(f"seed:{seed}")
-    seed_everything(seed=seed)
-
     # Check if we chose one of the existing engines
     if arg_dict["engine"] not in AVAILABLE_SIMULATION_ENGINES:
         print(f"Invalid simulation engine. Valid arguments: --engine {AVAILABLE_SIMULATION_ENGINES}.")
@@ -294,7 +295,7 @@ def main_eval(cfg: DictConfig):
             arg_dict["logdir"] = os.path.join("./", arg_dict["logdir"])
     os.makedirs(arg_dict["logdir"], exist_ok=True)
     ttname = "test"
-    model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((ttname,arg_dict["task_type"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"],str(seed))))
+    model_logdir_ori = os.path.join(arg_dict["logdir"], "_".join((ttname,arg_dict["task_type"],arg_dict["robot"],arg_dict["robot_action"],arg_dict["algo"])))
     model_logdir = model_logdir_ori
     add = 2
     while True:
@@ -318,6 +319,10 @@ def main_eval(cfg: DictConfig):
             dir=os.getcwd(),
             config=dict_cfg,
         ):
+            # handle seeds
+            seed = np.random.randint(10000)
+            print(f"seed:{seed}")
+            seed_everything(seed=seed)
             eval(env, implemented_combos, model_logdir, arg_dict, pretrained_model, seed, eval_episodes, eval_steps)
         del env
 
