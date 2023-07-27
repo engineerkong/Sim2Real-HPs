@@ -18,8 +18,22 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.task = task
         self.sampling_area = sampling_area
         self.max_steps = eval_steps
+        self.create_wks_gazebo()
         self.setup_reward()
         self.reset()
+
+    def create_wks_gazebo(self):
+        workspace_name = "gazebo_1"
+        if workspace_name in self.get_workspace_list():
+            self.delete_workspace(workspace_name)
+
+        workspace_pose = [0.25, 0.0, 0.001]
+        point_1 = [workspace_pose[0] + 0.087, workspace_pose[1] + 0.087, workspace_pose[2]]
+        point_2 = [workspace_pose[0] + 0.087, workspace_pose[1] - 0.087, workspace_pose[2]]
+        point_3 = [workspace_pose[0] - 0.087, workspace_pose[1] - 0.087, workspace_pose[2]]
+        point_4 = [workspace_pose[0] - 0.087, workspace_pose[1] + 0.087, workspace_pose[2]]
+
+        self.save_workspace_from_points(workspace_name, [point_1, point_2, point_3, point_4])
 
     def setup_reward(self):
         if self.task == 'reach':
@@ -36,7 +50,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         self.episode_steps = 0
         self.episode_reward = 0
         self.episode_reward_list = []
-        obs_joints = [0, 0, 0, 0, -1.57, 0]
+        obs_joints = [0, 0, 0, 0, -1.75, 0]
         self.move_joints(*obs_joints)
         if self.task in ['reach','push']:
             self.close_gripper()
@@ -113,16 +127,38 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         target_xyz = np.array([-self.target_xyz[1], self.target_xyz[0], self.target_xyz[2]])
         tcp_pose = self.get_pose()
         endeff_pos = np.array([-tcp_pose.position.y, tcp_pose.position.x, tcp_pose.position.z])
-        endeff_ori = np.array([tcp_pose.orientation.w, tcp_pose.orientation.x, tcp_pose.orientation.y, tcp_pose.orientation.z])
+        q_initial = np.array([0, 0.7, 0, 0.7])
+        q_target = np.array([-0.5, 0.5, 0.5, 0.5])
+
+        # Compute the correction quaternion
+        def quaternion_multiply(q1, q2):
+            w1, x1, y1, z1 = q1
+            w2, x2, y2, z2 = q2
+            w_result = w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2
+            x_result = w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2
+            y_result = w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2
+            z_result = w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2
+            return np.array([w_result, x_result, y_result, z_result])
+
+        q_correction = quaternion_multiply(q_target, np.array([q_initial[0], q_initial[1], q_initial[2], q_initial[3]]))
+
+        # Apply the correction to a new quaternion (q_new)
+        q_new = np.array([tcp_pose.orientation.x, tcp_pose.orientation.y, tcp_pose.orientation.z, tcp_pose.orientation.w])  # Replace x, y, z, w with your new quaternion values
+        q_corrected = quaternion_multiply(q_correction, q_new)
+
+        # Extract the corrected quaternion components
+        corrected_x, corrected_y, corrected_z, corrected_w = q_corrected
+        endeff_ori = np.array([corrected_x, corrected_y, corrected_z, corrected_w])
         gripper_pos, gripper_ori = self.get_ned2_gripper(endeff_pos,endeff_ori)
-        if self.task in ["pnp", "push"]:
+        if self.task in ["pnp","push"]:
             object_found, object_pose, object_shape, object_color = self.detect_object(
-                self.workspace, shape = ObjectShape.ANY, color = ObjectColor.ANY)
+                "gazebo_1", shape = ObjectShape.ANY, color = ObjectColor.BLUE)
             if object_found:
                 self.object_xyz = np.array([-object_pose.y, object_pose.x, object_pose.z])
             obs = np.concatenate((self.object_xyz, target_xyz, gripper_pos, gripper_ori),axis=0)
         else:
             obs = np.concatenate((gripper_pos, target_xyz, gripper_pos, gripper_ori),axis=0)
+        # print(obs)
         return obs
 
     def get_ned2_gripper(self, endeff_pos, endeff_ori):
@@ -130,7 +166,7 @@ class NiryoRosWrapperMygym(NiryoRosWrapper):
         Returns the position of the tip of the pointy gripper. Tested on Ned2 only
         """
         ori_matrix = quaternion_to_matrix(endeff_ori)
-        direction_vector = Vector([0,0,0], [0.075, 0.0, 0.0])
+        direction_vector = Vector([0,0,0], [-0.075, 0.0, 0.0])
         direction_vector.rotate_with_matrix(ori_matrix)
         gripper = Vector([0,0,0], endeff_pos)
         gripper_pos = direction_vector.add_vector(gripper)
@@ -264,10 +300,10 @@ class PnPReward:
         o1 = observation[:3]
         o2 = observation[3:6]
         o3 = observation[6:9]
-        target_dist = np.linalg.norm(np.array(o1)-np.array(o3)) # o1-o2
+        object_dist = np.linalg.norm(np.array(o1)-np.array(o3)) # o1-o2
         goal_dist = np.linalg.norm(np.array(o2)-np.array(o3)) # o2-o3
-        reward_reach = 0.2*(1-np.tanh(10*target_dist))
-        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if self.gripper_active else 0
+        reward_reach = 0.2*(1-np.tanh(10*object_dist))
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if self.env.gripper_active else 0
         reward_success = 45 if finish else 0
         collision = self.env.get_collision()
         reward = max(reward_reach, reward_approach, reward_success) + (-0.1*collision)
@@ -289,11 +325,11 @@ class PushReward:
             self.pre_o1 = o1
         o2 = observation[3:6]
         o3 = observation[6:9]
-        target_dist = np.linalg.norm(np.array(o1)-np.array(o3)) # o1-o2
+        object_dist = np.linalg.norm(np.array(o1)-np.array(o3)) # o1-o2
         goal_dist = np.linalg.norm(np.array(o1)-np.array(o2)) # o1-o3
         change = 1 if np.linalg.norm(np.array(self.pre_o1) - np.array(o1)) > 0.01 else 0
-        reward_reach = 0.2*(1-np.tanh(10*target_dist))
-        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if target_dist < 0.05 else 0
+        reward_reach = 0.2*(1-np.tanh(10*object_dist))
+        reward_approach = 0.3+0.4*(1-np.tanh(5*goal_dist)) if object_dist < 0.05 else 0
         reward_success = 45 if goal_dist < 0.05 else 0
         collision = self.env.get_collision()
         reward = max(reward_reach, reward_approach, reward_success) + (-0.1*collision + 1*change)

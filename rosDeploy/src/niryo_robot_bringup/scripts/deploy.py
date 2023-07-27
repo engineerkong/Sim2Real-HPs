@@ -5,10 +5,10 @@ from niryo_robot_python_ros_wrapper.ros_wrapper_mygym import *
 # from detection_improve import detection_improve
 import torch
 import functools
-# from sb3_py2.ppo_algorithm import PPO
+from sb3_py2.ppo_algorithm import PPO
 from sb3_py2.sac_algorithm import SAC
-# from sb3_py2.ppo_policy import MlpPolicy
-from sb3_py2.sac_policy import MlpPolicy
+from sb3_py2.ppo_policy import MlpPolicy as PPO_MlpPolicy
+from sb3_py2.sac_policy import MlpPolicy as SAC_MlpPolicy
 from gym.spaces import Box
 import rospy
 from std_srvs.srv import Empty
@@ -93,7 +93,7 @@ def reset_object():
     state_msg = ModelState()
     state_msg.model_name = 'cube_blue'
 
-    pos=get_random_object_position([0.15,0.35,-0.15,0.15,0.012,0.012])
+    pos=get_random_object_position([0.2,0.3,-0.1,0.1,0.012,0.012])
     state_msg.pose.position.x =  pos[0]
     state_msg.pose.position.y = pos[1]
     state_msg.pose.position.z =  pos[2]
@@ -101,8 +101,8 @@ def reset_object():
     state_msg.pose.orientation.x = 0
     state_msg.pose.orientation.y = 0
     state_msg.pose.orientation.z = 0
-
     resp = set_state(state_msg)
+    return pos
 
 class MygymEnv:
 
@@ -115,52 +115,62 @@ class MygymEnv:
         self.reward_range = (-float('inf'), float('inf'))
         self.metadata = {}
 
-def eval(dummy_env=None, ros_env=None, pretrained_model=None, seed=None, eval_episodes=0, eval_steps=0):
+def eval(dummy_env=None, ros_env=None, algo=None, pretrained_model=None, eval_episodes=0, eval_steps=0):
     print(pretrained_model)
     csv_file = get_csv_path(pretrained_model)
     print(csv_file)
-    model = SAC(MlpPolicy, dummy_env)
-    params = torch.load(pretrained_model)
-    for name in params:
-        attr = None
-        attr = recursive_getattr(model, name)
-        attr.load_state_dict(params[name])
-    # seed_rl_context(model, seed=seed) # TODO
-    iqm_list = []
-    for i in range(eval_episodes):
-        time.sleep(1)
-        reset_world()
-        reset_object()
-        time.sleep(5)
-        obs = ros_env.reset()
-        for j in range(eval_steps):
-            action = model.predict(obs)
-            obs, reward, finish = ros_env.step(action[0])
-            if finish:
-                break
-        iqm_list.append(ros_env.episode_iqm_reward)
-    iqm_dict_real = {"iqm":iqm_list}
-    df = pandas.read_csv(csv_file)
-    iqm_str_real = json.dumps(iqm_dict_real)
-    df = pandas.read_csv(csv_file)
-    new_column_df = pandas.DataFrame({'iqm_real': [iqm_str_real]}, index=df.index)
-    new_df = pandas.concat([df, new_column_df], axis=1)
-    new_df.to_csv(csv_file, index=False)
-    del model, ros_env
+    df_check = pandas.read_csv(csv_file)
+    if "real" not in df_check.columns:
+        seed = df_check["eval_seed"].iloc[0]
+        print("seed:{}".format(seed))
+        sim = df_check["sim"].iloc[0]
+        print("sim:{}".format(sim))
+        seed_everything(seed=seed)
+        if algo == "sac":
+            model = SAC(SAC_MlpPolicy, dummy_env)
+        elif algo == "ppo":
+            model = PPO(PPO_MlpPolicy, dummy_env)
+        params = torch.load(pretrained_model)
+        for name in params:
+            attr = None
+            attr = recursive_getattr(model, name)
+            attr.load_state_dict(params[name])
+        # seed_rl_context(model, seed=seed) # TODO
+        sum_list = []
+        iqm_list = []
+        len_list = []
+        for i in range(eval_episodes):
+            time.sleep(1)
+            reset_world()
+            obj_pos = reset_object()
+            time.sleep(1)
+            obs = ros_env.reset()
+            for j in range(eval_steps):
+                action = model.predict(obs)
+                obs, reward, finish = ros_env.step(action[0])
+                if finish:
+                    break
+            sum_list.append(ros_env.episode_reward)
+            iqm_list.append(ros_env.episode_iqm_reward)
+            len_list.append(len(ros_env.episode_reward_list))
+        dict_real = {"sum":sum_list, "iqm":iqm_list, "len":len_list}
+        str_real = json.dumps(dict_real)
+        df = pandas.read_csv(csv_file)
+        new_column_df = pandas.DataFrame({'real': [str_real]}, index=df.index)
+        new_df = pandas.concat([df, new_column_df], axis=1)
+        new_df.to_csv(csv_file, index=False)
+        del model, ros_env
 
 def main():
     # Initializing ROS node
     rospy.init_node('niryo_robot_example_python_ros_wrapper')
     # handle configs
-    folder_path = "/home/lingxiao/master/agents/"
+    folder_path = "/home/lingxiao/master/ppo_nocollision"
     eval_episodes= 10
     eval_steps = 10
     task = "reach"
+    algo = "ppo"
     sampling_area = [0.15,0.35,-0.15,0.15,0.012,0.012]
-    # handle seeds
-    seed = np.random.randint(10000)
-    print("seed:{}".format(seed))
-    seed_everything(seed=seed)
     # start evaluation
     target_file_extension = '.pth.tar'
     pretrained_models = search_files(folder_path, target_file_extension)
@@ -174,7 +184,7 @@ def main():
             tags="test1",
             dir=os.getcwd(),
         ):
-            eval(dummy_env, ros_env, pretrained_model, seed, eval_episodes, eval_steps)
+            eval(dummy_env, ros_env, algo, pretrained_model, eval_episodes, eval_steps)
 
 if __name__ == "__main__":
     main()

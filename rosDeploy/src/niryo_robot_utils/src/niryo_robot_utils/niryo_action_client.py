@@ -76,9 +76,11 @@ class NiryoActionClient(object):
         if goal_state == GoalStatus.REJECTED:
             raise NiryoRosWrapperException('Goal has been rejected : {}'.format(response.message))
         elif goal_state == GoalStatus.ABORTED:
-            self.collision = 1
-            print('Goal has been aborted : {}'.format(response.message))
-            # raise NiryoRosWrapperException('Goal has been aborted : {}'.format(response.message))
+            if response.message.find("collision") != -1 or response.message.find("restart") != -1:
+                self.collision = 1
+                print('Goal has been aborted : {}'.format(response.message))
+            else:
+                raise NiryoRosWrapperException('Goal has been aborted : {}'.format(response.message))
         elif goal_state != GoalStatus.SUCCEEDED:
             raise NiryoRosWrapperException('Error when processing goal : {}'.format(response.message))
 

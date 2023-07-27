@@ -50,21 +50,6 @@ rm -rf devel
 rm .catkin_workspace
 ```
 
-
-## Work points
-```
-1. a wrapper of deploying policy (niryo_robot_python_ros_wrapper/ros_wrapper_mygym)
-
-2. a package of python2.7 version stable-baselines3 (especially sac) (niryo_robot_bringup/sb3_python2)
-
-3. a detection improve code (niryo_robot_bringup/detection_improve)
-
-4. a main code to deploy trained policy from mygym on ned2 ros simulation (niryo_robot_bringup/deploy)
-
-5. a file contains trained policy from mygym (model_torch.pth.tar)
-```
-
-
 ## Minimal Example
 ```
 cd rosDeploy
@@ -73,5 +58,5 @@ cd rosDeploy
 roslaunch niryo_robot_bringup desktop_gazebo_simulation.launch
 
 # Deploy trained policy on simulation
-rosrun niryo_robot_bringup deploy_reach.py
+rosrun niryo_robot_bringup deploy.py
 ```

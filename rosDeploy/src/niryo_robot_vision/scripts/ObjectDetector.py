@@ -149,9 +149,6 @@ class ObjectDetector:
         """
         self.actualize_img(im_work)
         list_min_hsv, list_max_hsv, reverse_hue = self.get_hsv_parameters()
-        list_min_hsv = [0, 43, 46]
-        list_max_hsv = [179, 255, 255]
-        reverse_hue = False
         im_thresh = threshold_hsv(im_work, list_min_hsv, list_max_hsv, reverse_hue=reverse_hue, use_s_prime=use_s_prime)
         im_morph = morphological_transformations(im_thresh, MorphoType.OPEN, kernel_shape=(7, 7))
         self.actualize_im_thresh(im_morph)
