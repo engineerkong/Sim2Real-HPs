@@ -13,10 +13,12 @@ https://github.com/incognite-lab/mygym.git
 
 ## Installation
 ```
+# combine virtual environment with autorl-landscape3.8
+
 git clone -b mygym_train git@github.com:automl-private/Sim2Real-HPs.git
 cd Sim2Real-HPs
 
-conda create -n mygym_train python=3.7
+conda create -n mygym_train python=3.8
 conda activate mygym_train
 
 # Install for usage
