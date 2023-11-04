@@ -1,4 +1,4 @@
-# Sim2Real-HPs
+# Effect of Algorithms and Hyperparameters on Sim2Real Transfer (Reinforcement Learning - Python)
 
 ## Branches
 
