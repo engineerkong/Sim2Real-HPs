@@ -535,11 +535,11 @@ class Robot:
         curr_vel = np.asarray(self.get_lin_velocity()).reshape([3, 1])
         curr_omg = np.asarray(self.get_ang_velocity()).reshape([3, 1])
         goal_pos = np.asarray(action)
-        goal_ori = curr_ori #@TODO: change if control is made wrt orientation as well (not only e-e position)
+        goal_ori = curr_ori # change if control is made wrt orientation as well (not only e-e position)
         delta_pos = (goal_pos - curr_pos).reshape([3, 1]) # +  0.01 * pdot.reshape((-1, 1))
-        #delta_ori = quatdiff_in_euler(curr_ori, goal_ori).reshape([3, 1])
+        # delta_ori = quatdiff_in_euler(curr_ori, goal_ori).reshape([3, 1])
         delta_ori = np.zeros((3,1))
-        # TODO: limit speed when delta pos or ori are too big. we can scale the damping exponentially to catch to high deltas
+        # limit speed when delta pos or ori are too big. we can scale the damping exponentially to catch to high deltas
         # Desired task-space force using PD law
         F = np.vstack([P_pos * (delta_pos), P_ori * (delta_ori)]) - \
             np.vstack([D_pos * (curr_vel), D_ori * (curr_omg)])

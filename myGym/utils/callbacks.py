@@ -11,8 +11,6 @@ from typing import Union, List, Dict, Any, Optional
 from tqdm.auto import tqdm
 import numpy as np
 import gym
-import pybullet as p
-from numpy import matrix
 import warnings
 
 from stable_baselines3.common.vec_env import VecEnv, sync_envs_normalization

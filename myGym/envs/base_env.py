@@ -6,7 +6,6 @@ import time
 import numpy as np
 from gym.utils import seeding
 import gym
-import inspect
 from myGym.envs.camera import Camera
 import pkg_resources
 currentdir = pkg_resources.resource_filename("myGym", "envs")

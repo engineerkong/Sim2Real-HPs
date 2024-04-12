@@ -1,6 +1,5 @@
-from omegaconf import DictConfig, OmegaConf, open_dict
+from omegaconf import open_dict
 from myGym.envs.vision_module import VisionModule
-import pybullet as p
 import warnings
 import time
 import numpy as np

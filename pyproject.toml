@@ -3,7 +3,7 @@
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]             # path to the test directory
-minversion = "3.7"
+minversion = "3.8"
 addopts = "--cov=myGym" # Should be package name
 
 [tool.coverage.run]
@@ -24,11 +24,11 @@ exclude_lines = [
 ] # These are lines to exclude from coverage
 
 [tool.black]
-target-version = ['py37']
+target-version = ['py38']
 line-length = 120
 
 [tool.isort]
-py_version = "37"
+py_version = "38"
 profile = "black" # Play nicely with black
 src_paths = ["myGym", "tests"]
 known_types = ["typing", "abc"] # We put these in their own section "types"

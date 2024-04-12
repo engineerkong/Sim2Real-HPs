@@ -1,5 +1,4 @@
-import os, inspect
-import atexit
+import os
 
 import xml.etree.ElementTree as ET
 from shutil import copyfile
@@ -7,8 +6,6 @@ import pybullet
 import random
 import glob
 import numpy as np
-import sys, shutil
-from datetime import datetime
 import pkg_resources
 currentdir = pkg_resources.resource_filename("myGym", "envs")
 

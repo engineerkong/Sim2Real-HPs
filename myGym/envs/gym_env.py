@@ -1,6 +1,6 @@
-from omegaconf import DictConfig, OmegaConf, open_dict
+from omegaconf import open_dict
+import os
 # import wandb
-import scipy.stats
 from myGym.envs import robot, env_object
 from myGym.envs import task as t
 from myGym.envs import distractor as d
@@ -122,7 +122,7 @@ class GymEnv(CameraEnv):
             self.has_distractor = True
             self.distractor = ['bus'] if not self.distractors["list"] else self.distractors["list"]
 
-        reward_classes = {"1-network":   {"distance": DistanceReward, "reach": ReachReward, "push": PushReward, "prepush": PrePushReward, "pnp":PnPReward}}
+        reward_classes = {"1-network":   {"gym": GymReward, "mygym": MyGymReward, "composuite": ComposuiteReward}}
         scheme = "{}-network".format(str(self.num_networks))
         assert reward in reward_classes[scheme].keys(), "Failed to find the right reward class. Check reward_classes in gym_env.py"
         self.reward = reward_classes[scheme][reward](env=self, task=self.task)
@@ -356,6 +356,7 @@ class GymEnv(CameraEnv):
         if self.has_distractor: [self.dist.execute_distractor_step(d) for d in self.distractors["list"]]
         self._observation = self.get_observation()
         # print(f"obs:{self._observation}")
+        
         if self.dataset: reward, done, info = 0, False, {}
         else:
             reward = self.reward.compute(observation=self._observation, action=action)
@@ -367,16 +368,14 @@ class GymEnv(CameraEnv):
             # wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
         if done: 
             self.successful_finish(info)
-            self.episode_iqm_reward = scipy.stats.trim_mean(np.array(self.episode_reward_list), proportiontocut=0.25, axis=None)
-            print(self.episode_reward, self.episode_iqm_reward, len(self.episode_reward_list))
-            # wandb.log({"episode sum reward":self.episode_reward, "episode iqm reward":self.episode_iqm_reward, "episode length":len(self.episode_reward_list)})
+            # wandb.log({"episode sum reward":self.episode_reward, "episode length":len(self.episode_reward_list)})
         if self.task.subtask_over:
             self.reset(only_subtask=True)
         #return self._observation, reward, done, info
         return self.flatten_obs(self._observation.copy()), reward, done, info
 
     def compute_reward(self, achieved_goal, desired_goal, info):
-        #@TODO: Reward computation for HER, argument for .compute()
+        # Reward computation for HER, argument for .compute()
         reward = self.reward.compute(np.append(achieved_goal, desired_goal))
         return reward
 
