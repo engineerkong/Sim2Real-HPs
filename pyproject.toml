@@ -99,7 +99,7 @@ ignore = [
     "S101", # asserts are ok
 ]
 line-length = 120
-target-version = "py310"
+target-version = "py38"
 
 [tool.ruff.pydocstyle]
 convention = "google"
@@ -114,11 +114,11 @@ extend-ignore = [
 ]
 
 [tool.black]
-target-version = ['py310']
+target-version = ['py38']
 line-length = 120
 
 [tool.isort]
-py_version = "310"
+py_version = "38"
 profile = "black" # Play nicely with black
 line_length = 120
 src_paths = ["autorl_landscape", "tests"]
@@ -157,7 +157,7 @@ add-ignore = [ # http://www.pydocstyle.org/en/stable/error_codes.html
 ]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.8"
 show_error_codes = true
 warn_unused_configs = true         # warn about unused [tool.mypy] lines
 follow_imports = "normal"          # Type check top level api code we use from imports

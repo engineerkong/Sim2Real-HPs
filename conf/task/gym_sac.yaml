@@ -4,7 +4,7 @@ workspace: workspace
 engine: pybullet
 render: opengl
 camera: 4
-ee_camera: 1
+ee_camera: 0
 gui: 0
 visualize: 0
 visgym: 0
@@ -20,19 +20,10 @@ robot_init:
 max_velocity: 10
 max_force: 200
 action_repeat: 100
-task_type: push
+task_type: reach
 task_objects:
 - init:
-    obj_name: cube
-    fixed: 0
-    rand_rot: 0
-    sampling_area:
-    - -0.15
-    - 0.15
-    - 0.15
-    - 0.35
-    - 0.012
-    - 0.012
+    obj_name: 'null'
   goal:
     obj_name: target
     fixed: 1
@@ -50,10 +41,10 @@ used_objects:
   - 0
   obj_list: []
 observation:
-  actual_state: yolact
+  actual_state: endeff_xyz
   goal_state: obj_xyz
   additional_obs:
-  - endeff_6D
+  - endeff_xyz
 distractors:
   list:
   moveable: 0
@@ -66,21 +57,21 @@ distractors:
   - 0.0
   - 0.0
   - 0.0
-reward: push
+reward: gym
 distance_type: euclidean
 vae_path:
-yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
-yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
+yolact_path: 
+yolact_config: 
 train_framework: pytorch
 algo: sac
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 200000
+steps: 50000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 10
 train_test: 1
-logdir: trained_models/push
+logdir: trained_models/gym_sac
 record: 0

@@ -1,0 +1,12 @@
+# @package _global_
+
+wandb:
+  mode: disabled
+slurm:
+  cluster: Null # becomes None in python
+  num_parallel: 50
+  update_parameters: # for executor.update_parameters()
+    timeout_min: 10080
+    slurm_partition: gpu
+    slurm_ntasks_per_node: 16
+    slurm_cpus_per_task: 1

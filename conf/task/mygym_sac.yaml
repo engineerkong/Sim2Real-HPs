@@ -41,10 +41,10 @@ used_objects:
   - 0
   obj_list: []
 observation:
-  actual_state: obj_xyz
+  actual_state: endeff_xyz
   goal_state: obj_xyz
   additional_obs:
-  - endeff_6D
+  - endeff_xyz
 distractors:
   list:
   moveable: 0
@@ -57,21 +57,21 @@ distractors:
   - 0.0
   - 0.0
   - 0.0
-reward: reach
+reward: mygym
 distance_type: euclidean
 vae_path:
-yolact_path: "/trained_models/weights_yolact_mygym_23/crow_base_15_266666.pth"
-yolact_config: "/trained_models/weights_yolact_mygym_23/config_train_15.obj"
+yolact_path: 
+yolact_config: 
 train_framework: pytorch
 algo: sac
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 100000
+steps: 50000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000
 eval_episodes: 10
 train_test: 1
-logdir: trained_models/reach
+logdir: trained_models/mygym_sac
 record: 0
