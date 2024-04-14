@@ -1,11 +1,11 @@
 # @package _global_
 
 wandb:
-  mode: online
+  mode: offline
 slurm:
   cluster: local
-  num_parallel: 4
+  num_parallel: 8
   update_parameters: # for executor.update_parameters()
-    timeout_min: 1000
+    timeout_min: 10080
     slurm_partition: dev
     gpus_per_node: 1
