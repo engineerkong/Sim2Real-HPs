@@ -1,0 +1,24 @@
+# @package _global_
+
+env:
+  name: Gym-v0
+agent:
+  name: SAC
+  hps:
+    policy: 'MlpPolicy' # zoo
+    # use_sde: False
+    learning_starts: 1000 # zoo
+    buffer_size: 500000
+    optimize_memory_usage: true # for smaller replay buffers on disk
+    replay_buffer_kwargs:
+      handle_timeout_termination: false
+eval:
+  freq_eval_episodes: 0
+  ls_eval_episodes: 0
+  final_eval_episodes: 0
+  final_eval_start: 0.95 # 95% progress (of total_timesteps) is first final eval
+  final_eval_times: 3 # 3 final evals from final_eval_start until total_timesteps
+viz:
+  max_return: 50
+  max_ep_length: 100
+  hist_bins: 100
