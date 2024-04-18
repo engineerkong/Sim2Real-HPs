@@ -1,0 +1,8 @@
+# @package _global_
+
+# Shortened training but with two phases: 
+phases:
+  - 40000
+  - 80000
+eval:
+  freq_eval_interval: 10000
