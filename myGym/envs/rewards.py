@@ -27,13 +27,13 @@ class GymReward(Reward):
         :param task: (object) Task that is being trained, instance of a class TaskModule
     """
     def __init__(self, env, task):
-        super(ComposuiteReward, self).__init__(env, task)
+        super(GymReward, self).__init__(env, task)
 
 
     def compute(self, observation, action):
         o1 = observation["actual_state"]
         o2 = observation["goal_state"]
-        vec = o1 - o2
+        vec = np.array(o1) - np.array(o2)
         reward_dist = -np.linalg.norm(vec)
         reward_ctrl = -np.square(action).sum()
         reward = reward_dist + reward_ctrl
