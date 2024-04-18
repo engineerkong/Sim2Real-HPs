@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import gym
 import torch
 import scipy
-
+import myGym.envs
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common import results_plotter
 from stable_baselines3 import PPO as PPO_P, A2C as A2C_P, SAC as SAC_P, TD3 as TD3_P
@@ -261,7 +261,7 @@ def main(cfg: DictConfig):
         env = configure_env(arg_dict, model_logdir, 1) # train: Monitor
         implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
         with wandb.init(
-            mode="offline",
+            mode="online",
             project="se1_test",
             tags="train",
             dir=os.getcwd(),
@@ -281,7 +281,7 @@ def main(cfg: DictConfig):
             env = configure_env(arg_dict, model_logdir, 0) # train: Monitor
             implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
             with wandb.init(
-                mode="offline",
+                mode="online",
                 project="se1_test",
                 tags="test",
                 dir=os.getcwd(),

@@ -67,7 +67,7 @@ algo: ppo
 num_networks: 1
 max_episode_steps: 100
 algo_steps: 100
-steps: 50000
+steps: 100000
 pretrained_model: 
 multiprocessing: false
 eval_freq: 10000

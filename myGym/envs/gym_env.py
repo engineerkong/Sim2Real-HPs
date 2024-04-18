@@ -1,6 +1,6 @@
 from omegaconf import open_dict
 import os
-# import wandb
+import wandb
 from myGym.envs import robot, env_object
 from myGym.envs import task as t
 from myGym.envs import distractor as d
@@ -365,7 +365,7 @@ class GymEnv(CameraEnv):
             self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
-            # wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance, "collision":self.robot.collision})
+            wandb.log({"reward":reward})
         if done: 
             self.successful_finish(info)
             # wandb.log({"episode sum reward":self.episode_reward, "episode length":len(self.episode_reward_list)})
