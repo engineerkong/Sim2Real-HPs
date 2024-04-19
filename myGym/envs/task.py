@@ -169,7 +169,7 @@ class TaskModule():
             return True
         return False
 
-    def check_object_moved(self, object, threshold=0.05):
+    def check_object_moved(self, object, threshold=0.1):
         """
         Check if object moved more than allowed threshold
 
@@ -205,7 +205,7 @@ class TaskModule():
         self.current_norm_distance = self.calc_distance(observation["goal_state"], observation["actual_state"])
         return self.current_norm_distance < threshold
     
-    def check_distrot_threshold(self, observation, threshold=0.05):
+    def check_distrot_threshold(self, observation, threshold=0.1):
         """
         Check if the distance between relevant task objects is under threshold for successful task completion
         Returns:
@@ -239,14 +239,14 @@ class TaskModule():
         
         finished = None
         if self.task_type =='reach': # reach
-            finished = self.check_distance_threshold(self._observation, threshold=0.05)  
+            finished = self.check_distance_threshold(self._observation, threshold=0.1)  
         if self.task_type == "pnp": # pnp
-            self.check_distance_threshold(self._observation, threshold=0.05)
+            self.check_distance_threshold(self._observation, threshold=0.1)
             finished = self.env.robot.pnp_finish
             if finished is True:
                 self.env.robot.pnp_finish = False
         if self.task_type == 'push': # push
-            finished = self.check_distance_threshold(self._observation, threshold=0.05)
+            finished = self.check_distance_threshold(self._observation, threshold=0.1)
         if self.task_type in ['poke', 'pnpbgrip']:
             finished = self.check_distance_threshold(self._observation)  
         if self.task_type in ['pnprot','pnpswipe']:

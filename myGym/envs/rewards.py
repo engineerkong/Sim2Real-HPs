@@ -122,7 +122,7 @@ class ComposuiteReward(Reward):
         o1 = observation["actual_state"]
         o2 = observation["goal_state"]
         reward_reach = 0.2*(1-np.tanh(10*self.cal_dist(o1,o2)))
-        reward_success = 1 if self.cal_dist(o1,o2) < 0.05 else 0
+        reward_success = 1 if self.cal_dist(o1,o2) < 0.1 else 0
         reward = max(reward_reach, reward_success)
         # print(f"reward:{reward_reach, reward_success}")
         self.task.check_goal()

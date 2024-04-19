@@ -365,10 +365,10 @@ class GymEnv(CameraEnv):
             self.task.check_goal()
             done = self.episode_over
             info = {'d': self.task.last_distance / self.task.init_distance, 'f': int(self.episode_failed), 'o': self._observation}
-            wandb.log({"reward":reward})
+            wandb.log({"reward":reward, "distance ratio":self.task.last_distance / self.task.init_distance})
         if done: 
             self.successful_finish(info)
-            # wandb.log({"episode sum reward":self.episode_reward, "episode length":len(self.episode_reward_list)})
+            wandb.log({"episode sum reward":self.episode_reward, "episode length":len(self.episode_reward_list)})
         if self.task.subtask_over:
             self.reset(only_subtask=True)
         #return self._observation, reward, done, info
