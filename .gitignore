@@ -1,6 +1,6 @@
 .vscode/
 __pycache__/
 *.egg-info/
-trained_models/
+*_models/
 outputs/
 wandb/

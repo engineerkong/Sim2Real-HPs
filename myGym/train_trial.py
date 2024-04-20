@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import gym
 import torch
 import scipy
+import csv
 import myGym.envs
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common import results_plotter
@@ -187,12 +188,18 @@ def test(env, implemented_combos, model_logdir, arg_dict, pretrained_model=None,
         len_list.append(len(env.episode_reward_list))
     dict_sim = {"sum":sum_list, "iqm":iqm_list, "len":len_list}
     str_sim = json.dumps(dict_sim)
-    df = pandas.read_csv(csv_file)
-    new_column_df = pandas.DataFrame({'eval_seed': seed}, index=df.index)
-    new_df = pandas.concat([df, new_column_df], axis=1)
-    newnew_column_df = pandas.DataFrame({'sim': [str_sim]}, index=new_df.index)
-    newnew_df = pandas.concat([new_df, newnew_column_df], axis=1)
-    newnew_df.to_csv(csv_file, index=False)
+    try:
+        df = pandas.read_csv(csv_file)
+    except pandas.errors.EmptyDataError:
+        df = pandas.DataFrame(columns=['eval_seed', 'sim']) 
+    if df.empty:
+        df = pandas.DataFrame([[seed, str_sim]], columns=['eval_seed', 'sim'])
+    else:
+        new_column_df = pandas.DataFrame({'eval_seed': [seed] * len(df)}, index=df.index)
+        df = pandas.concat([df, new_column_df], axis=1)
+        newnew_column_df = pandas.DataFrame({'sim': [str_sim] * len(df)}, index=df.index)
+        df = pandas.concat([df, newnew_column_df], axis=1)
+    df.to_csv(csv_file, index=False)
     del model
 
 
@@ -214,6 +221,9 @@ def search_files(folder_path, target_file_extension):
 def get_csv_path(model_path):
     parent_dir = os.path.dirname(model_path)
     csv_path = os.path.join(parent_dir,"data.csv")
+    if not os.path.exists(csv_path):
+        with open(csv_path, 'w', newline='') as file:
+            writer = csv.writer(file)
     return csv_path
     
 @hydra.main(version_base=None, config_path="configs", config_name="config")
@@ -270,7 +280,7 @@ def main(cfg: DictConfig):
     else:
         eval_episodes = 10
         eval_steps = 10
-        folder_path = "/home/lingxiao/Desktop/docker_se1/src/mygym/myGym/trained_models/"
+        folder_path = "/home/lingxiao/Desktop/testing_models/"
         # load env and start test
         target_file_extension = '.pth.tar'
         pretrained_models = search_files(folder_path, target_file_extension)
@@ -278,7 +288,7 @@ def main(cfg: DictConfig):
             env = configure_env(arg_dict, model_logdir, 0) # train: Monitor
             implemented_combos = configure_implemented_combos(env, model_logdir, arg_dict)
             with wandb.init(
-                mode="online",
+                mode="disabled",
                 project="se1_test",
                 tags="test",
                 dir=os.getcwd(),
