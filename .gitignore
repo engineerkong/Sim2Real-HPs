@@ -2,8 +2,11 @@
 *.bak
 *.swp
 *.log
-__pycache__*
 build/
 devel/
 data/
 wandb/
+.vscode/
+__pycache__/
+*.egg-info/
+tests/

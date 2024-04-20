@@ -165,7 +165,7 @@ def main():
     # Initializing ROS node
     rospy.init_node('niryo_robot_example_python_ros_wrapper')
     # handle configs
-    folder_path = "/home/lingxiao/master/ppo_nocollision"
+    folder_path = "/home/lingxiao/Desktop/testing_models/"
     eval_episodes= 10
     eval_steps = 10
     task = "reach"
@@ -181,7 +181,7 @@ def main():
         with wandb.init(
             mode="disabled",
             project="ros_eval_reach",
-            tags="test1",
+            tags="test",
             dir=os.getcwd(),
         ):
             eval(dummy_env, ros_env, algo, pretrained_model, eval_episodes, eval_steps)
