@@ -1,3 +1,7 @@
+*.pyc
+*.bak
+*.swp
+*.log
 .vscode/
 phase_results/
 runs/
