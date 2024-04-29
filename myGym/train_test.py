@@ -1,3 +1,8 @@
+"""
+This file is to run the training and testing on SE1 without using schedule from AutoRL.
+Kong 29.04.2024
+"""
+
 import pandas
 import json
 from omegaconf import DictConfig, OmegaConf, open_dict
@@ -280,7 +285,7 @@ def main(cfg: DictConfig):
     else:
         eval_episodes = 10
         eval_steps = 10
-        folder_path = "/home/lingxiao/Desktop/testing_models/"
+        folder_path = "/home/lingxiao/Desktop/testing_models/gym_sac"
         # load env and start test
         target_file_extension = '.pth.tar'
         pretrained_models = search_files(folder_path, target_file_extension)
