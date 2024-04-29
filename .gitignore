@@ -5,3 +5,4 @@ submitit/
 __pycache__/
 *.egg-info/
 wandb/
+figures/

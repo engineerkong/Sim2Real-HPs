@@ -30,8 +30,8 @@ from autorl_landscape.util.ls_sampler import construct_ls
 
 # font sizes:
 TITLE_FSIZE = 24
-LABEL_FSIZE = 14
-TICK_FSIZE = 14
+LABEL_FSIZE = 24
+TICK_FSIZE = 20
 LEGEND_FSIZE = 18
 # TITLE_FSIZE = 1
 # LABEL_FSIZE = 1
@@ -65,7 +65,7 @@ CMAP_DISCRETIZED = {
 
 FIGSIZES = {
     1: {
-        "maps": (90, 18),
+        "maps": (70, 18),
         "modalities": (70, 7),
         "graphs": (70, 18),
         "crashes": (70, 4),
@@ -270,18 +270,15 @@ def visualize_nd(
             height_ratios = [0.25, 1.75] + [1.0] * len(titles)
             ncols = len(x01s)
             width_ratios = [1.0] * len(x01s)
-            print(height_ratios,width_ratios)
             gs = GridSpecFromSubplotSpec(
-                ncols, nrows, subplot_spec=sub_gs, height_ratios=width_ratios, width_ratios=height_ratios
+                nrows, ncols, subplot_spec=sub_gs, height_ratios=height_ratios, width_ratios=width_ratios
             )
 
             # main plots:
             for i, title in enumerate(titles, start=2):  # rows
-                label_x0 = i == 2  # label on last row
-                label_x2 = i == (nrows-1)
+                label_x0 = i == (nrows - 1)  # label on last row
                 for j, (x0, x1) in enumerate(x01s):  # columns
-                    print(j,i)
-                    ax = fig.add_subplot(gs[j, i])
+                    ax = fig.add_subplot(gs[i, j])
                     viz_single_x0x1y(
                         model,
                         ax=ax,
@@ -292,18 +289,17 @@ def visualize_nd(
                         projection="",
                         label_x0=label_x0,
                         label_x1=True,
-                        label_x2=label_x2
                     )
 
             # titles:
             row_titles = ["Combined Landscape Model"] + titles
             ax = fig.add_subplot(gs[0, :])
-            # ax.text(0.5, 0.5, phase_title, ha="center", va="center", fontsize=TITLE_FSIZE)
+            ax.text(0.5, 0.5, phase_title, ha="center", va="center", fontsize=TITLE_FSIZE)
             ax.axis("off")
 
             # 3d plots on top:
             for j, (x0, x1) in enumerate(x01s):
-                ax = fig.add_subplot(gs[j, 1], projection="3d")
+                ax = fig.add_subplot(gs[1, j], projection="3d")
                 viz_single_x0x1y(
                     model,
                     ax,
@@ -471,7 +467,6 @@ def viz_single_x0x1y(
     projection,
     label_x0: bool = False,
     label_x1: bool = False,
-    label_x2: bool = False,
 ) -> None:
     """Make a single plot for a big visualization."""
 
@@ -535,7 +530,7 @@ def viz_single_x0x1y(
                             [model.y_info.tick_formatter(x, None) for x in TICK_POS_RETURN],
                             fontsize=TICK_FSIZE,
                         )
-                        # cbar.ax.set_ylabel(y_col_name, labelpad=LABELPAD, fontsize=LABEL_FSIZE)
+                        cbar.ax.set_ylabel(y_col_name, labelpad=LABELPAD, fontsize=LABEL_FSIZE)
         else:
                 pass
                 raise NotImplementedError
@@ -553,21 +548,19 @@ def viz_single_x0x1y(
         ax.set_zlabel(y_col_name, labelpad=LABELPAD, fontsize=LABEL_FSIZE)
         ax.set_zlim3d(0, Y_SCALED)
     else:
-        if label_x1:
+        if label_x0:
             x0_ticks = [model.get_dim_info(x0).tick_formatter(x, None) for x in TICK_POS]
             ax.set_xticks(_to_imshow_x(TICK_POS), x0_ticks, fontsize=TICK_FSIZE, rotation=30)
             # ax.xaxis.set_tick_params(rotation=30)
             ax.set_xlabel(x0, fontsize=LABEL_FSIZE)
         else:
             ax.set_xticks([])
-        if label_x0:
+        if label_x1:
             x1_ticks = [model.get_dim_info(x1).tick_formatter(x, None) for x in TICK_POS]
             ax.set_yticks(_to_imshow_x(TICK_POS), x1_ticks, fontsize=TICK_FSIZE)
             ax.set_ylabel(x1, fontsize=LABEL_FSIZE)
         else:
             ax.set_yticks([])
-        if label_x2:
-            cbar.ax.set_ylabel(y_col_name, labelpad=LABELPAD, fontsize=LABEL_FSIZE)
     return
 
 
@@ -593,25 +586,25 @@ def add_model_visualization(model: LSModel, grid_length: int) -> None:
                 title,
                 "contour",
                 "maps",
-                model.build_df(grid, func(grid), "episode length SE1"),
+                model.build_df(grid, func(grid), "sim2real_gap"),
                 kwargs,
             )
         )
 
-    # model.add_viz_info(
-    #     Visualization(
-    #         "Interquantile Space Height",
-    #         "contour",
-    #         "maps",
-    #         model.build_df(grid, model.get_upper(grid) - model.get_lower(grid), "upper - lower"),
-    #         {
-    #             "color": (0.5, 0.5, 0.5, 0.3),
-    #             "vmin": 0,
-    #             "vmax": 1,
-    #             "cmap": CMAP["cmap"],
-    #         },
-    #     )
-    # )
+    model.add_viz_info(
+        Visualization(
+            "Interquantile Space Height",
+            "contour",
+            "maps",
+            model.build_df(grid, model.get_upper(grid) - model.get_lower(grid), "upper - lower"),
+            {
+                "color": (0.5, 0.5, 0.5, 0.3),
+                "vmin": 0,
+                "vmax": 1,
+                "cmap": CMAP["cmap"],
+            },
+        )
+    )
 
     if model.best_conf is not None:
         ancestor_x = np.array(model.best_conf[model.get_ls_dim_names()], dtype=model.dtype).reshape(1, -1)
@@ -629,7 +622,7 @@ def add_model_visualization(model: LSModel, grid_length: int) -> None:
                     "Middle Surface",
                     "scatter",
                     "maps",
-                    model.build_df(ancestor_x, ancestor_y, "episode length SE1"),
+                    model.build_df(ancestor_x, ancestor_y, "sim2real_gap"),
                     {
                         "color": "white",
                         "marker": "*",
